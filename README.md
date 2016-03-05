@@ -19,7 +19,8 @@ It also will install the server you want(like csgo,tf2,ins ...)
 ##Run example
 ```
 docker run --name csgo-server -d \
-    --publish 27015:27015 \
+	--publish 27000-27045:27000-27045 \
+        --publish 27000-27045:27000-27045/udp \
 	--env 'GAME_ID=740' \
 	--env 'GAME_NAME=csgo' \
 	--env 'GAME_PARAMS=+game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2' \

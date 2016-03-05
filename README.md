@@ -14,8 +14,6 @@ The Dockerfile will build an image for running a Counter-Strike: Global Offensiv
 >**NOTE** GAME_ID values can be found [here](https://developer.valvesoftware.com/wiki/Dedicated_Servers_List)
 > And for GAME_NAME there is no list, so a quick search should give you the result
 
-Quote break.
-
 ##Run example
 ```
 docker run --name csgo-server -d \

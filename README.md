@@ -24,5 +24,5 @@ docker run --name csgo-server -d \
 	--env 'GAME_PARAMS=+game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2' \
 	--volume /share/CACHEDEV1_DATA/Public/VM/Docker/CSGO/steamcmd:/serverdata/steamcmd \
 	--volume /share/CACHEDEV1_DATA/Public/VM/Docker/CSGO/serverfiles:/serverdata/serverfiles \
-	mattie/docker-csgo-server:latest
+	mattie/docker-steamcmd-server:latest
 ```

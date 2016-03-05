@@ -1,6 +1,9 @@
 #!/bin/bash
-volumes='ls $DATA_DIR'
-echo $volumes
+set -x
+ls $DATA_DIR
+if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
+    echo "File not found!"
+fi
 echo "---Update steamcmd---"
 ${STEAMCMD_DIR}/steamcmd.sh \
     +login anonymous \

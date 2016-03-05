@@ -1,5 +1,6 @@
-#Csgo server in docker
-The Dockerfile will build an image for running a Counter-Strike: Global Offensive dedicated server.
+#Steamcmd in docker
+This dockerfill will download/install steamcmd.
+It also will install the server you want(like csgo,tf2,ins ...)
 
 ##env params
 | Name | Value | Default |

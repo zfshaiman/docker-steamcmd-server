@@ -10,11 +10,10 @@ ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
 
-
-RUN mkdir ${DATA_DIR}
-RUN mkdir ${STEAMCMD_DIR}
-RUN mkdir ${SEVER_DIR}
-RUN cd ${STEAMCMD_DIR}
+RUN mkdir $DATA_DIR
+RUN mkdir $STEAMCMD_DIR
+RUN mkdir $SERVER_DIR
+RUN cd $STEAMCMD_DIR
 RUN wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 
 RUN tar --directory ${STEAMCMD_DIR} -xvzf /serverdata/steamcmd/steamcmd_linux.tar.gz 
 RUN rm ${STEAMCMD_DIR}/steamcmd_linux.tar.gz 

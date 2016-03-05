@@ -9,6 +9,7 @@ docker run --name csgo-server -d \
 	--env 'GAME_MODE=0' \
     --env 'MAPGROUP=mg_active' \
 	--env 'MAP=de_dust2' \
-	--volume /share/CACHEDEV1_DATA/Public/VM/Docker/CSGO:/serverdata \
+	--volume /share/CACHEDEV1_DATA/Public/VM/Docker/CSGO/steamcmd:/serverdata/steamcmd \
+	--volume /share/CACHEDEV1_DATA/Public/VM/Docker/CSGO/serverfiles:/serverdata/serverfiles \
 	mattie/docker-csgo-server:latest
 ```

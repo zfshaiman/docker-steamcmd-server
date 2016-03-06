@@ -23,10 +23,12 @@ EXPOSE 1200/udp
 EXPOSE 27000-27045/udp
 EXPOSE 27000-27045
 VOLUME [${STEAMCMD_DIR}]
-USER steamcmd-d
 
 ADD /scripts/ /opt/scripts/
+RUN chown -R steamcmd-d:steam //opt/scripts/
 RUN chmod -R 774 /opt/scripts/
+
+USER steamcmd-d
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start-csgo.sh"]

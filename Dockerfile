@@ -16,7 +16,7 @@ ENV GAME_PARAMS="+game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2"
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
-RUN groupadd -r steam && useradd -r -g steamcmd-d steam.
+RUN groupadd -r steam && useradd -r -g steam steamcmd-d
 RUN chown -R steamcmd-d:steam $DATA_DIR
 
 EXPOSE 1200/udp

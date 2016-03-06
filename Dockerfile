@@ -16,12 +16,13 @@ ENV GAME_PARAMS="+game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2"
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
-RUN cd $STEAMCMD_DIR
+RUN chown -R steamcmd-d:steamcmd-d $DATA_DIR
 
 EXPOSE 1200/udp
 EXPOSE 27000-27045/udp
 EXPOSE 27000-27045
 VOLUME [${STEAMCMD_DIR}]
+USER steamcmd-d
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 774 /opt/scripts/

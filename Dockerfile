@@ -4,7 +4,7 @@ MAINTAINER Mattie
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get install libstdc++6:i386
+RUN apt-get -y install libstdc++6:i386
 RUN apt-get -y install wget
 
 ENV DATA_DIR="/serverdata"

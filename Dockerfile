@@ -23,12 +23,12 @@ RUN wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.c
   &&  rm ${STEAMCMD_DIR}/steamcmd_linux.tar.gz \
   &&  chmod -R 774 ${STEAMCMD_DIR} ${STEAMCMD_DIR}/linux32 $SERVER_DIR \
   &&  ln -s ${STEAMCMD_DIR}/linux32/steamclient.so ~/.steam/sdk32/steamclient.so
+RUN ulimit -n 2048
 
 EXPOSE 27015
 EXPOSE 27015/udp
 EXPOSE 27020/udp
 EXPOSE 27005/udp
-
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 774 /opt/scripts/

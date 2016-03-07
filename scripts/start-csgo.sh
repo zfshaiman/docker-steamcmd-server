@@ -21,4 +21,4 @@ ${STEAMCMD_DIR}/steamcmd.sh \
     +quit
     
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game $GAME_NAME -usercon -console $GAME_PARAMS
+${SERVER_DIR}/srcds_run -game $GAME_NAME -usercon -console $GAME_PARAMS -ip 0.0.0.0 -port 27015

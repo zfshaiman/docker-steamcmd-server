@@ -2,9 +2,10 @@ FROM ubuntu
 
 MAINTAINER Mattie
 
-RUN apt-get -y update
+RUN dpkg --add-architecture i386
+RUN apt-get update
+RUN apt-get install libstdc++6:i386
 RUN apt-get -y install wget
-RUN apt-get -y install lib32gcc1
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

@@ -2,7 +2,7 @@
 This dockerfill will download/install steamcmd.
 It will also install the server you want(like csgo,tf2,ins ...)
 
-##env params
+##Env params
 | Name | Value | Default |
 | --- | --- | --- |
 | DATA_DIR | main folder | /serverdata |

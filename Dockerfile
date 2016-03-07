@@ -28,7 +28,7 @@ EXPOSE 27015
 EXPOSE 27015/udp
 EXPOSE 27020/udp
 EXPOSE 27005/udp
-EXPOSE 51840/udp
+
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 774 /opt/scripts/

@@ -22,7 +22,7 @@ RUN wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.c
   &&  tar --directory ${STEAMCMD_DIR} -xvzf /serverdata/steamcmd/steamcmd_linux.tar.gz \
   &&  rm ${STEAMCMD_DIR}/steamcmd_linux.tar.gz \
   &&  chmod -R 774 ${STEAMCMD_DIR}/steamcmd.sh ${STEAMCMD_DIR}/linux32/steamcmd \
-  &&  ln -s ${STEAMCMD_DIR}/linux32/steamclient.so ~/.steam/sdk32/steamclient.so
+  &&  ln -s ${STEAMCMD_DIR}/linux32 ~/.steam/sdk32
 
 EXPOSE 1200/udp
 EXPOSE 27000-27045/udp

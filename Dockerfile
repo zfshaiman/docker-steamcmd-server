@@ -13,6 +13,7 @@ ENV SERVER_DIR="${DATA_DIR}/serverfiles"
 ENV GAME_ID="740"
 ENV GAME_NAME="csgo"
 ENV GAME_PARAMS="+game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2"
+ENV GAME_PORT=27015
 
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
@@ -25,11 +26,6 @@ RUN wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.c
   &&  chmod -R 774 ${STEAMCMD_DIR} ${STEAMCMD_DIR}/linux32 $SERVER_DIR \
   &&  ln -s ${STEAMCMD_DIR}/linux32/steamclient.so ~/.steam/sdk32/steamclient.so
 RUN ulimit -n 2048
-
-EXPOSE 27015
-EXPOSE 27015/udp
-EXPOSE 27020/udp
-EXPOSE 27005/udp
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 774 /opt/scripts/

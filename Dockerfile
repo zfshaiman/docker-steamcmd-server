@@ -31,4 +31,4 @@ ADD /scripts/ /opt/scripts/
 RUN chmod -R 774 /opt/scripts/
 
 #Server Start
-ENTRYPOINT ["/opt/scripts/start-csgo.sh"]
+ENTRYPOINT ["/opt/scripts/start-server.sh"]

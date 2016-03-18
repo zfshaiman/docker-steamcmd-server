@@ -20,7 +20,7 @@ It will also install the server you want(like csgo,tf2,ins ...)
 ##Run example
 ```
 docker run --name csgo-server -d \
-	-p 27015:27015 -p 27015:27015/udp  \
+	-p 27015:27015 -p 27015:27015/udp -p 26900:26900/udp \
 	--env 'GAME_ID=740' \
 	--env 'GAME_NAME=csgo' \
 	--env 'GAME_PORT=27015' \
@@ -28,3 +28,4 @@ docker run --name csgo-server -d \
 	--volume /share/CACHEDEV1_DATA/Public/VM/Docker/CSGO:/serverdata \
 	mattie/docker-steamcmd-server:latest
 ```
+>**NOTE** port 26900 is the port for vac, in case of multiple servers make sure these are not the same

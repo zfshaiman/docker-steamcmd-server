@@ -2,10 +2,8 @@ FROM ubuntu
 
 MAINTAINER Mattie
 
-RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get -y install libstdc++6:i386
-RUN apt-get -y install wget
+RUN apt-get -y install lib32gcc1 libc6-i386 wget
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
@@ -18,13 +16,11 @@ ENV GAME_PORT=27015
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
-RUN mkdir -p ~/.steam/sdk32
 
 RUN wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz \
   &&  tar --directory ${STEAMCMD_DIR} -xvzf /serverdata/steamcmd/steamcmd_linux.tar.gz \
   &&  rm ${STEAMCMD_DIR}/steamcmd_linux.tar.gz \
-  &&  chmod -R 774 ${STEAMCMD_DIR} ${STEAMCMD_DIR}/linux32 $SERVER_DIR \
-  &&  ln -s ${STEAMCMD_DIR}/linux32 ~/.steam/sdk32
+  &&  chmod -R 774 $STEAMCMD_DIR  $SERVER_DIR \
 RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/

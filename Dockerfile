@@ -17,10 +17,10 @@ RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
 
-RUN wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz \
-  &&  tar --directory ${STEAMCMD_DIR} -xvzf ${STEAMCMD_DIR}/steamcmd_linux.tar.gz \
-  &&  rm ${STEAMCMD_DIR}/steamcmd_linux.tar.gz \
-  &&  chmod -R 774 $STEAMCMD_DIR  $SERVER_DIR 
+# RUN wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz \
+#  &&  tar --directory ${STEAMCMD_DIR} -xvzf ${STEAMCMD_DIR}/steamcmd_linux.tar.gz \
+#  &&  rm ${STEAMCMD_DIR}/steamcmd_linux.tar.gz \
+#  &&  chmod -R 774 $STEAMCMD_DIR  $SERVER_DIR 
 RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/

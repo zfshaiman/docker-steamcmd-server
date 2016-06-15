@@ -1,5 +1,5 @@
 #Steamcmd in docker
-This dockerfill will download/install steamcmd.
+This dockerfile will download/install steamcmd.
 It will also install the server you want(like csgo,tf2,ins ...)
 
 ##Env params

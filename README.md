@@ -1,8 +1,9 @@
-#Steamcmd in docker
+# Steamcmd in docker
 This dockerfile will download/install steamcmd.
 It will also install the server you want(like csgo,tf2,ins ...)
 
-##Env params
+## Env params
+
 | Name | Value | Default |
 | --- | --- | --- |
 | DATA_DIR | main folder | /serverdata |
@@ -17,7 +18,7 @@ It will also install the server you want(like csgo,tf2,ins ...)
 
 > And for GAME_NAME there is no list, so a quick search should give you the result
 
-##Run example
+## Run example
 ```
 docker run --name csgo-server -d \
 	-p 27015:27015 -p 27015:27015/udp -p 26900:26900/udp \

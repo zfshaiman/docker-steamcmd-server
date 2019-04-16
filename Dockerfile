@@ -1,6 +1,6 @@
 FROM ubuntu
 
-MAINTAINER Mattie
+MAINTAINER ich777
 
 RUN apt-get update
 RUN apt-get -y install lib32gcc1 libc6-i386 wget
@@ -12,10 +12,14 @@ ENV GAME_ID="740"
 ENV GAME_NAME="csgo"
 ENV GAME_PARAMS="+game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2"
 ENV GAME_PORT=27015
+ENV UID=99
+ENV GID=100
 
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
+RUN useradd -d /data/steam -s /bin/bash --uid $UID --gid $GID steam
+RUN chown -R steam /data/steam
 
 # RUN wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz \
 #  &&  tar --directory ${STEAMCMD_DIR} -xvzf ${STEAMCMD_DIR}/steamcmd_linux.tar.gz \

@@ -18,8 +18,8 @@ ENV GID=100
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
-RUN useradd -d /data/steam -s /bin/bash --uid $UID --gid $GID steam
-RUN chown -R steam /data/steam
+RUN useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam
+RUN chown -R steam $DATA_DIR
 
 # RUN wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz \
 #  &&  tar --directory ${STEAMCMD_DIR} -xvzf ${STEAMCMD_DIR}/steamcmd_linux.tar.gz \

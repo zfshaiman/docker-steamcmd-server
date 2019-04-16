@@ -3,7 +3,8 @@ FROM ubuntu
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install lib32gcc1 libc6-i386 wget
+RUN apt-get -y install lib32gcc1 libc6-i386 wget language-pack-en fonts-75dpi
+RUN apt-get install fonts-75dpi
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
@@ -28,7 +29,8 @@ RUN chown -R steam $DATA_DIR
 RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 774 /opt/scripts/
+RUN chmod -R steam /opt/scripts/
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start-server.sh"]
+CMD ["steam"]

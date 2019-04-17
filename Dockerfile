@@ -16,7 +16,7 @@ ENV UID=99
 ENV GID=100
 
 RUN if [ "$GAME_NAME" = "tf" ]; then \
-    apt-get -y install lib32gcc1 ia32-libs \
+    apt-get -y install lib32gcc1 ia32-libs; \
   fi
 
 RUN mkdir $DATA_DIR

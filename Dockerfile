@@ -15,10 +15,6 @@ ENV GAME_PORT=27015
 ENV UID=99
 ENV GID=100
 
-RUN if [ "$GAME_NAME" = "tf" ]; then \
-    apt-get -y install lib32gcc1 ia32-libs; \
-  fi
-
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
@@ -30,8 +26,6 @@ RUN ulimit -n 2048
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 774 /opt/scripts/
 RUN chown -R steam /opt/scripts
-
-USER steam
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start-server.sh"]

@@ -17,6 +17,10 @@ ${STEAMCMD_DIR}/steamcmd.sh \
     +force_install_dir $SERVER_DIR \
     +app_update $GAME_ID \
     +quit
-    
+
+echo "---Prepare Server---"
+mkdir ${DATA_DIR}/.steam/sdk32
+cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
+   
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game $GAME_NAME -console $GAME_PARAMS +port $GAME_PORT
+${SERVER_DIR}/srcds_run -game $GAME_NAME $GAME_PARAMS -console +port $GAME_PORT

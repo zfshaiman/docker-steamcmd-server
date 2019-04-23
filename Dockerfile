@@ -15,6 +15,8 @@ ENV GAME_PORT=27015
 ENV VALIDATE="false"
 ENV UID=99
 ENV GID=100
+ENV USERNAME="steamusername"
+ENV PASSWRD="steampassword"
 
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR

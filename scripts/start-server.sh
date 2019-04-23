@@ -7,9 +7,15 @@ if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
 fi
 
 echo "---Update SteamCMD---"
-${STEAMCMD_DIR}/steamcmd.sh \
+if [ -z "USERNAME" ] then
+    ${STEAMCMD_DIR}/steamcmd.sh \
     +login anonymous \
     +quit
+else
+    ${STEAMCMD_DIR}/steamcmd.sh \
+    +login $USERNAME $PASSWRD \
+    +quit
+fi
 
 if [ -z "USERNAME" ] then
     sleep infinity

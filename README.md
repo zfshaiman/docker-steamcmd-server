@@ -14,6 +14,9 @@ This Docker will download and install SteamCMD. It will also install Counter-Str
 | GAME_PORT | Port the server will be running on | 27015 |
 | VALIDATE | Validates the game data | true |
 
+
+<ATTENTION: You have to disable Steam Guard for games that require authentication, Steam recommends to create a seperate account for dedicated servers>
+
 >**NOTE** GAME_ID values can be found [here](https://developer.valvesoftware.com/wiki/Dedicated_Servers_List)
 
 > And for GAME_NAME there is no list, so a quick search should give you the result

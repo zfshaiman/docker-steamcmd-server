@@ -8,7 +8,7 @@ fi
 
 echo "---Update SteamCMD---"
 if [ "${USERNAME}" == "" ]; then
-    echo "Please enter a valid username and password and restart the container."
+    echo "Please enter a valid username and password and restart the container. ATTENTION: Steam Guard must be DISABLED!!!"
     sleep infinity
 else
     ${STEAMCMD_DIR}/steamcmd.sh \

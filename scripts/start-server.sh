@@ -7,7 +7,7 @@ if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
 fi
 
 echo "---Update SteamCMD---"
-if [ "USERNAME" == "" ] then
+if [ -z "USERNAME" ]; then
     ${STEAMCMD_DIR}/steamcmd.sh \
     +login anonymous \
     +quit
@@ -18,7 +18,7 @@ else
 fi
 
 echo "---Update Server---"
-if [ "USERNAME" == "" ] then
+if [ -z "USERNAME" ]; then
     if [ "$VALIDATE" = "true" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \

@@ -1,22 +1,30 @@
 #!/bin/bash
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
-    echo "Steamcmd not found!"
+    echo "SteamCMD not found!"
     wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 
     tar --directory ${STEAMCMD_DIR} -xvzf /serverdata/steamcmd/steamcmd_linux.tar.gz
     rm ${STEAMCMD_DIR}/steamcmd_linux.tar.gz
 fi
 
-echo "---Update steamcmd---"
+echo "---Update SteamCMD---"
 ${STEAMCMD_DIR}/steamcmd.sh \
     +login anonymous \
     +quit
-    
-echo "---Update server---"
-${STEAMCMD_DIR}/steamcmd.sh \
+
+echo "---Update Server---"
+if [ "$VALIDATE" = "true" ]; then
+    ${STEAMCMD_DIR}/steamcmd.sh \
+    +login anonymous \
+    +force_install_dir $SERVER_DIR \
+    +app_update $GAME_ID validate \
+    +quit
+else
+    ${STEAMCMD_DIR}/steamcmd.sh \
     +login anonymous \
     +force_install_dir $SERVER_DIR \
     +app_update $GAME_ID \
     +quit
+fi
 
 echo "---Prepare Server---"
 mkdir ${DATA_DIR}/.steam/sdk32

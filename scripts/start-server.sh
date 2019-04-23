@@ -7,23 +7,45 @@ if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
 fi
 
 echo "---Update SteamCMD---"
-${STEAMCMD_DIR}/steamcmd.sh \
-    +login anonymous \
-    +quit
-
-echo "---Update Server---"
-if [ "$VALIDATE" = "true" ]; then
+if [ -z "USERNAME" ] then
     ${STEAMCMD_DIR}/steamcmd.sh \
     +login anonymous \
-    +force_install_dir $SERVER_DIR \
-    +app_update $GAME_ID validate \
     +quit
 else
     ${STEAMCMD_DIR}/steamcmd.sh \
-    +login anonymous \
-    +force_install_dir $SERVER_DIR \
-    +app_update $GAME_ID \
+    +login $USERNAME $PASSWRD \
     +quit
+fi
+
+echo "---Update Server---"
+if [ -z "USERNAME" ] then
+    if [ "$VALIDATE" = "true" ]; then
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login anonymous \
+        +force_install_dir $SERVER_DIR \
+        +app_update $GAME_ID validate \
+        +quit
+    else
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login anonymous \
+        +force_install_dir $SERVER_DIR \
+        +app_update $GAME_ID \
+        +quit
+    fi
+else
+    if [ "$VALIDATE" = "true" ]; then
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login $USERNAME $PASSWRD \
+        +force_install_dir $SERVER_DIR \
+        +app_update $GAME_ID validate \
+        +quit
+    else
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login $USERNAME $PASSWRD \
+        +force_install_dir $SERVER_DIR \
+        +app_update $GAME_ID \
+        +quit
+    fi
 fi
 
 echo "---Prepare Server---"
@@ -32,3 +54,6 @@ cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
    
 echo "---Start Server---"
 ${SERVER_DIR}/srcds_run -game $GAME_NAME $GAME_PARAMS -console +port $GAME_PORT
+
+
+

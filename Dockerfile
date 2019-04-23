@@ -12,8 +12,11 @@ ENV GAME_ID="template"
 ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"
 ENV GAME_PORT=27015
+ENV VALIDATE=""
 ENV UID=99
 ENV GID=100
+ENV USERNAME=""
+ENV PASSWRD=""
 
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
@@ -24,7 +27,7 @@ RUN chown -R steam $DATA_DIR
 RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 774 /opt/scripts/
+RUN chmod -R 770 /opt/scripts/
 RUN chown -R steam /opt/scripts
 
 USER steam

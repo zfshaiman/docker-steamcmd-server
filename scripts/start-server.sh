@@ -17,10 +17,11 @@ else
     +quit
 fi
 
-if [ -z "USERNAME" ] then
+echo "---Update Server---"
+if [ -z "USERNAME" ] && [ ! -f then
+    echo "You've not entered a Username please execute the following command from the Unraid console for this container: 'docker exec <ContainerName> --user steam /serverdata/steamcmd/steamcmd.sh +login <username> <password> +force_install_dir /serverdata/serverfiles +app_update 233780 validate +quit' please replace the <> with the desctiption. After everything finishes please restart the container."
     sleep infinity
 else
-echo "---Update Server---"
     if [ "$VALIDATE" = "true" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login $USERNAME $PASSWRD \

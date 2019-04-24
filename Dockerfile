@@ -2,8 +2,9 @@ FROM ubuntu
 
 MAINTAINER ich777
 
+RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get -y install wget libhiredis-dev language-pack-en libstdc++6 g++-multilib lib32stdc++6
+RUN apt-get -y install wget lib32gcc1 libstdc++6 libstdc++6:i386 libtbb2:i386 libtbb2 net-tools binutils libssl1.0.0:i386
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

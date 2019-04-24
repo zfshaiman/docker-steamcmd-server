@@ -31,8 +31,11 @@ else
     +quit
 fi
 
+echo "---Prepare Server---"
+chmod -R 770 ${DATA_DIR}
+
 echo "---Start Server---"
-${SERVER_DIR}/arma3server ${GAME_PARAMS} -port=${GAME_PORT}
+${SERVER_DIR}/arma3server ${GAME_PARAMS}
 
 echo "---WAIT---"
 sleep infinity

@@ -2,9 +2,8 @@ FROM ubuntu
 
 MAINTAINER ich777
 
-RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get -y install wget lib32gcc1 libstdc++6 libstdc++6:i386 libtbb2:i386 libtbb2 net-tools binutils libssl1.0.0:i386
+RUN apt-get -y install wget lib32gcc1 lib32stdc++6
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
@@ -22,19 +21,11 @@ ENV PASSWRD=""
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
-RUN mkdir -p $DATA_DIR/".local/share/Arma 3" && mkdir -p $DATA_DIR/".local/share/Arma 3 - Other Profiles"
-RUN useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam
-RUN chown -R steam $DATA_DIR
 
 RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
-RUN chown -R steam /opt/scripts
-RUN chmod -R 770 $DATA_DIR/".local/share/Arma 3"
-RUN chown -R steam $DATA_DIR/".local/share/Arma 3"
-RUN chmod -R 770 $DATA_DIR/".local/share/Arma 3 - Other Profiles"
-RUN chown -R steam $DATA_DIR/".local/share/Arma 3 - Other Profiles"
 
 USER steam
 

@@ -36,7 +36,5 @@ mkdir -p ~/".local/share/Arma 3" && mkdir -p ~/".local/share/Arma 3 - Other Prof
 chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"
-${SERVER_DIR}/arma3server ${GAME_PARAMS}
-
-echo "---WAIT---"
-sleep infinity
+cd ${SERVER_DIR}
+./arma3server ${GAME_PARAMS}

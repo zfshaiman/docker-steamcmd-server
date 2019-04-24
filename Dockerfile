@@ -21,11 +21,14 @@ ENV PASSWRD=""
 RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
+RUN useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam
+RUN chown -R steam $DATA_DIR
 
 RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
+RUN chown -R steam /opt/scripts
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start-server.sh"]

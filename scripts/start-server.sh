@@ -32,6 +32,8 @@ else
 fi
 
 echo "---Prepare Server---"
+mkdir ${DATA_DIR}/.steam/root
+cp -R ${STEAMCMD_DIR/* ${DATA_DIR}/.steam/root/
 chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"

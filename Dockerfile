@@ -3,7 +3,7 @@ FROM ubuntu
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install wget lib32gcc1 language-pack-en lib32stdc++6 net-tools iputils-ping
+RUN apt-get -y install wget libhiredis-dev language-pack-en libstdc++6 g++-multilib lib32stdc++6
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

@@ -30,5 +30,7 @@ ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
 RUN chown -R steam /opt/scripts
 
+USER steam
+
 #Server Start
 ENTRYPOINT ["/opt/scripts/start-server.sh"]

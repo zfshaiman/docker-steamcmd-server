@@ -22,6 +22,7 @@ RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
 RUN useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam
+RUN mkdir -p ~/".local/share/Arma 3" && mkdir -p ~/".local/share/Arma 3 - Other Profiles"
 RUN chown -R steam $DATA_DIR
 
 RUN ulimit -n 2048

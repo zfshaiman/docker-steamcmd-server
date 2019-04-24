@@ -13,7 +13,7 @@ if [ "${USERNAME}" == "" ]; then
     +quit
 else
     ${STEAMCMD_DIR}/steamcmd.sh \
-    +login $USERNAME $PASSWRD \
+    +login ${USERNAME} ${PASSWRD} \
     +quit
 fi
 
@@ -22,28 +22,28 @@ if [ "${USERNAME}" == "" ]; then
     if [ "${VALIDATE}" == "true" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
-        +force_install_dir $SERVER_DIR \
-        +app_update $GAME_ID validate \
+        +force_install_dir ${SERVER_DIR} \
+        +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
-        +force_install_dir $SERVER_DIR \
-        +app_update $GAME_ID \
+        +force_install_dir ${SERVER_DIR} \
+        +app_update ${GAME_ID} \
         +quit
     fi
 else
     if [ "${VALIDATE}" == "true" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login $USERNAME $PASSWRD \
-        +force_install_dir $SERVER_DIR \
-        +app_update $GAME_ID validate \
+        +login ${USERNAME} ${PASSWRD} \
+        +force_install_dir ${SERVER_DIR} \
+        +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login $USERNAME $PASSWRD \
-        +force_install_dir $SERVER_DIR \
-        +app_update $GAME_ID \
+        +login ${USERNAME} ${PASSWRD} \
+        +force_install_dir ${SERVER_DIR} \
+        +app_update ${GAME_ID} \
         +quit
     fi
 fi

@@ -36,5 +36,8 @@ mkdir ${DATA_DIR}/.steam/root
 cp -R ${STEAMCMD_DIR}/* ${DATA_DIR}/.steam/root/
 chmod -R 770 ${DATA_DIR}
 
+echo "---WAIT---"
+sleep infinity
+
 echo "---Start Server---"
 ${SERVER_DIR}/arma3server $GAME_PARAMS -port=$GAME_PORT

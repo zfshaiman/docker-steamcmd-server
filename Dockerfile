@@ -2,9 +2,8 @@ FROM ubuntu
 
 MAINTAINER ich777
 
-RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get -y install mailutils postfix curl wget file bzip2 gzip unzip bsdmainutils python util-linux ca-certificates binutils bc jq tmux lib32gcc1 libstdc++6 libstdc++6:i386
+RUN apt-get -y install lib32gcc1 libc6-i386 wget language-pack-en lib32stdc++6
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
@@ -27,8 +26,6 @@ RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
-
-USER steam
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start-server.sh"]

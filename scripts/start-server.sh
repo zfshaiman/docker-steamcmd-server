@@ -12,22 +12,22 @@ if [ "${USERNAME}" == "" ]; then
     sleep infinity
 else
     ${STEAMCMD_DIR}/steamcmd.sh \
-    +login $USERNAME $PASSWRD \
+    +login ${USERNAME} ${PASSWRD} \
     +quit
 fi
 
 echo "---Update Server---"
 if [ "${VALIDATE}" == "true" ]; then
     ${STEAMCMD_DIR}/steamcmd.sh \
-    +login $USERNAME $PASSWRD \
-    +force_install_dir $SERVER_DIR \
-    +app_update $GAME_ID validate \
+    +login ${USERNAME} ${PASSWRD} \
+    +force_install_dir ${SERVER_DIR} \
+    +app_update ${GAME_ID} validate \
     +quit
 else
     ${STEAMCMD_DIR}/steamcmd.sh \
-    +login $USERNAME $PASSWRD \
-    +force_install_dir $SERVER_DIR \
-    +app_update $GAME_ID \
+    +login ${USERNAME} ${PASSWRD} \
+    +force_install_dir ${SERVER_DIR} \
+    +app_update ${GAME_ID} \
     +quit
 fi
 

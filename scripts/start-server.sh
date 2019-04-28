@@ -36,4 +36,4 @@ chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-./arma3server ${GAME_PARAMS}
+./arma3server ${game_params}

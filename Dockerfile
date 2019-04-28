@@ -3,11 +3,12 @@ FROM ubuntu
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install wget
+RUN apt-get -y install wget lib32gcc1 lib32stdc++6
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
+ENV PROFILES_DIR="${DATA_DIR}/.local/share"
 ENV GAME_ID="template"
 ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"
@@ -22,15 +23,12 @@ RUN mkdir $DATA_DIR
 RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
 RUN useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam
-RUN mkdir -p ~/".local/share/Arma 3" && mkdir -p ~/".local/share/Arma 3 - Other Profiles"
 RUN chown -R steam $DATA_DIR
 
 RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
-RUN chmod -R 770 ~/.local/share/
-RUN chown -R steam ~/.local/share/
 RUN chown -R steam /opt/scripts
 
 USER steam

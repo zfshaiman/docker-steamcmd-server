@@ -32,9 +32,8 @@ else
 fi
 
 echo "---Prepare Server---"
+mkdir -p ~/".local/share/Arma 3" && mkdir -p ~/".local/share/Arma 3 - Other Profiles"
 chmod -R 770 ${DATA_DIR}
-
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

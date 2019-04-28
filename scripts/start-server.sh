@@ -31,8 +31,18 @@ else
     +quit
 fi
 
-echo "---Start Server---"
-${SERVER_DIR}/arma3server ${GAME_PARAMS} -port=${GAME_PORT}
+echo "---Prepare Server---"
+if [ ! -f ${SERVER_DIR}/server.cfg ]; then
+    echo "---No server.cfg found, downloading...---"
+    wget -q -O server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/arma3-beta/config/server.cfg
+else
+    echo "---server.cfg found..."
+fi
 
-echo "---WAIT---"
-sleep infinity
+cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
+mkdir -p ~/".local/share/Arma 3" && mkdir -p ~/".local/share/Arma 3 - Other Profiles"
+chmod -R 770 ${DATA_DIR}
+
+echo "---Start Server---"
+cd ${SERVER_DIR}
+./arma3server ${GAME_PARAMS}

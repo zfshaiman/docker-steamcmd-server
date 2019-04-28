@@ -8,7 +8,6 @@ RUN apt-get -y install wget lib32gcc1 lib32stdc++6
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
-ENV PROFILES_DIR="${DATA_DIR}/.local/share"
 ENV GAME_ID="template"
 ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"

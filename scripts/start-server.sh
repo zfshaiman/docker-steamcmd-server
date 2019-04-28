@@ -34,6 +34,8 @@ fi
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
 
+sleep-infinity
+
 echo "---Start Server---"
 cd ${SERVER_DIR}
 ./arma3server ${game_params}

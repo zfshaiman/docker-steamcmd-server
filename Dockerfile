@@ -2,8 +2,9 @@ FROM ubuntu
 
 MAINTAINER ich777
 
+RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get -y install lib32gcc1 libc6-i386 wget language-pack-en lib32stdc++6
+RUN apt-get -y install wget language-pack-en lib32z1 libncurses5:i386 libbz2-1.0:i386 lib32gcc1 lib32stdc++6 libtinfo5:i386 libcurl3-gnutls:i386
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

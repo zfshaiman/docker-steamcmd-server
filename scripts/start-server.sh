@@ -40,7 +40,6 @@ else
 fi
 
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
-mkdir -p ~/".local/share/Arma 3" && mkdir -p ~/".local/share/Arma 3 - Other Profiles"
 chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"

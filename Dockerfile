@@ -23,11 +23,13 @@ RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
 RUN useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam
 RUN chown -R steam $DATA_DIR
+RUN mkdir -p ~/".local/share/Arma 3" && mkdir -p ~/".local/share/Arma 3 - Other Profiles"
 
 RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
+RUN chmod -R 770 ~/".local/share/Arma 3" && chmod -R 770 ~/".local/share/Arma 3 - Other Profiles"
 RUN chown -R steam /opt/scripts
 
 USER steam

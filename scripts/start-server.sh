@@ -38,4 +38,4 @@ sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-./arma3server ${game_params}
+./arma3server ${GAME_PARAMS}

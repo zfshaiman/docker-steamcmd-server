@@ -29,8 +29,8 @@ RUN ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
-RUN chmod -R 770 ~/".local/share/Arma 3" && chmod -R 770 ~/".local/share/Arma 3 - Other Profiles"
-RUN chown -R steam /opt/scripts
+RUN chmod -R 770 $DATA_DIR/".local/share/Arma 3" && chmod -R 770 $DATA_DIR/".local/share/Arma 3 - Other Profiles"
+RUN chown -R steam /opt/scripts && chown -R steam $DATA_DIR/.local
 
 USER steam
 

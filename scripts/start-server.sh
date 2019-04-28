@@ -32,6 +32,13 @@ else
 fi
 
 echo "---Prepare Server---"
+if [ ! -f ${SERVER_DIR}/server.cfg ]; then
+    echo "---No server.cfg found, downloading...---"
+    wget -q -O https://raw.githubusercontent.com/ich777/docker-steamcmd-server/arma3-beta/config/server.cfg
+else
+    echo "---server.cfg found..."
+fi
+
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
 mkdir -p ~/".local/share/Arma 3" && mkdir -p ~/".local/share/Arma 3 - Other Profiles"
 chmod -R 770 ${DATA_DIR}

@@ -23,12 +23,14 @@ if [ "${USERNAME}" == "" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
+        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
+        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} \
         +quit
     fi
@@ -37,63 +39,47 @@ else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
+        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
+        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} \
         +quit
     fi
 fi
 
 echo "---Checking if everything is installed correctly---"
-if [ ! -d ${SERVER_DIR}/cstrike ]; then
+if [ ! -d ${SERVER_DIR}/dmc ]; then
     echo "---Not everything is installed correctly, trying again---"
     if [ "${USERNAME}" == "" ]; then
-        if [ "${VALIDATE}" == "true" ]; then
-            ${STEAMCMD_DIR}/steamcmd.sh \
-            +login anonymous \
-            +force_install_dir ${SERVER_DIR} \
-            +app_update ${GAME_ID} validate \
-            +quit
-        else
-            ${STEAMCMD_DIR}/steamcmd.sh \
-            +login anonymous \
-            +force_install_dir ${SERVER_DIR} \
-            +app_update ${GAME_ID} \
-            +quit
-        fi
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login anonymous \
+        +force_install_dir ${SERVER_DIR} \
+        +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} validate \
+        +quit
     else
-        if [ "${VALIDATE}" == "true" ]; then
-            ${STEAMCMD_DIR}/steamcmd.sh \
-            +login ${USERNAME} ${PASSWRD} \
-            +force_install_dir ${SERVER_DIR} \
-            +app_update ${GAME_ID} validate \
-            +quit
-        else
-            ${STEAMCMD_DIR}/steamcmd.sh \
-            +login ${USERNAME} ${PASSWRD} \
-            +force_install_dir ${SERVER_DIR} \
-            +app_update ${GAME_ID} \
-            +quit
-        fi
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login ${USERNAME} ${PASSWRD} \
+        +force_install_dir ${SERVER_DIR} \
+        +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} validate \
+        +quit
     fi
 else
-    echo "---Everything is installed correctly---"
+echo "---Everything is installed correctly---"
 fi
 
 echo "---Prepare Server---"
 
+chmod -R 770 ${DATA_DIR}
+rm -R ${SERVER_DATA}/cstrike
 sleep infinity
 
-mkdir ${DATA_DIR}/.steam/sdk32
-cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
-chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
-
-
-
+${SERVER_DIR}/hlds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}

@@ -75,8 +75,12 @@ echo "---Everything is installed correctly---"
 fi
 
 echo "---Prepare Server---"
+mkdir /root/.steam
+mkdir /root/.steam/sdk32
+cp ${SERVER_DIR}/steamclient.so /root/.steam/sdk32/steamclient.so
 chmod -R 770 ${DATA_DIR}
 rm -R ${SERVER_DIR}/cstrike
 
 echo "---Start Server---"
+cd ${SERVER_DIR}
 ${SERVER_DIR}/hlds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}

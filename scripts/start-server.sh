@@ -75,9 +75,8 @@ echo "---Everything is installed correctly---"
 fi
 
 echo "---Prepare Server---"
-mkdir /root/.steam
-mkdir /root/.steam/sdk32
-cp ${SERVER_DIR}/steamclient.so /root/.steam/sdk32/steamclient.so
+mkdir ${DATA_DIR}/.steam/sdk32
+cp ${SERVER_DIR}/steamclient.so ${DATA_DIR}/.steam/sdk32/steamclient.so
 chmod -R 770 ${DATA_DIR}
 rm -R ${SERVER_DIR}/cstrike
 

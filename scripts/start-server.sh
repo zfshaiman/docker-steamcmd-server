@@ -49,12 +49,9 @@ else
 fi
 
 echo "---Prepare Server---"
+chmod -R 770 ${DATA_DIR}
 
 sleep infinity
-
-mkdir ${DATA_DIR}/.steam/sdk32
-cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
-chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"
 ${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}

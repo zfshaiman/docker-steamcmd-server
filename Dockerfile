@@ -24,7 +24,7 @@ RUN mkdir $SERVER_DIR
 RUN useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam
 RUN chown -R steam $DATA_DIR
 
-RUN ulimit -n 2048
+RUN ulimit -n 1000000
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/

@@ -77,7 +77,7 @@ fi
 echo "---Prepare Server---"
 
 chmod -R 770 ${DATA_DIR}
-rm -R ${SERVER_DATA}/cstrike
+rm -R ${SERVER_DIR}/cstrike
 sleep infinity
 
 

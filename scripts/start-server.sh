@@ -49,6 +49,9 @@ else
 fi
 
 echo "---Prepare Server---"
+
+sleep infinity
+
 mkdir ${DATA_DIR}/.steam/sdk32
 cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
 chmod -R 770 ${DATA_DIR}

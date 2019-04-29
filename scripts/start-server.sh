@@ -52,8 +52,13 @@ echo "---Prepare Server---"
 
 sleep infinity
 
-mkdir ${DATA_DIR}/.steam/sdk32
-cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
+if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
+    mkdir ${DATA_DIR}/.steam/sdk32
+    cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
+    echo "---Server ready---"
+else
+    echo "---Server ready---"
+fi
 chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"

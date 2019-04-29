@@ -53,7 +53,7 @@ chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"
 cd ${SERVER_DIR}/ShooterGame/Binaries/Linux
-./ShooterGameServer ${MAP}?listen?SessionName=${SERVER_NAME}?ServerPassword=${SRV_PWD}?ServerAdminPassword=${SRV_ADMIN_PWD}?${GAME_PARAMS} ${GAME_PARAMS_EXTRA}
+./ShooterGameServer ${MAP}?listen?SessionName=${SERVER_NAME}?ServerPassword=${SRV_PWD}?ServerAdminPassword=${SRV_ADMIN_PWD}${GAME_PARAMS} ${GAME_PARAMS_EXTRA}
 
 
 

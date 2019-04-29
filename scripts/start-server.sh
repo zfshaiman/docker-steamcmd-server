@@ -75,11 +75,8 @@ echo "---Everything is installed correctly---"
 fi
 
 echo "---Prepare Server---"
-
 chmod -R 770 ${DATA_DIR}
 rm -R ${SERVER_DIR}/cstrike
-sleep infinity
-
 
 echo "---Start Server---"
 ${SERVER_DIR}/hlds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}

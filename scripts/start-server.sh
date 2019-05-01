@@ -78,12 +78,7 @@ echo "---Prepare Server---"
 mkdir ${DATA_DIR}/.steam/sdk32
 cp ${SERVER_DIR}/steamclient.so ${DATA_DIR}/.steam/sdk32/steamclient.so
 chmod -R 770 ${DATA_DIR}
-if [ ! -d ${SERVER_DIR}/cstrike ]; then
     echo "---Server ready---"
-else
-    rm -R ${SERVER_DIR}/cstrike
-    echo "---Server ready---"
-fi
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

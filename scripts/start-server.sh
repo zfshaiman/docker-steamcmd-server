@@ -78,7 +78,7 @@ echo "---Prepare Server---"
 mkdir ${DATA_DIR}/.steam/sdk32
 cp ${SERVER_DIR}/steamclient.so ${DATA_DIR}/.steam/sdk32/steamclient.so
 chmod -R 770 ${DATA_DIR}
-    echo "---Server ready---"
+echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

@@ -53,7 +53,7 @@ else
 fi
 
 echo "---Checking if everything is installed correctly---"
-if [ ! -d ${SERVER_DIR}/cstrike ]; then
+if [ ! -d ${SERVER_DIR}/czero ]; then
     echo "---Not everything is installed correctly, trying again---"
     if [ "${USERNAME}" == "" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \

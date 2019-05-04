@@ -49,12 +49,6 @@ else
 fi
 
 echo "---Prepare Server---"
-if [ ! -f ${SERVER_DIR}/left4dead/cfg/server.cfg ]; then
-    echo "---No server.cfg found, downloading...---"
-    wget -q -O $SERVER_DIR/left4dead/cfg/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/l4d/config/server.cfg
-else
-    echo "---server.cfg found..."
-fi
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 

@@ -59,9 +59,4 @@ chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"
-screen -S L4D -d -m ${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -port ${GAME_PORT}
-echo "--------------------------------------------------"
-echo "       If you want to get detailed logs open      "
-echo "a console and type in 'screen -r' (without quotes)"
-echo "--------------------------------------------------"
-sleep infinity
+${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -port ${GAME_PORT}

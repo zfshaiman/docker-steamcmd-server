@@ -55,6 +55,8 @@ if [ ! -f ${SERVER_DIR}/left4dead/cfg/server.cfg ]; then
 else
     echo "---server.cfg found..."
 fi
+mkdir ${DATA_DIR}/.steam/sdk32
+cp ${SERVER_DIR}/steamclient.so ${DATA_DIR}/.steam/sdk32/steamclient.so
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 

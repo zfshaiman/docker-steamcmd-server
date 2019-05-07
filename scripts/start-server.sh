@@ -50,9 +50,7 @@ fi
 
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
-sleep infinity
+
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}
-
-
-
+cd ${SERVER_DIR}/Binaries/Win64
+${SERVER_DIR}/Binaries/Win64/KFGameSteamServer.bin.x86_64 ${GAME_PARAMS}

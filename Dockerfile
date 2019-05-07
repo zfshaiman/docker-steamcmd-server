@@ -24,6 +24,8 @@ RUN mkdir $STEAMCMD_DIR
 RUN mkdir $SERVER_DIR
 RUN mkdir $DATA_DIR/.klei
 RUN mkdir $DATA_DIR/.klei/DoNotStarveTogether
+RUN mkdir $DATA_DIR/.klei/DoNotStarveTogether/Cluster_1
+RUN mkdir $DATA_DIR/.klei/DoNotStarveTogether/Cluster_1/Master
 RUN useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam
 RUN chown -R steam $DATA_DIR
 

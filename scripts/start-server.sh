@@ -34,10 +34,7 @@ fi
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
-sleep infinity
 
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}
-
-
-
+cd ${SERVER_DIR}/System
+${SERVER_DIR}/System/ucc-bin server KF-bioticslab.rom?game=KFmod.KFGameType?VACSecured=true?MaxPlayers=6 -nohomedir

@@ -51,7 +51,6 @@ fi
 echo "---Prepare Server---"
 if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster_token.txt ]; then
     echo "---No cluster_token.txt found, downloading template, please create your own to run the server!!!...---"
-    mkdir ${DATA_DIR}/.klei/DoNotStarveTogether
     mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1
     cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1
     wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster_token.txt https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/cluster_token.txt

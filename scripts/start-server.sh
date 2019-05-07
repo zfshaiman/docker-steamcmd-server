@@ -49,14 +49,10 @@ else
 fi
 
 echo "---Prepare Server---"
-if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
-    mkdir ${DATA_DIR}/.steam/sdk32
-    cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
-    echo "---Server ready---"
-else
-    echo "---Server ready---"
-fi
 chmod -R 770 ${DATA_DIR}
+echo "---Server ready---"
+
+sleep infinity
 
 echo "---Start Server---"
 ${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}

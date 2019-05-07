@@ -58,10 +58,11 @@ if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster.ini ]; then
     wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/cluster.ini
 fi
 if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/server.ini ]; then
-    echo "---No cluster.ini found, downloading template...---"
+    echo "---No server.ini found, downloading template...---"
     wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/server.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/server.ini
 fi
 chmod -R 770 ${DATA_DIR}
+echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}/bin

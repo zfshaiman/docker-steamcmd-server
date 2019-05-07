@@ -37,4 +37,4 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}/System
-${SERVER_DIR}/System/ucc-bin server KF-bioticslab.rom?game=KFmod.KFGameType?VACSecured=true?MaxPlayers=6 -nohomedir
+${SERVER_DIR}/System/ucc-bin server KF-bioticslab.rom?game=KFmod.KFGameType?VACSecured=true?MaxPlayers=6${GAME_PARAMS} -nohomedir

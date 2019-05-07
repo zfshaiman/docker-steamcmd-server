@@ -8,9 +8,8 @@ fi
 
 echo "---Update SteamCMD---"
 if [ "${USERNAME}" == "" ]; then
-    ${STEAMCMD_DIR}/steamcmd.sh \
-    +login anonymous \
-    +quit
+    echo "Please enter a valid username and password and restart the container. ATTENTION: Steam Guard must be DISABLED!!!"
+    sleep infinity
 else
     ${STEAMCMD_DIR}/steamcmd.sh \
     +login ${USERNAME} ${PASSWRD} \
@@ -18,38 +17,20 @@ else
 fi
 
 echo "---Update Server---"
-if [ "${USERNAME}" == "" ]; then
-    if [ "${VALIDATE}" == "true" ]; then
-        ${STEAMCMD_DIR}/steamcmd.sh \
-        +@sSteamCmdForcePlatformType windows \
-        +login anonymous \
-        +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} validate \
-        +quit
-    else
-        ${STEAMCMD_DIR}/steamcmd.sh \
-        +@sSteamCmdForcePlatformType windows \
-        +login anonymous \
-        +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} \
-        +quit
-    fi
+if [ "${VALIDATE}" == "true" ]; then
+    ${STEAMCMD_DIR}/steamcmd.sh \
+    +@sSteamCmdForcePlatformType windows \
+    +login ${USERNAME} ${PASSWRD} \
+    +force_install_dir ${SERVER_DIR} \
+    +app_update ${GAME_ID} validate \
+    +quit
 else
-    if [ "${VALIDATE}" == "true" ]; then
-        ${STEAMCMD_DIR}/steamcmd.sh \
-        +@sSteamCmdForcePlatformType windows \
-        +login ${USERNAME} ${PASSWRD} \
-        +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} validate \
-        +quit
-    else
-        ${STEAMCMD_DIR}/steamcmd.sh \
-        +@sSteamCmdForcePlatformType windows \
-        +login ${USERNAME} ${PASSWRD} \
-        +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} \
-        +quit
-    fi
+    ${STEAMCMD_DIR}/steamcmd.sh \
+    +@sSteamCmdForcePlatformType windows \
+    +login ${USERNAME} ${PASSWRD} \
+    +force_install_dir ${SERVER_DIR} \
+    +app_update ${GAME_ID} \
+    +quit
 fi
 
 echo "---Prepare Server---"

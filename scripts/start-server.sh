@@ -49,6 +49,18 @@ else
 fi
 
 echo "---Prepare Server---"
+if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster_token.txt ]; then
+    echo "---No cluster_token.txt found, downloading template, please create your own to run the server!!!...---"
+    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster_token.txt https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/cluster_token.txt
+fi
+if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster.ini ]; then
+    echo "---No cluster.ini found, downloading template...---"
+    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/cluster.ini
+fi
+if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/server.ini ]; then
+    echo "---No cluster.ini found, downloading template...---"
+    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/server.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/server.ini
+fi
 chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"

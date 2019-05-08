@@ -52,8 +52,6 @@ echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
 ${SERVER_DIR}/7DaysToDieServer.x86_64 ${GAME_PARAMS}

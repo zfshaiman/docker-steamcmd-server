@@ -55,7 +55,8 @@ echo "---Server ready---"
 sleep infinity
 
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}
+cd ${SERVER_DIR}
+${SERVER_DIR}/7DaysToDieServer.x86_64 ${GAME_PARAMS}
 
 
 

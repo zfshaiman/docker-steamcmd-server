@@ -111,19 +111,18 @@ chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
 if [ "${CAVES}" == "true" ]; then
+    echo "---Checking for old logs---"
+    find $SERVER_DIR -name "masterLog.*" -exec rm -f {} \;
+    find $SERVER_DIR -name "cavesLog.*" -exec rm -f {} \;
     echo "---Start Server---"
     cd ${SERVER_DIR}/bin
-    screen -S Caves -d -m ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Caves
-    echo "-------------------------------------------------------"
-    echo " If you want to get detailed logs for the Caves Server "
-    echo "open a console and type in 'screen -r' (without quotes)"
-    echo "-------------------------------------------------------"
-    ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Master
+    screen -S Master -L -Logfile $SERVER_DIR/masterLog.0 -d -m ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Master
+    screen -S Caves -L -Logfile $SERVER_DIR/cavesLog.0 -d -m ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Caves
+    tail -f ${SERVER_DIR}/masterLog.0 ${SERVER_DIR}/cavesLog.0
 else
+    find $SERVER_DIR -name "masterLog.*" -exec rm -f {} \;
+    find $SERVER_DIR -name "cavesLog.*" -exec rm -f {} \;
     echo "---Start Server---"
     cd ${SERVER_DIR}/bin
     ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Master
 fi
-
-
-

@@ -49,6 +49,10 @@ else
 fi
 
 echo "---Prepare Server---"
+if [ ! -d ${SERVER_DIR}/Saves ]; then
+    mkdir ${SERVER_DIR}/Saves
+fi
+grep -qxF 'SaveGameFolder' foo.bar || echo '<property name="SaveGameFolder" value="/serverfiles/serverdata/Saves" />' >> foo.ba
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 

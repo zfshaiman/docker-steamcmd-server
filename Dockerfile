@@ -4,7 +4,7 @@ MAINTAINER ich777
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get -y install lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 wget
+RUN apt-get -y install lib32gcc1 lib32stdc++6 libcurl4-gnutls-dev:i386 wget screen
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

@@ -52,13 +52,16 @@ echo "---Prepare Server---"
 if [ ! -d ${SERVER_DIR}/Saves ]; then
     mkdir ${SERVER_DIR}/Saves
 fi
-if grep -Fxq 'value="/serverfiles/serverdata/Saves"' ${SERVER_DIR}/${SERVERCONFIG}
-then
-    echo "---Creating SaveGameFolder config ---"
-    sed -i '/property name="SaveGameFolder"/c\<property name="SaveGameFolder" value="/serverfiles/serverdata/Saves" />' ${SERVER_DIR}/${SERVERCONFIG}
+if grep -rq '<property name="SaveGameFolder"' ${SERVER_DIR}/${SERVERCONFIG}; then
+    if grep -rq '<!-- <property name="SaveGameFolder"' ${SERVER_DIR}/${SERVERCONFIG}; then
+        echo "---Moving SaveGameFolder location---"
+        sed -i '/<!-- <property name="SaveGameFolder"/c\\t<property name="SaveGameFolder"\t\t\t\t\tvalue="/serverdata/serverfiles/Saves" />' ${SERVER_DIR}/${SERVERCONFIG}
+    elif grep -rq 'value="/serverdata/serverfiles/Saves"' ${SERVER_DIR}/${SERVERCONFIG}; then
+        echo "---SaveGameFolder location correct---"
+    fi
 else
     echo "---Creating SaveGameFolder config ---"
-    sed -i '4i\<property name="SaveGameFolder" value="/serverfiles/serverdata/Saves" />\' ${SERVER_DIR}/${SERVERCONFIG}
+    sed -i '4i\    <property name="SaveGameFolder" value="/serverdata/serverfiles/Saves" />\' ${SERVER_DIR}/${SERVERCONFIG}
 fi
 echo "---Savegame Location found---"
 chmod -R 770 ${DATA_DIR}

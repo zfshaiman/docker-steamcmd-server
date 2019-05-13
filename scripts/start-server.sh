@@ -114,11 +114,11 @@ if [ "${CAVES}" == "true" ]; then
     echo "---Start Server---"
     cd ${SERVER_DIR}/bin
     screen -S Caves -d -m ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Caves
-    ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shared Master
+    ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Master
 else
     echo "---Start Server---"
     cd ${SERVER_DIR}/bin
-    ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer
+    ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Master
 fi
 
 

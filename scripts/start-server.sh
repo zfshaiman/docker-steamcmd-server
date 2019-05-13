@@ -114,6 +114,10 @@ if [ "${CAVES}" == "true" ]; then
     echo "---Start Server---"
     cd ${SERVER_DIR}/bin
     screen -S Caves -d -m ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Caves
+    echo "-------------------------------------------------------"
+    echo " If you want to get detailed logs for the Caves Server "
+    echo "open a console and type in 'screen -r' (without quotes)"
+    echo "-------------------------------------------------------"
     ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Master
 else
     echo "---Start Server---"

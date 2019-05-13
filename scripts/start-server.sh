@@ -89,28 +89,37 @@ if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/worldgenoverrid
     cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master
     wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/worldgenoverride.lua https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/worldgenoverride.lua
 fi
-if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/server.ini ]; then
-    echo "---No Caves/server.ini found, downloading template...---"
-    if [ ! -d ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves ]; then
-        mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
+if [ "${CAVES}" == "true" ]; then
+    if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/server.ini ]; then
+        echo "---No Caves/server.ini found, downloading template...---"
+        if [ ! -d ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves ]; then
+            mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
+        fi
+        cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
+        wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/server.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/caves_server.ini
     fi
-    cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
-    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/server.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/caves_server.ini
-fi
-if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/worldgenoverride.lua ]; then
-    echo "---No Caves/worldgenoverride.lua found, downloading template...---"
-    if [ ! -d ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves ]; then
-        mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
+    if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/worldgenoverride.lua ]; then
+        echo "---No Caves/worldgenoverride.lua found, downloading template...---"
+        if [ ! -d ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves ]; then
+            mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
+        fi
+        cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
+        wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/worldgenoverride.lua https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/caves_worldgenoverride.lua
     fi
-    cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
-    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/worldgenoverride.lua https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/caves_worldgenoverride.lua
 fi
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Start Server---"
-cd ${SERVER_DIR}/bin
-${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer
+if [ "${CAVES}" == "true" ]; then
+    echo "---Start Server---"
+    cd ${SERVER_DIR}/bin
+    screen -S Caves -d -m ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Caves
+    ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shared Master
+else
+    echo "---Start Server---"
+    cd ${SERVER_DIR}/bin
+    ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer
+fi
 
 
 

@@ -52,13 +52,13 @@ echo "---Prepare Server---"
 if [ ! -d ${SERVER_DIR}/Saves ]; then
     mkdir ${SERVER_DIR}/Saves
 fi
-grep -qxF 'SaveGameFolder' foo.bar || echo '<property name="SaveGameFolder" value="/serverfiles/serverdata/Saves" />' >> foo.ba
+grep -qxF 'property name="SaveGameFolder"' ${SERVERCONFIG} || echo '<property name="SaveGameFolder" value="/serverfiles/serverdata/Saves" />' >> ${SERVERCONFIG}
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/7DaysToDieServer.x86_64 ${GAME_PARAMS}
+${SERVER_DIR}/7DaysToDieServer.x86_64 -configfile=${SERVERCONFIG} ${GAME_PARAMS}
 
 
 

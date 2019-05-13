@@ -52,7 +52,7 @@ echo "---Prepare Server---"
 if [ ! -d ${SERVER_DIR}/Saves ]; then
     mkdir ${SERVER_DIR}/Saves
 fi
-grep -qxF 'property name="SaveGameFolder"' ${SERVERCONFIG} || echo '<property name="SaveGameFolder" value="/serverfiles/serverdata/Saves" />' >> ${SERVERCONFIG}
+sed -i '/property name="SaveGameFolder"/c\<property name="SaveGameFolder" value="/serverfiles/serverdata/Saves" />' ${SERVER_DIR}/${SERVERCONFIG}
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 

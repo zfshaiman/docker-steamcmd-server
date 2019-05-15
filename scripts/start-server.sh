@@ -118,6 +118,7 @@ if [ "${CAVES}" == "true" ]; then
     cd ${SERVER_DIR}/bin
     screen -S Master -L -Logfile $SERVER_DIR/masterLog.0 -d -m ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Master
     screen -S Caves -L -Logfile $SERVER_DIR/cavesLog.0 -d -m ${SERVER_DIR}/bin/dontstarve_dedicated_server_nullrenderer -shard Caves
+    sleep 2
     tail -f ${SERVER_DIR}/masterLog.0 ${SERVER_DIR}/cavesLog.0
 else
     find $SERVER_DIR -name "masterLog.*" -exec rm -f {} \;

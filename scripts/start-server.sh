@@ -63,6 +63,21 @@ else
     echo "---Creating SaveGameFolder config ---"
     sed -i '4i\    <property name="SaveGameFolder" value="/serverdata/serverfiles/Saves" />\' ${SERVER_DIR}/${SERVERCONFIG}
 fi
+if [ ! -d ${SERVER_DIR}/Worlds ]; then
+    mkdir ${SERVER_DIR}/Worlds
+fi
+if grep -rq '<property name="UserDataFolder"' ${SERVER_DIR}/${SERVERCONFIG}; then
+    if grep -rq '<!-- <property name="UserDataFolder"' ${SERVER_DIR}/${SERVERCONFIG}; then
+        echo "---Moving UserDataFolder location---"
+        sed -i '/<!-- <property name="UserDataFolder"/c\\t<property name="UserDataFolder"\t\t\t\t\tvalue="/serverdata/serverfiles/Worlds" />' ${SERVER_DIR}/${SERVERCONFIG}
+    elif grep -rq 'value="/serverdata/serverfiles/Worlds"' ${SERVER_DIR}/${SERVERCONFIG}; then
+        echo "---UserDataFolder location correct---"
+    fi
+else
+    echo "---Creating UserDataFolder config ---"
+    sed -i '4i\    <property name="UserDataFolder" value="/serverdata/serverfiles/Worlds" />\' ${SERVER_DIR}/${SERVERCONFIG}
+fi
+
 echo "---Savegame Location found---"
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"

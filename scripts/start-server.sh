@@ -63,7 +63,7 @@ else
     echo "---Creating SaveGameFolder config ---"
     sed -i '4i\    <property name="SaveGameFolder" value="/serverdata/serverfiles/Saves" />\' ${SERVER_DIR}/${SERVERCONFIG}
 fi
-echo "---Savegame Location found---"
+echo "---Savegame location found---"
 if [ ! -d ${SERVER_DIR}/User ]; then
     mkdir ${SERVER_DIR}/User
 fi
@@ -78,6 +78,7 @@ else
     echo "---Creating UserDataFolder config ---"
     sed -i '4i\    <property name="UserDataFolder" value="/serverdata/serverfiles/User" />\' ${SERVER_DIR}/${SERVERCONFIG}
 fi
+echo "---UserDataFolder location found---"
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 

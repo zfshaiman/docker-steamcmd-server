@@ -20,6 +20,7 @@ fi
 echo "---Update Server---"
 if [ "${USERNAME}" == "" ]; then
     if [ "${VALIDATE}" == "true" ]; then
+    	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
@@ -34,6 +35,7 @@ if [ "${USERNAME}" == "" ]; then
     fi
 else
     if [ "${VALIDATE}" == "true" ]; then
+    	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
@@ -49,13 +51,6 @@ else
 fi
 
 echo "---Prepare Server---"
-if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
-    mkdir ${DATA_DIR}/.steam/sdk32
-    cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
-    echo "---Server ready---"
-else
-    echo "---Server ready---"
-fi
 chmod -R 770 ${DATA_DIR}
 
 sleep infinity

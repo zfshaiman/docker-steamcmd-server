@@ -53,8 +53,6 @@ fi
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
 
-sleep infinity
-
 echo "---Start Server---"
-cd ${SERVER_DIR}/Linux
-${SERVER_DIR}/Binaries/Linux/InsurgencyServer-Linux-Shipping ${GAME_PARAMS} -Port=${GAME_PORT} -QueryPort=${QUERY_PORT} -log -hostname=${SERVER_NAME}
+cd ${SERVER_DIR}/Insurgency/Binaries/Linux
+${SERVER_DIR}/Insurgency/Binaries/Linux/InsurgencyServer-Linux-Shipping ${GAME_PARAMS} -Port=${GAME_PORT} -QueryPort=${QUERY_PORT} -log -hostname=${SERVER_NAME}

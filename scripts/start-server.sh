@@ -56,7 +56,5 @@ chmod -R 770 ${DATA_DIR}
 sleep infinity
 
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
-
-
-
+cd ${SERVER_DIR}/Linux
+${SERVER_DIR}/Binaries/Linux/InsurgencyServer-Linux-Shipping ${GAME_PARAMS} -Port=${GAME_PORT} -QueryPort=${QUERY_PORT} -log -hostname=${SERVER_NAME}

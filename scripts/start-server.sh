@@ -18,6 +18,7 @@ fi
 
 echo "---Update Server---"
 if [ "${VALIDATE}" == "true" ]; then
+	echo "---Validating installation---"
     ${STEAMCMD_DIR}/steamcmd.sh \
     +@sSteamCmdForcePlatformType windows \
     +login ${USERNAME} ${PASSWRD} \

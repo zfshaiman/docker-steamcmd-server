@@ -18,6 +18,7 @@ fi
 
 echo "---Update Server---"
 if [ "${VALIDATE}" == "true" ]; then
+	echo "---Validating installation---"
     ${STEAMCMD_DIR}/steamcmd.sh \
     +login ${USERNAME} ${PASSWRD} \
     +force_install_dir ${SERVER_DIR} \

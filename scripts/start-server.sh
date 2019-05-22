@@ -51,7 +51,7 @@ else
 fi
 
 echo "---Prepare Server---"
-if [ ${MOD_LAUNCHER} == "true" ]; then
+if [ "${MOD_LAUNCHER}" == "true" ]; then
 	echo "---Checking ModLauncher Version---"
 	LAT_V="$(curl -s https://api.github.com/repos/ago1024/WurmServerModLauncher/releases/latest | grep tag_name | cut -d '"' -f4| cut -f2 -d "v")"
 	CUR_V="$(find $DATA_DIR -name modlauncher-* | cut -d '-' -f 2,3)"
@@ -88,21 +88,21 @@ if [ ${MOD_LAUNCHER} == "true" ]; then
     fi
 fi
 echo "---Checking folder structure---"
-if [ ${GAME_MODE} == "Creative" ]; then
+if [ "${GAME_MODE}" == "Creative" ]; then
     echo "---Checking folder structure for 'Creative'---"
-    if [ ! -f ${SERVER_DIR}/Creative ]; then
-    	echo "---Folder structure correct...---"	
-    else
-    	cp -R ${SERVER_DIR}/dist/Creative/ ${SERVER_DIR}/
+    if [ ! -d ${SERVER_DIR}/Creative ]; then
+        cp -R ${SERVER_DIR}/dist/Creative/ ${SERVER_DIR}/
         echo "---Standard folder structure copied---"
-	fi
-elif [ ${GAME_MODE} == "Adventure" ]; then
-    echo "---Checking folder structure for 'Adventure'---"
-    if [ ! -f ${SERVER_DIR}/Adventure ]; then
-    	echo "---Folder structure correct...---"	
     else
+		echo "---Folder structure correct...---"
+	fi
+elif [ "${GAME_MODE}" == "Adventure" ]; then
+    echo "---Checking folder structure for 'Adventure'---"
+    if [ ! -d ${SERVER_DIR}/Adventure ]; then
     	cp -R ${SERVER_DIR}/dist/Adventure/ ${SERVER_DIR}/
         echo "---Standard folder structure copied---"
+    else
+        echo "---Folder structure correct...---"	
 	fi
 else
 	echo "---!!!Gamemode not set properly please define 'Creative' or 'Adventure' (without quotes) in the Docker template and restart the Container!!!---"
@@ -110,17 +110,17 @@ else
 fi
 if [ ! -f ${SERVER_DIR}/nativelibs/steamclient.so ]; then
     echo "---Check Steam files---"
-    cp $SERVER_DIR/linux64/steamclient.so $SERVEDIR/nativelibs/
+    cp ${SERVER_DIR}/linux64/steamclient.so ${SERVER_DIR}/nativelibs/
 fi
 echo "---Please wait---"
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"
-if [ ${MOD_LAUNCHER} == "true" ]; then
+if [ "${MOD_LAUNCHER}" == "true" ]; then
     ${SERVER_DIR}
-	${SERVER_DIR}/WurmUnlimited-patched SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
+	${SERVER_DIR}/WurmServerLauncher-patched SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
 else
 	${SERVER_DIR}
-	${SERVER_DIR}/WurmUnlimited SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
+	${SERVER_DIR}/WurmServerLauncher SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
 fi

@@ -108,19 +108,35 @@ else
 	echo "---!!!Gamemode not set properly please define 'Creative' or 'Adventure' (without quotes) in the Docker template and restart the Container!!!---"
     sleep infinity
 fi
+echo "---Checking if LaunchConfig.ini is present---"
+if [ ! -f ${SERVER_DIR}/LaunchConfig.ini ]; then
+	wget -q -O ${SERVER_DIR}/LaunchConfig.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/wurmunlimited/config/LaunchConfig.ini   
+    echo "---Downloaded standard LaunchConfig.ini---"
+else
+	echo "---LaunchConfig.ini present---"
+fi
+echo "---Checking if Steam file is present---"
 if [ ! -f ${SERVER_DIR}/nativelibs/steamclient.so ]; then
-    echo "---Check Steam files---"
     cp ${SERVER_DIR}/linux64/steamclient.so ${SERVER_DIR}/nativelibs/
+    echo "---Copied Steam file---"
+else
+	echo "---Steam file present---"
 fi
 echo "---Please wait---"
 chmod -R 770 ${DATA_DIR}
+echo "---Checking for old logs---"
+find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 echo "---Server ready---"
 
 echo "---Start Server---"
 if [ "${MOD_LAUNCHER}" == "true" ]; then
     ${SERVER_DIR}
-	${SERVER_DIR}/WurmServerLauncher-patched SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
+	screen -S FiveM -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/WurmServerLauncher-patched SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
+	sleep 2
+	tail -f ${SERVER_DIR}/masterLog.0
 else
 	${SERVER_DIR}
-	${SERVER_DIR}/WurmServerLauncher SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
+	screen -S FiveM -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/WurmServerLauncher SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
+	sleep 2
+	tail -f ${SERVER_DIR}/masterLog.0
 fi

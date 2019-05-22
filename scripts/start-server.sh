@@ -116,8 +116,6 @@ echo "---Please wait---"
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
-sleep infinity
-
 echo "---Start Server---"
 if [ ${MOD_LAUNCHER} == "true" ]; then
     ${SERVER_DIR}

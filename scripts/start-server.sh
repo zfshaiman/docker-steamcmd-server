@@ -51,13 +51,52 @@ else
 fi
 
 echo "---Prepare Server---"
+
+if [ ${MOD_LAUNCHER} == "true" ]; then
+    echo "---Checking folder structure for 'Creative'---"
+fi
+
+
+echo "---Checking Gamemode---"
+if [ ${GAME_MODE} == "Creative" ]; then
+    echo "---Checking folder structure for 'Creative'---"
+    if [ ! -f ${SERVER_DIR}/Creative ]; then
+    	echo "---Folder structure correct...---"	
+    else
+    	cp -R ${SERVER_DIR}/dist/Creative/ ${SERVER_DIR}/
+        echo "---Standard folder structure copied---"
+	fi
+
+elif [ ${GAME_MODE} == "Adventure" ]; then
+    echo "---Checking folder structure for 'Adventure'---"
+    if [ ! -f ${SERVER_DIR}/Adventure ]; then
+    	echo "---Folder structure correct...---"	
+    else
+    	cp -R ${SERVER_DIR}/dist/Adventure/ ${SERVER_DIR}/
+        echo "---Standard folder structure copied---"
+	fi
+else
+	echo "---!!!Gamemode not set properly please define 'Creative' or 'Adventure' (without quotes) in the Docker template and restart the Container!!!---"
+    sleep infinity
+fi
+
+
+if [ ! -f ${SERVER_DIR}/nativelibs/steamclient.so ]; then
+    echo "---Check Steam files---"
+    cp $SERVER_DIR/linux64/steamclient.so $SERVEDIR/nativelibs/
+fi
+echo "---Please wait---"
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
 sleep infinity
 
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
 
-
-
+if [ ${MOD_LAUNCHER} == "true" ]; then
+    ${SERVER_DIR}
+	${SERVER_DIR}/WurmUnlimited-patched SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
+else
+	${SERVER_DIR}
+	${SERVER_DIR}/WurmUnlimited SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}
+fi

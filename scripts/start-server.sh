@@ -51,13 +51,43 @@ else
 fi
 
 echo "---Prepare Server---"
-
 if [ ${MOD_LAUNCHER} == "true" ]; then
-    echo "---Checking folder structure for 'Creative'---"
+	echo "---Checking ModLauncher Version---"
+	LAT_V="$(curl -s https://api.github.com/repos/ago1024/WurmServerModLauncher/releases/latest | grep tag_name | cut -d '"' -f4| cut -f2 -d "v")"
+	CUR_V="$(find $DATA_DIR -name modlauncher-* | cut -d '-' -f 2,3)"
+    if [ -z "$CUR_V" ]; then
+       echo "---ModLauncher not found!---"
+       cd ${SERVER_DIR}
+       curl -s https://api.github.com/repos/ago1024/WurmServerModLauncher/releases/latest \
+       | grep "browser_download_url.*server-modlauncher-[^extended].*\.zip" \
+       | cut -d ":" -f 2,3 \
+       | cut -d '"' -f2 \
+       | wget -qi -
+       unzip -qo server-modlauncher-$LAT_V.zip
+       mv ${SERVER_DIR}/server-modlauncher-$LAT_V.zip ${DATA_DIR}/modlauncher-$LAT_V
+       chmod -R 770 *
+       ${SERVER_DIR}/patcher.sh
+    elif [ "$LAT_V" != "$CUR_V" ]; then
+       echo "---Newer version found, installing!---"
+       rm ${DATA_DIR}/modlauncher-$CUR_V
+       cd ${SERVER_DIR}
+       curl -s https://api.github.com/repos/ago1024/WurmServerModLauncher/releases/latest \
+       | grep "browser_download_url.*server-modlauncher-[^extended].*\.zip" \
+       | cut -d ":" -f 2,3 \
+       | cut -d '"' -f2 \
+       | wget -qi -
+       unzip -qo server-modlauncher-$LAT_V.zip
+       mv ${SERVER_DIR}/server-modlauncher-$LAT_V.zip ${DATA_DIR}/modlauncher-$LAT_V
+       chmod -R 770 *
+       ${SERVER_DIR}/patcher.sh
+    elif [ "$LAT_V" == "$CUR_V" ]; then
+       echo "---ModLauncher Version up-to-date---"
+    else
+       echo "---Something went wrong, putting server in sleep mode---"
+       sleep infinity
+    fi
 fi
-
-
-echo "---Checking Gamemode---"
+echo "---Checking folder structure---"
 if [ ${GAME_MODE} == "Creative" ]; then
     echo "---Checking folder structure for 'Creative'---"
     if [ ! -f ${SERVER_DIR}/Creative ]; then
@@ -66,7 +96,6 @@ if [ ${GAME_MODE} == "Creative" ]; then
     	cp -R ${SERVER_DIR}/dist/Creative/ ${SERVER_DIR}/
         echo "---Standard folder structure copied---"
 	fi
-
 elif [ ${GAME_MODE} == "Adventure" ]; then
     echo "---Checking folder structure for 'Adventure'---"
     if [ ! -f ${SERVER_DIR}/Adventure ]; then
@@ -79,8 +108,6 @@ else
 	echo "---!!!Gamemode not set properly please define 'Creative' or 'Adventure' (without quotes) in the Docker template and restart the Container!!!---"
     sleep infinity
 fi
-
-
 if [ ! -f ${SERVER_DIR}/nativelibs/steamclient.so ]; then
     echo "---Check Steam files---"
     cp $SERVER_DIR/linux64/steamclient.so $SERVEDIR/nativelibs/
@@ -92,7 +119,6 @@ echo "---Server ready---"
 sleep infinity
 
 echo "---Start Server---"
-
 if [ ${MOD_LAUNCHER} == "true" ]; then
     ${SERVER_DIR}
 	${SERVER_DIR}/WurmUnlimited-patched SERVERNAME="${WU_SERVERNAME}" SERVERPASSWORD="${WU_PWD}" ADMINPWD="${WU_ADMINPWD}" MAXPLAYERS="${WU_MAXPLAYERS}" EXTERNALPORT="${GAME_PORT}" QUERYPORT="${WU_QUERYPORT}" HOMESERVER="${WU_HOMESERVER}" HOMEKINGDOM="${WU_HOMEKINGDOM}" LOGINSERVER="${WU_LOGINSERVER}" EPICSETTINGS="${WU_EPICSERVERS}" start=${GAME_MODE} ${GAME_PARAMS}

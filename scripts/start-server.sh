@@ -111,7 +111,7 @@ else
     	echo "------------------------------------------------------"
         echo "---Folder structure for '${GAME_MODE}' not correct!---"
         echo "----Putting server in sleepmode, please copy your-----"
-        echo "------map to the root of the server and restart-------"
+        echo "---map to the root of the serverfolder and restart----"
         echo "------------------------------------------------------"
         echo
         sleep infinity

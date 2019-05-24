@@ -105,8 +105,18 @@ elif [ "${GAME_MODE}" == "Adventure" ]; then
         echo "---Folder structure correct...---"	
 	fi
 else
-	echo "---!!!Gamemode not set properly please define 'Creative' or 'Adventure' (without quotes) in the Docker template and restart the Container!!!---"
-    sleep infinity
+    echo "---Checking folder structure for custom map: '${GAME_MODE}'---"
+    if [ ! -d ${SERVER_DIR}/${GAME_MODE} ]; then
+    	echo
+    	echo "------------------------------------------------------"
+        echo "---Folder structure for '${GAME_MODE}' not correct!---"
+        echo "---Please copy your map to the root of the server! ---"
+        echo "------------------------------------------------------"
+        echo
+        sleep infinity
+    else
+        echo "---Folder structure correct...---"	
+	fi
 fi
 echo "---Checking if LaunchConfig.ini is present---"
 if [ ! -f ${SERVER_DIR}/LaunchConfig.ini ]; then

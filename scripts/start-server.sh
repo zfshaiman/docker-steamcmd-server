@@ -106,11 +106,12 @@ elif [ "${GAME_MODE}" == "Adventure" ]; then
 	fi
 else
     echo "---Checking folder structure for custom map: '${GAME_MODE}'---"
-    if [ ! -d ${SERVER_DIR}/${GAME_MODE} ]; then
+    if [ ! -f ${SERVER_DIR}/${GAME_MODE}/wurm.ini ]; then
     	echo
     	echo "------------------------------------------------------"
         echo "---Folder structure for '${GAME_MODE}' not correct!---"
-        echo "---Please copy your map to the root of the server! ---"
+        echo "----Putting server in sleepmode, please copy your-----"
+        echo "------map to the root of the server and restart-------"
         echo "------------------------------------------------------"
         echo
         sleep infinity

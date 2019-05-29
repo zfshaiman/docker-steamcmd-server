@@ -43,3 +43,6 @@ This Docker was mainly edited for better use with Unraid, if you don't use Unrai
 
 
 This Docker is forked from mattieserver, thank you for this wonderfull Docker.
+
+
+#### Support Tread: https://forums.unraid.net/topic/79530-support-ich777-gameserver-dockers/

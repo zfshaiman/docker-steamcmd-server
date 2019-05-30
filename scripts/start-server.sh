@@ -40,7 +40,7 @@ else
     echo "---server.cfg found..."
 fi
 echo "---Starting MariaDB...---"
-screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld
+screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld_safe
 sleep 10
 
 

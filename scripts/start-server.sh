@@ -39,11 +39,12 @@ if [ ! -f ${SERVER_DIR}/server.cfg ]; then
 else
     echo "---server.cfg found..."
 fi
-echo "---Starting MariaDB---"
-exec mysqld
+echo "---Starting MariaDB...---"
+screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld
+sleep 10
 
 
-
+echo "---Prepare Server---"
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
 chmod -R 770 ${DATA_DIR}
 
@@ -51,4 +52,6 @@ sleep infintiy
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-./arma3server ${GAME_PARAMS}
+screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m ./arma3server ${GAME_PARAMS}
+sleep 2
+tail -f ${SERVER_DIR}/MariaDBLog.0 ${SERVER_DIR}/Arma3Log.0

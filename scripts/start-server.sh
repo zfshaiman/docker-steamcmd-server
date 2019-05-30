@@ -82,7 +82,7 @@ fi
 
 echo "---Checking if 'exile' database is connected correctly---"
 INJECTED="$(mysql -u "steam" -p"exile" -e "USE 'exile'; SHOW TABLES;" | grep 'account')"
-if [ "$INJECTED" == "" ] ; then
+if [ "$INJECTED" = "" ] ; then
 	echo "---Database not connected, connecting...---"
     mysql -u "steam" -p"exile" -e "SOURCE $SERVER_DIR/data/MySQL/exile.sql"
     if [ "$INJECTED" == "account" ] ; then
@@ -92,7 +92,7 @@ if [ "$INJECTED" == "" ] ; then
         sleep infinity
     fi
 fi
-if [ "$INJECTED" == "account" ] ; then
+if [ "$INJECTED" = "account" ] ; then
 	echo "---Database setup correct!---"
 fi
 

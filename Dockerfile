@@ -15,7 +15,6 @@ ENV GAME_PORT=27015
 ENV MARIA_DB_ROOT_PWD="ExileMod"
 ENV EXILEMOD_SERVER_URL=""
 ENV EXILEMOD_URL=""
-ENV BAMBI_FIX=""
 ENV VALIDATE=""
 ENV UID=99
 ENV GID=100
@@ -36,6 +35,7 @@ RUN /etc/init.d/mysql start && \
 	mysql -u root -e "CREATE DATABASE IF NOT EXISTS exile;" && \
 	mysql -u root -e "GRANT ALL ON exile.* TO 'steam'@'%' IDENTIFIED BY 'exile';" && \
 	mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MARIA_DB_ROOT_PWD';FLUSH PRIVILEGES;"
+RUN sed -i '$a\[mysqld]\nsql-mode="ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_AUTO_CREATE_USER"' /etc/alternatives/my.cnf
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/

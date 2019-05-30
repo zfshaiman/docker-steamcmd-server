@@ -36,7 +36,6 @@ RUN chmod -R 770 $DATA_DIR/".local/share/Arma 3" && chmod -R 770 $DATA_DIR/".loc
 RUN chown -R steam /opt/scripts && chown -R steam $DATA_DIR/.local
 RUN chown -R steam:users /var/lib/mysql
 RUN chmod -R 770 /var/lib/mysql
-RUN mkdir /var/run/mysqld
 RUN chown -R steam:users /var/run/mysqld
 RUN chmod -R 770 /var/run/mysqld
 

@@ -1,4 +1,9 @@
 #!/bin/bash
+echo "---Checking for old logs---"
+find ${SERVER_DIR} -name "Arma3Log.0" -exec rm -f {} \;
+find ${SERVER_DIR} -name "ExileModLog.0" -exec rm -f {} \;
+find ${SERVER_DIR} -name "MariaDBLog.0" -exec rm -f {} \;
+
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
     wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 
@@ -31,6 +36,10 @@ else
     +app_update ${GAME_ID} \
     +quit
 fi
+
+echo "---Starting MariaDB...---"
+screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld_safe
+sleep 10
 
 echo "---Checking for ExileMod---"
 if [ ! -d ${SERVER_DIR}/data ]; then
@@ -114,15 +123,6 @@ fi
 echo "---Prepare Server---"
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
 chmod -R 770 ${DATA_DIR}
-
-echo "---Checking for old logs---"
-find ${SERVER_DIR} -name "Arma3Log.0" -exec rm -f {} \;
-find ${SERVER_DIR} -name "ExileModLog.0" -exec rm -f {} \;
-find ${SERVER_DIR} -name "MariaDBLog.0" -exec rm -f {} \;
-
-echo "---Starting MariaDB...---"
-screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld_safe
-sleep 10
 
 if [ "${BAMBI_FIX}" == "true" ]; then
 	if grep -r 'sql-mode="ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_AUTO_CREATE_USER"' /etc/alternatives/my.cnf; then

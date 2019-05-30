@@ -3,7 +3,7 @@ FROM ubuntu
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install wget lib32gcc1 lib32stdc++6
+RUN apt-get -y install wget lib32gcc1 lib32stdc++6 mariadb-server
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
@@ -31,6 +31,11 @@ ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
 RUN chmod -R 770 $DATA_DIR/".local/share/Arma 3" && chmod -R 770 $DATA_DIR/".local/share/Arma 3 - Other Profiles"
 RUN chown -R steam /opt/scripts && chown -R steam $DATA_DIR/.local
+RUN chown -R steam:users /var/run/mysqld
+RUN chmod -R 770 /var/run/mysqld
+RUN mkdir /var/run/mysqld
+RUN chown -R steam:users /var/run/mysqld
+RUN chmod -R 770 /var/run/mysqld
 
 USER steam
 

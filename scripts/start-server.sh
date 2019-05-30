@@ -111,13 +111,18 @@ else
     echo "---server.cfg found..."
 fi
 
-echo "---Starting MariaDB...---"
-screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld_safe
-sleep 10
-
 echo "---Prepare Server---"
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
 chmod -R 770 ${DATA_DIR}
+
+echo "---Checking for old logs---"
+find ${SERVER_DIR} -name "Arma3Log.0" -exec rm -f {} \;
+find ${SERVER_DIR} -name "ExileModLog.0" -exec rm -f {} \;
+find ${SERVER_DIR} -name "MariaDBLog.0" -exec rm -f {} \;
+
+echo "---Starting MariaDB...---"
+screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld_safe
+sleep 10
 
 if [ "${BAMBI_FIX}" == "true" ]; then
 	if grep -r 'sql-mode="ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_AUTO_CREATE_USER"' /etc/alternatives/my.cnf; then
@@ -129,6 +134,6 @@ fi
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m ./arma3server -cfg=@ExileServer/basic.cfg -config=@ExileServer/config.cfg -autoinit -mod=@Exile\; -servermod=@ExileServer\; >> serverlog.rpt ${GAME_PARAMS}
+screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m ./arma3server -cfg=@ExileServer/basic.cfg -config=@ExileServer/config.cfg -autoinit -mod=@Exile\; -servermod=@ExileServer\; >> ExileModLog.0 ${GAME_PARAMS}
 sleep 2
-tail -f ${SERVER_DIR}/MariaDBLog.0 ${SERVER_DIR}/Arma3Log.0
+tail -f ${SERVER_DIR}/MariaDBLog.0 ${SERVER_DIR}/Arma3Log.0 ${SERVER_DIR}/ExileModLog.0

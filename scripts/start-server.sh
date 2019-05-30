@@ -115,7 +115,7 @@ fi
 echo "---Prepare Server---"
 if [ ! -f ${SERVER_DIR}/server.cfg ]; then
     echo "---No server.cfg found, downloading...---"
-    wget -q -O ${SERVER_DIR}/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/arma3/config/server.cfg
+    wget -q -O ${SERVER_DIR}/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/arma3exilemod/config/server.cfg
 else
     echo "---server.cfg found..."
 fi

@@ -31,7 +31,7 @@ ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
 RUN chmod -R 770 $DATA_DIR/".local/share/Arma 3" && chmod -R 770 $DATA_DIR/".local/share/Arma 3 - Other Profiles"
 RUN chown -R steam /opt/scripts && chown -R steam $DATA_DIR/.local
-RUN chown steam:users /var/lib/mysql
+RUN chown -R steam:users /var/lib/mysql
 RUN chmod -R 770 /var/lib/mysql
 RUN mkdir /var/run/mysqld
 RUN chown -R steam:users /var/run/mysqld

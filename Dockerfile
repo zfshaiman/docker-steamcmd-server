@@ -3,7 +3,7 @@ FROM ubuntu
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install wget lib32gcc1 lib32stdc++6 mariadb-server screen
+RUN apt-get -y install wget lib32gcc1 lib32stdc++6 mariadb-server screen unzip
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

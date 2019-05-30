@@ -39,9 +39,15 @@ if [ ! -f ${SERVER_DIR}/server.cfg ]; then
 else
     echo "---server.cfg found..."
 fi
+echo "---Starting MariaDB---"
+exec mysqld
+
+
 
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
 chmod -R 770 ${DATA_DIR}
+
+sleep infintiy
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

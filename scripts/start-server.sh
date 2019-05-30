@@ -85,7 +85,8 @@ INJECTED="$(mysql -u "steam" -p"exile" -e "USE 'exile'; SHOW TABLES;" | grep 'ac
 if [ "$INJECTED" = "" ] ; then
 	echo "---Database not connected, connecting...---"
     mysql -u "steam" -p"exile" -e "SOURCE $SERVER_DIR/data/MySQL/exile.sql"
-    if [ "$INJECTED" == "account" ] ; then
+    INJECTED="$(mysql -u "steam" -p"exile" -e "USE 'exile'; SHOW TABLES;" | grep 'account')"
+    if [ "$INJECTED" = "account" ] ; then
     	echo "---Database successfully connected!---"
     else
     	echo "---Something went wrong, could not connect database!---"

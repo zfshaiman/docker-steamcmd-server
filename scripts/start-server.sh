@@ -53,6 +53,7 @@ if [ ! -d ${SERVER_DIR}/data ]; then
     	echo "---Something went wrong, ExileModServer not correctly installed---"
         sleep infinity
     fi
+    echo "---ExileMod Server successfully installed---"
     echo "---Downloading ExileMod (this can take some time)---"
     wget -q --show-progress ${EXILEMOD_URL}
 	if [ ! -f ${SERVER_DIR}/data/${EXILEMOD_URL##*/} ]; then
@@ -63,7 +64,35 @@ if [ ! -d ${SERVER_DIR}/data ]; then
     mv ${SERVER_DIR}/data/@Exile ${SERVER_DIR}
     rm ${SERVER_DIR}/data/${EXILEMOD_URL##*/}
     touch ${SERVER_DIR}/data/"${EXILEMOD_URL##*/}_installed"
-    
+    if [ ! -d ${SERVER_DIR}/@Exile ]; then
+    	echo "---Something went wrong, ExileMod not correctly installed---"
+        sleep infinity
+    fi
+    echo "---ExileMod successfully installed---"
+fi
+
+echo "---Checking if 'exile' database is connected correctly---"
+INJECTED="$(mysql -u "steam" -p"exile" -e "USE 'exile'; SHOW TABLES;" | grep 'account')"
+if [ "$INJECTED" == "" ] ; then
+	echo "---Database not connected, connecting...---"
+    mysql -u "steam" -p"exile" -e "SOURCE $SERVER_DIR/data/MySQL/exile.sql"
+    if [ "$INJECTED" == "account" ] ; then
+    	echo "---Database successfully connected!---"
+    else
+    	echo "---Something went wrong, could not connect database!---"
+        sleep infinity
+    fi
+elif [ "$INJECTED" == "account" ] ; then
+	echo "---Database setup correct!---"
+fi
+
+echo "---Checking if ExileMod is configured correctly for database connection---"
+if grep -rq 'Username = changeme' ${SERVER_DIR}/${SERVERCONFIG}; then
+	sed -i '/Username = changeme/c\Username = steam' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
+	sed -i '/Username = steam/!b;n;cPassword = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
+    echo "---Corrected ExileMod database connection---"
+fi
+
 
 echo "---Prepare Server---"
 if [ ! -f ${SERVER_DIR}/server.cfg ]; then
@@ -83,6 +112,6 @@ chmod -R 770 ${DATA_DIR}
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m ./arma3server ${GAME_PARAMS}
+screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m -cfg=@ExileServer/basic.cfg -config=@ExileServer/config.cfg -autoinit -mod=@Exile\; -servermod=@ExileServer\; >> serverlog.rpt ${GAME_PARAMS}
 sleep 2
 tail -f ${SERVER_DIR}/MariaDBLog.0 ${SERVER_DIR}/Arma3Log.0

@@ -28,7 +28,7 @@ RUN mkdir -p $DATA_DIR/".local/share/Arma 3" && mkdir -p $DATA_DIR/".local/share
 RUN ulimit -n 2048
 
 RUN mysqld && \
-	echo "CREATE USER IF NOT EXISTS 'steam'@'%' IDENTIFIED BY 'exile';" | mysql -u root mysql
+	echo "CREATE USER IF NOT EXISTS 'steam'@'%' IDENTIFIED BY 'exile';" | mysql -u root
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/

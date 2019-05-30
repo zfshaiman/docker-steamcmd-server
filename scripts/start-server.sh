@@ -48,8 +48,6 @@ echo "---Prepare Server---"
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
 chmod -R 770 ${DATA_DIR}
 
-sleep infintiy
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
 screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m ./arma3server ${GAME_PARAMS}

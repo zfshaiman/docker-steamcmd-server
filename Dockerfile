@@ -2,6 +2,7 @@ FROM ubuntu
 
 MAINTAINER ich777
 
+RUN dpkg --add-architecture i386
 RUN apt-get update
 RUN apt-get -y install wget lib32gcc1 lib32stdc++6 mariadb-server screen unzip
 

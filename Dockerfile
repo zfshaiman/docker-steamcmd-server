@@ -36,7 +36,6 @@ RUN /etc/init.d/mysql start && \
 	mysql -u root -e "CREATE DATABASE IF NOT EXISTS exile;" && \
 	mysql -u root -e "GRANT ALL ON exile.* TO 'steam'@'%' IDENTIFIED BY 'exile';" && \
 	mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MARIA_DB_ROOT_PWD';FLUSH PRIVILEGES;"
-RUN chown steam /etc/alternatives/my.cnf
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/

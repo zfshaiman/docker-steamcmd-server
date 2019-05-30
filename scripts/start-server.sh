@@ -32,6 +32,39 @@ else
     +quit
 fi
 
+echo "---Checking for ExileMod---"
+if [ ! -d ${SERVER_DIR}/data ]; then
+	echo "---ExileMod not found, creating 'data' directory---"
+	cd ${SERVER_DIR}
+	mkdir ${SERVER_DIR}/data
+    cd ${SERVER_DIR}/data
+    echo "---Downloading ExileMod Server---"
+    wget -q --show-progress ${EXILEMOD_SERVER_URL}
+    if [ ! -f ${SERVER_DIR}/data/${EXILEMOD_SERVER_URL##*/} ]; then
+    	echo "---Something went wrong, could not find download---"
+        sleep infinity
+    fi
+    unzip ${EXILEMOD_SERVER_URL##*/}
+    cp -R ${SERVER_DIR}/data/Arma\ 3\ Server/* ${SERVER_DIR}
+    rm -R ${SERVER_DIR}/data/Arma\ 3\ Server/
+    rm ${SERVER_DIR}/data/${EXILEMOD_SERVER_URL##*/}
+    touch ${SERVER_DIR}/data/"${EXILEMOD_SERVER_URL##*/}_installed"
+    if [ ! -d ${SERVER_DIR}/@ExileServer ]; then
+    	echo "---Something went wrong, ExileModServer not correctly installed---"
+        sleep infinity
+    fi
+    echo "---Downloading ExileMod (this can take some time)---"
+    wget -q --show-progress ${EXILEMOD_URL}
+	if [ ! -f ${SERVER_DIR}/data/${EXILEMOD_URL##*/} ]; then
+		echo "---Something went wrong, could not find download---"
+		sleep infinity
+    fi
+    unzip ${EXILEMOD_URL##*/}
+    mv ${SERVER_DIR}/data/@Exile ${SERVER_DIR}
+    rm ${SERVER_DIR}/data/${EXILEMOD_URL##*/}
+    touch ${SERVER_DIR}/data/"${EXILEMOD_URL##*/}_installed"
+    
+
 echo "---Prepare Server---"
 if [ ! -f ${SERVER_DIR}/server.cfg ]; then
     echo "---No server.cfg found, downloading...---"

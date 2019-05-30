@@ -82,17 +82,26 @@ if [ "$INJECTED" == "" ] ; then
     	echo "---Something went wrong, could not connect database!---"
         sleep infinity
     fi
-elif [ "$INJECTED" == "account" ] ; then
+fi
+if [ "$INJECTED" == "account" ] ; then
 	echo "---Database setup correct!---"
 fi
 
 echo "---Checking if ExileMod is configured correctly for database connection---"
-if grep -rq 'Username = changeme' ${SERVER_DIR}/${SERVERCONFIG}; then
+if grep -rq 'Username = changeme' ${SERVER_DIR}/@ExileServer/extdb-conf.ini; then
 	sed -i '/Username = changeme/c\Username = steam' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
 	sed -i '/Username = steam/!b;n;cPassword = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
     echo "---Corrected ExileMod database connection---"
 fi
 
+if grep -rq 'Username = steam' ${SERVER_DIR}/@ExileServer/extdb-conf.ini; then
+	if grep -rq 'Password = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini; then
+    	:
+    else
+    	sed -i '/Username = steam/!b;n;cPassword = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
+    fi
+	echo "---ExileMod database connection correct---"
+fi
 
 echo "---Prepare Server---"
 if [ ! -f ${SERVER_DIR}/server.cfg ]; then
@@ -101,17 +110,25 @@ if [ ! -f ${SERVER_DIR}/server.cfg ]; then
 else
     echo "---server.cfg found..."
 fi
+
 echo "---Starting MariaDB...---"
 screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld_safe
 sleep 10
-
 
 echo "---Prepare Server---"
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
 chmod -R 770 ${DATA_DIR}
 
+if [ "${BAMBI_FIX}" == "true" ]; then
+	if grep -r 'sql-mode="ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_AUTO_CREATE_USER"' /etc/alternatives/my.cnf; then
+    	:
+    else
+		sed -i '$a\[mysqld]\nsql-mode="ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_AUTO_CREATE_USER"' /etc/alternatives/my.cnf
+    fi
+fi
+
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m -cfg=@ExileServer/basic.cfg -config=@ExileServer/config.cfg -autoinit -mod=@Exile\; -servermod=@ExileServer\; >> serverlog.rpt ${GAME_PARAMS}
+screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m ./arma3server -cfg=@ExileServer/basic.cfg -config=@ExileServer/config.cfg -autoinit -mod=@Exile\; -servermod=@ExileServer\; >> serverlog.rpt ${GAME_PARAMS}
 sleep 2
 tail -f ${SERVER_DIR}/MariaDBLog.0 ${SERVER_DIR}/Arma3Log.0

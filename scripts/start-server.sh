@@ -26,12 +26,14 @@ if [ "${USERNAME}" == "" ]; then
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
+        +@sSteamCmdForcePlatformType windows \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
+        +@sSteamCmdForcePlatformType windows \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} \
@@ -41,12 +43,14 @@ else
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
+        +@sSteamCmdForcePlatformType windows \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
+        +@sSteamCmdForcePlatformType windows \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} \
@@ -55,13 +59,31 @@ else
 fi
 
 echo "---Prepare Server---"
+echo "---Checking for 'saves' directory---"
+if [ ! -d ${SERVER_DIR}/saves ]; then
+	echo "---'saves' not found creating---"
+    mkdir ${SERVER_DIR}/saves
+fi
+echo "---Directory 'saves' found!---"
+
+echo "---Checking for 'config.cfg'---"
+if [ ! -f ${SERVER_DIR}/config/config.cfg ]; then
+	echo "---'config.cfg' not found downloading---"
+    if [ ! -d ${SERVER_DIR}/config ]; then
+    	mkdir ${SERVER_DIR}/config
+    fi
+    cd ${SERVER_DIR}/config
+    wget -qi ${SERVER_DIR}/config/config.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/theforest/config/config.cfg
+    if [ -f ${SERVER_DIR}/config/config.cfg ]; then
+    	echo "---'config.cfg' successfully downloaded---"
+    else
+    	echo "---Something went wrong, can't download 'config.cfg'---"
+        sleep infinity
+    fi
+fi
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
-sleep infinity
-
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
-
-
-
+cd ${SERVER_DIR}
+xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine ${SERVER_DIR}/TheForestDedicatedServer.exe -batchmode -dedicated -savefolderpath "${SERVER_DIR}/saves/" -configfilepath "${SERVER_DIR}/config/config.cfg" ${GAME_PARAMS}

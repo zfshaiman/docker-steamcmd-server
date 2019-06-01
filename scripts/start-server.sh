@@ -51,11 +51,29 @@ else
 fi
 
 echo "---Prepare Server---"
+echo "---Checking for 'Game2.ini'---"
+if [ ! -f ${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer/Game2.ini ]; then
+	echo "---'Game2.ini' not found, downloading---"
+    if [ ! -d ${SERVER_DIR}/Mordhau/Saved ]; then
+    	mkdir ${SERVER_DIR}/Mordhau/Saved
+    fi
+    if [ ! -d ${SERVER_DIR}/Mordhau/Saved/Config ]; then
+    	mkdir ${SERVER_DIR}/Mordhau/Saved/Config
+    fi
+    if [ ! -d ${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer ]; then
+    	mkdir ${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer
+    fi
+    cd ${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer
+    wget -qO Game2.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/mordhau/config/Game2.ini
+    if [ ! -f ${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer/Game2.ini ]; then
+    	echo "---Something went wrong, can't download 'Game2.ini'---"
+        sleep infinity
+    fi
+else
+	echo "---'Game2.ini' found!---"
+fi
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
-
-echo "---sleep---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

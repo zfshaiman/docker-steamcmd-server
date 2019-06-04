@@ -58,7 +58,5 @@ echo "---Sleep---"
 sleep infinity
 
 echo "---Start Server---"
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
-
-
-
+cd ${SERVER_DIR}
+${SERVER_DIR}/RustDedicated -batchmode ${GAME_PARAMS} +server.port ${GAME_PORT} -logfile gamelog.log

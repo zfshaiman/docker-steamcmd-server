@@ -52,6 +52,8 @@ fi
 
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
+echo "---Setting Library path---"
+export LD_LIBRARY_PATH=:/bin/RustDedicated_Data/Plugins/x86_64
 echo "---Server ready---"
 
 echo "---Sleep---"
@@ -59,4 +61,4 @@ sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/RustDedicated -batchmode +server.port 28015 +server.hostname "chipsServer" +server.description "Docker-Rust Server" +server.maxplayers 10 -logfile "gamelog.log"
+${SERVER_DIR}/RustDedicated -batchmode +server.port 28015 +server.hostname "chipsServer" +server.description "Docker-Rust Server" +server.maxplayers 10

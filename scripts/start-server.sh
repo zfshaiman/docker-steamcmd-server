@@ -56,9 +56,6 @@ echo "---Setting Library path---"
 export LD_LIBRARY_PATH=:/bin/RustDedicated_Data/Plugins/x86_64
 echo "---Server ready---"
 
-echo "---Sleep---"
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/RustDedicated -batchmode +server.port 28015 +server.hostname "chipsServer" +server.description "Docker-Rust Server" +server.maxplayers 10
+${SERVER_DIR}/RustDedicated -batchmode +server.port ${GAME_PORT} +server.hostname "${SERVER_NAME}" +server.description "${SERVER_DISCRIPTION}"

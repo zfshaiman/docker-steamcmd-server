@@ -51,7 +51,6 @@ else
 fi
 
 echo "---Prepare Server---"
-chmod -R 770 ${DATA_DIR}
 echo "---Checking for 'serversettings.xml'---"
 if [ ! -f ${SERVER_DIR}/serversettings.xml ]; then
     echo "---No 'serversettings.xml' found, downloading...---"
@@ -60,7 +59,20 @@ if [ ! -f ${SERVER_DIR}/serversettings.xml ]; then
 else
     echo "---'serversettings.xml' found..."
 fi
+echo "---Checking if everything is in place---"
+if [ ! -f ${SERVER_DIR}/lib64/steamclient.so ]; then
+    echo "---Correcting errors---"
+	cp ${STEAMCMD_DIR}/linux64/steamclient.so ${SERVER_DIR}/lib64/steamclient.so
+    if [ ! -f ${SERVER_DIR}/lib64/steamclient.so ]; then
+    	echo "---Something went wrong, can't copy 'steamclient.so' putting server into sleep mode---"
+        sleep infinity
+    fi
+    echo "---Errors corrected---"
+else
+	echo "---Everything is in place---"
+fi
 sed -i '/name="Server"/c\  name="DockerServer"' ${SERVER_DIR}/serversettings.xml
+chmod -R 770 ${DATA_DIR}
 
 echo "---Server ready---"
 

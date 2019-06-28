@@ -63,4 +63,4 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/DedicatedServer ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/DedicatedServer ${GAME_PARAMS}

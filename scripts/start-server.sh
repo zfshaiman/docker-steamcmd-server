@@ -52,10 +52,14 @@ fi
 
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
+echo "---Checking for 'serversettings.xml'---"
+if [ ! -f ${SERVER_DIR}/server.properties ]; then
+    echo "---No 'serversettings.xml' found, downloading...---"
+    wget -qO ${SERVER_DIR}/serversettings.xml https://raw.githubusercontent.com/Regalis11/Barotrauma/master/Barotrauma/BarotraumaShared/serversettings.xml
+else
+    echo "---'serversettings.xml' found..."
+fi
 echo "---Server ready---"
-
-echo "---Sleep zZz...---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

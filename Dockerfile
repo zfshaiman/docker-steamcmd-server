@@ -3,8 +3,7 @@ FROM ubuntu
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install lib32gcc1
-RUN apt-get -y install --reinstall ca-certificates
+RUN apt-get -y install lib32gcc1 wget ca-certificates
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

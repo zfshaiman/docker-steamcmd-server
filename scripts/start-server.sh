@@ -73,9 +73,13 @@ else
 fi
 sed -i '/name="Server"/c\  name="DockerServer"' ${SERVER_DIR}/serversettings.xml
 chmod -R 770 ${DATA_DIR}
+echo "---Checking for old logs---"
+find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 
 echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/DedicatedServer ${GAME_PARAMS}
+screen -S Barotrauma -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/DedicatedServer ${GAME_PARAMS}
+sleep 2
+tail -f ${SERVER_DIR}/masterLog.0

@@ -56,9 +56,12 @@ echo "---Checking for 'serversettings.xml'---"
 if [ ! -f ${SERVER_DIR}/serversettings.xml ]; then
     echo "---No 'serversettings.xml' found, downloading...---"
     wget -qO ${SERVER_DIR}/serversettings.xml https://raw.githubusercontent.com/Regalis11/Barotrauma/master/Barotrauma/BarotraumaShared/serversettings.xml
+    sleep 2
 else
     echo "---'serversettings.xml' found..."
 fi
+sed -i '/name="Server"/c\  name="DockerServer"' ${SERVER_DIR}/serversettings.xml
+
 echo "---Server ready---"
 
 echo "---Start Server---"

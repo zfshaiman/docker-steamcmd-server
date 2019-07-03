@@ -2,6 +2,7 @@ FROM ubuntu
 
 MAINTAINER ich777
 
+RUN dpkg --add-architecture i386
 RUN apt-get update
 RUN apt-get -y install lib32gcc1 wget
 
@@ -11,7 +12,7 @@ ENV SERVER_DIR="${DATA_DIR}/serverfiles"
 ENV GAME_ID="template"
 ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"
-ENV GAME_PORT=27015
+ENV GAME_PORT=27016
 ENV VALIDATE=""
 ENV UID=99
 ENV GID=100

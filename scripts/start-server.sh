@@ -52,11 +52,14 @@ fi
 
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
+echo "---Checking for old logs---"
+find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 echo "---Server ready---"
-
-echo "---Sleep zZz...---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+screen -S ColonySurvival -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m \
+    mono colonyserverdedicated.exe start_server \
+    +server.name "${SRV_NAME}" +server.networktype SteamOnline +server.world ${SRV_WORLDNAME} ${GAME_PARAMS}
+sleep 2
+tail -f ${SERVER_DIR}/masterLog.0

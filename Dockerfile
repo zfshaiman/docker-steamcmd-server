@@ -11,6 +11,8 @@ RUN apt-get -y install lib32gcc1 wget screen mono-complete
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
+ENV SRV_NAME="Colony Survival Docker"
+ENV SRV_WORLDNAME="ColonySurvival"
 ENV GAME_ID="template"
 ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"

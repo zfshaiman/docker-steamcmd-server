@@ -60,6 +60,6 @@ echo "---Start Server---"
 cd ${SERVER_DIR}
 screen -S ColonySurvival -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m \
     mono colonyserverdedicated.exe start_server \
-    +server.name "${SRV_NAME}" +server.networktype SteamOnline +server.world ${SRV_WORLDNAME} ${GAME_PARAMS}
+    +server.name "${SRV_NAME}" +server.networktype ${SRV_NETTYPE} +server.world ${SRV_WORLDNAME} ${GAME_PARAMS}
 sleep 2
 tail -f ${SERVER_DIR}/masterLog.0

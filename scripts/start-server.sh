@@ -72,4 +72,4 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-colonyserver.x86_64 -batchmode -nographics +server.name "${SRV_NAME}" +server.networktype ${SRV_NETTYPE} +server.world ${SRV_WORLDNAME} ${GAME_PARAMS}
+${SERVER_DIR}/colonyserver.x86_64 -batchmode -nographics +server.name "${SRV_NAME}" +server.networktype ${SRV_NETTYPE} +server.world ${SRV_WORLDNAME} ${GAME_PARAMS}

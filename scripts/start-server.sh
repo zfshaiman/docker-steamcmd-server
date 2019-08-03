@@ -52,14 +52,24 @@ fi
 
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
-echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
+echo "---Checking if everything is in place---"
+if [ ! -f ${DATA_DIR}/.steam/sdk64/steamclient.so ]; then
+    echo "---Moving files in place---"
+	if [ ! -d ${DATA_DIR}/.steam/sdk64 ]; then
+    	mkdir ${DATA_DIR}/.steam/sdk64
+    fi
+	cp ${SERVER_DIR}/linux64/steamclient.so ${DATA_DIR}/.steam/sdk64/steamclient.so
+    sleep 2
+   	if [ ! -f ${DATA_DIR}/.steam/sdk64/steamclient.so ]; then
+    	echo "---Something went wrong, couldn't move steamclient.so putting server into sleep mode---"
+        sleep infinity
+    fi
+    echo "---Everyting moved correctly---"
+fi
+echo "---Everyting is in place---"
 echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S ColonySurvival -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m \
-    mono colonyserverdedicated.exe start_server \
-    +server.name "${SRV_NAME}" +server.networktype ${SRV_NETTYPE} +server.world ${SRV_WORLDNAME} ${GAME_PARAMS}
-sleep 2
-tail -f ${SERVER_DIR}/masterLog.0
+colonyserver.x86_64 -batchmode -nographics +server.name "${SRV_NAME}" +server.networktype ${SRV_NETTYPE} +server.world ${SRV_WORLDNAME} ${GAME_PARAMS}

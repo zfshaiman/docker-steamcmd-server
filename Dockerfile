@@ -4,9 +4,7 @@ MAINTAINER ich777
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-ENV TZ=Europe/Rome
-RUN apt-get -y install lib32gcc1 wget screen mono-complete
+RUN apt-get -y install lib32gcc1 wget screen
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

@@ -52,11 +52,12 @@ fi
 
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
+if grep -rq '"A New Quake Live Dedicated Server"' ${SERVER_DIR}/baseq3/server.cfg; then
+	sed -i '/set sv_hostname "A New Quake Live Dedicated Server"/c\set sv_hostname "Quake Live Docker"' ${SERVER_DIR}/baseq3/server.cfg
+	sed -i '/g_password ""/c\set g_password "Docker"          // Set a server-wide password, and stop all users from connecting without it.' ${SERVER_DIR}/baseq3/server.cfg
+fi
 echo "---Server ready---"
-
-echo "---Sleep zZz...---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/run_server_x64.sh ${GAME_PARAMS}

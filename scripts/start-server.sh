@@ -94,8 +94,6 @@ fi
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}/ShooterGame/Binaries/Linux
 ./ShooterGameServer ${MAP_NAME}${GAME_PARAMS} ${GAME_PARAMS_EXTRA}

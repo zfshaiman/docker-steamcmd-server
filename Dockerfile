@@ -4,7 +4,7 @@ MAINTAINER ich777
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get -y install lib32gcc1 wget perl-modules curl lsof libc6-i386 bzip2 jq
+RUN apt-get -y install lib32gcc1 wget perl-modules curl lsof libc6-i386 bzip2 jq libssl1.0.0 libidn11
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

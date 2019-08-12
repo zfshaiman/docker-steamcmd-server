@@ -50,9 +50,11 @@ else
     fi
 fi
 
-echo "---Starting Redis Server---"
-screen -S RedisServer -d -m /usr/bin/redis-server
-sleep 5
+if [ "${ENA_REDIS}" == "yes" ]; then
+	echo "---Starting Redis Server---"
+	screen -S RedisServer -d -m /usr/bin/redis-server
+	sleep 5
+fi
 
 echo "---Prepare Server---"
 echo "---Searching for grid files...---"

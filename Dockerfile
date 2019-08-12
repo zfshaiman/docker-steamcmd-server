@@ -9,10 +9,8 @@ RUN apt-get -y install lib32gcc1 wget perl-modules curl lsof libc6-i386 bzip2 jq
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
-ENV GAME_ID="template"
-ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"
-ENV GAME_EXTRA_PARAMS="template"
+ENV GAME_PARAMS_EXTRA="template"
 ENV MAP_NAME="Ocean"
 ENV GAME_PORT=27015
 ENV VALIDATE=""

@@ -58,5 +58,5 @@ echo "---Sleep zZz...---"
 sleep infinity
 
 echo "---Start Server---"
-cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+cd ${SERVER_DIR}/ShooterGame/Binaries/Linux
+./ShooterGameServer ${MAP_NAME}${GAME_PARAMS} ${GAME_PARAMS_EXTRA}

@@ -54,6 +54,15 @@ if [ "${ENA_REDIS}" == "yes" ]; then
 	echo "---Starting Redis Server---"
 	screen -S RedisServer -d -m /usr/bin/redis-server
 	sleep 5
+else
+	echo "------------------------------------"
+	echo "-----Internal Redis Server not------"
+    echo "-----enabled, make sure you've------"
+    echo "----configured your ATLAS server----"
+    echo "--for an external REDIS connection--"
+    echo "----otherwise it will not start!----"
+    echo "------------------------------------"
+    sleep 5
 fi
 
 echo "---Prepare Server---"

@@ -59,4 +59,4 @@ sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/Unturned.x86_64 -nographics ${GAME_PARAMS} -sv

@@ -53,7 +53,7 @@ else
 fi
 
 if [ "${ROCKET_MOD}" == "true" ]; then
-	if [ -f ${SERVER_DIR}/Modules ]; then
+	if [ ! -f ${SERVER_DIR}/Modules ]; then
     	echo "---Rocket Mod not found, installing---"
 		cd ${SERVER_DIR}
 		if wget -q ${ROCKET_URL} ; then
@@ -64,6 +64,8 @@ if [ "${ROCKET_MOD}" == "true" ]; then
         fi
 		unzip ${SERVER_DIR}/Rocket.zip
         rm Rocket.zip
+	else
+		echo "---Rocket Mod found---"
     fi
     if [ "${ROCKET_FORCE_UPDATE}" == "true" ]; then
     	echo "---Rocket Mod update forced---"
@@ -77,8 +79,6 @@ if [ "${ROCKET_MOD}" == "true" ]; then
 		unzip -o ${SERVER_DIR}/Rocket.zip
         rm Rocket.zip
     fi
-    else
-    	echo "---Rocket Mod found---"
 fi
 
 echo "---Prepare Server---"

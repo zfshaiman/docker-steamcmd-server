@@ -90,4 +90,4 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/Unturned_Headless.x86_64 -nographics ${GAME_PARAMS} -sv
+${SERVER_DIR}/Unturned_Headless.x86_64 -nographics ${GAME_PARAMS} -port:${GAME_PORT} -sv

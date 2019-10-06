@@ -1,4 +1,6 @@
 #!/bin/bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${SERVER_DIR}/Unturned_Headless_Data/Plugins/x86_64/
+
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
     wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 
@@ -50,13 +52,42 @@ else
     fi
 fi
 
+if [ "${ROCKET_MOD}" == "true" ]; then
+	if [ -f ${SERVER_DIR}/Modules ]; then
+    	echo "---Rocket Mod not found, installing---"
+		cd ${SERVER_DIR}
+		if wget -q ${ROCKET_URL} ; then
+        	echo "---Rocketmod download complete---"
+        else
+        	echo "---Can't download Rocket Mod, putting server into sleep mode---"
+            sleep infinity
+        fi
+		unzip ${SERVER_DIR}/Rocket.zip
+        rm Rocket.zip
+    fi
+    if [ "${ROCKET_FORCE_UPDATE}" == "true" ]; then
+    	echo "---Rocket Mod update forced---"
+		cd ${SERVER_DIR}
+		if wget -q ${ROCKET_URL} ; then
+        	echo "---Rocketmod download complete---"
+        else
+        	echo "---Can't download Rocket Mod, putting server into sleep mode---"
+            sleep infinity
+        fi
+		unzip -o ${SERVER_DIR}/Rocket.zip
+        rm Rocket.zip
+    fi
+    else
+    	echo "---Rocket Mod found---"
+fi
+
 echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
+if [ ! -f ${SERVER_DIR}/Unturned_Headless_Data/Plugins/x86_64/steamclient.so ]; then
+	cp ${STEAMCMD_DIR}/linux64/steamclient.so ${SERVER_DIR}/Unturned_Headless_Data/Plugins/x86_64
+fi
 echo "---Server ready---"
-
-echo "---Sleep zZz...---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/Unturned.x86_64 -nographics ${GAME_PARAMS} -sv
+${SERVER_DIR}/Unturned_Headless.x86_64 -nographics ${GAME_PARAMS} -sv

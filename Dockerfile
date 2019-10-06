@@ -3,7 +3,7 @@ FROM ubuntu
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install lib32gcc1 wget
+RUN apt-get -y install lib32gcc1 wget unzip
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
@@ -13,6 +13,9 @@ ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"
 ENV GAME_PORT=27015
 ENV VALIDATE=""
+ENV ROCKET_MOD="true"
+ENV ROCKET_URL="https://ci.rocketmod.net/job/Rocket.Unturned/lastSuccessfulBuild/artifact/Rocket.Unturned/bin/Release/Rocket.zip"
+ENV ROCKET_FORCE_UPDATE=""
 ENV UID=99
 ENV GID=100
 ENV USERNAME=""

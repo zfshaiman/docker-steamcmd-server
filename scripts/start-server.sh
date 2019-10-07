@@ -60,6 +60,8 @@ if [ ! -f ${SERVER_DIR}/default.ini ]; then
 		echo "---Something went wrong, can't download 'default.ini', putting server in sleep mode---"
 		sleep infinity
 	fi
+else
+	echo "---Configuration file 'default.ini' found---"
 fi
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"

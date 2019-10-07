@@ -54,9 +54,6 @@ echo "---Prepare Server---"
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Sleep zZz...---"
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
 ${SERVER_DIR}/rocketstation_DedicatedServer.x86_64 -autostart -batchmode -nographics ${GAME_PARAMS}

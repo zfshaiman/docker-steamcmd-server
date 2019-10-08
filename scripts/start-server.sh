@@ -81,6 +81,9 @@ else
     sed -i '4i\    <property name="UserDataFolder" value="/serverdata/serverfiles/User" />\' ${SERVER_DIR}/${SERVERCONFIG}
 fi
 echo "---UserDataFolder location found---"
+if [ ! -f ${SERVER_DIR}/steamclient.so ]; then
+	cp ${STEAMCMD_DIR}/linux64/steamclient.so ${SERVER_DIR}/
+fi
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 

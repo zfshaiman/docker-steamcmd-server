@@ -25,12 +25,14 @@ if [ "${USERNAME}" == "" ]; then
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} validate \
+        +app_set_config ${GAME_MOD} \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} \
+        +app_set_config ${GAME_MOD} \
         +quit
     fi
 else
@@ -40,14 +42,38 @@ else
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} validate \
+        +app_set_config ${GAME_MOD} \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} \
+        +app_set_config ${GAME_MOD} \
         +quit
     fi
+fi
+
+echo "---Checking if everything is installed correctly---"
+if [ ! -d ${SERVER_DIR}/tfc ]; then
+    echo "---Not everything is installed correctly, trying again---"
+    if [ "${USERNAME}" == "" ]; then
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login anonymous \
+        +force_install_dir ${SERVER_DIR} \
+        +app_update ${GAME_ID} validate \
+        +app_set_config ${GAME_MOD} \
+        +quit
+    else
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login ${USERNAME} ${PASSWRD} \
+        +force_install_dir ${SERVER_DIR} \
+        +app_update ${GAME_ID} validate \
+        +app_set_config ${GAME_MOD} \
+        +quit
+    fi
+else
+echo "---Everything is installed correctly---"
 fi
 
 echo "---Prepare Server---"

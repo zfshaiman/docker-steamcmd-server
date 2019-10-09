@@ -24,15 +24,15 @@ if [ "${USERNAME}" == "" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} validate \
         +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} \
         +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} \
         +quit
     fi
 else
@@ -41,15 +41,15 @@ else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} validate \
         +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} \
         +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} \
         +quit
     fi
 fi
@@ -61,15 +61,15 @@ if [ ! -d ${SERVER_DIR}/tfc ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} validate \
         +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} validate \
         +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} validate \
         +quit
     fi
 else
@@ -77,12 +77,16 @@ echo "---Everything is installed correctly---"
 fi
 
 echo "---Prepare Server---"
+mkdir ${DATA_DIR}/.steam/sdk32
+cp ${SERVER_DIR}/steamclient.so ${DATA_DIR}/.steam/sdk32/steamclient.so
 chmod -R 770 ${DATA_DIR}
-echo "---Server ready---"
-
-echo "---Sleep zZz---"
-sleep infinity
+if [ ! -d ${SERVER_DIR}/cstrike ]; then
+    echo "---Server ready---"
+else
+    rm -R ${SERVER_DIR}/cstrike
+    echo "---Server ready---"
+fi
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/hlds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}

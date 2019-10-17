@@ -69,5 +69,9 @@ chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"
+if [ ! -f ${SERVER_DIR}/linux/starbound_server ]; then
+	echo "---Something went wrong with the game download, putting server into sleep mode---"
+    sleep infinity
+fi
 cd ${SERVER_DIR}
 ${SERVER_DIR}/linux/starbound_server ${GAME_PARAMS}

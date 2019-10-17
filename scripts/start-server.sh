@@ -12,9 +12,15 @@ if [ "${USERNAME}" == "" ]; then
     +login anonymous \
     +quit
 else
-    ${STEAMCMD_DIR}/steamcmd.sh \
-    +login ${USERNAME} ${PASSWRD} \
-    +quit
+		if [ "${STEAM_GUARD}" == "" }; then
+    		${STEAMCMD_DIR}/steamcmd.sh \
+    		+login ${USERNAME} ${PASSWRD} \
+    		+quit
+        else
+    		echo "${STEAM_GUARD}" | ${STEAMCMD_DIR}/steamcmd.sh \
+    		+login ${USERNAME} ${PASSWRD} \
+    		+quit
+        fi
 fi
 
 echo "---Update Server---"
@@ -36,17 +42,33 @@ if [ "${USERNAME}" == "" ]; then
 else
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
-        ${STEAMCMD_DIR}/steamcmd.sh \
-        +login ${USERNAME} ${PASSWRD} \
-        +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} validate \
-        +quit
+        if [ "${STEAM_GUARD}" == "" }; then
+            ${STEAMCMD_DIR}/steamcmd.sh \
+            +login ${USERNAME} ${PASSWRD} \
+            +force_install_dir ${SERVER_DIR} \
+            +app_update ${GAME_ID} validate \
+            +quit
+        else
+            echo "${STEAM_GUARD}" | ${STEAMCMD_DIR}/steamcmd.sh \
+            +login ${USERNAME} ${PASSWRD} \
+            +force_install_dir ${SERVER_DIR} \
+            +app_update ${GAME_ID} validate \
+            +quit
+        fi
     else
-        ${STEAMCMD_DIR}/steamcmd.sh \
-        +login ${USERNAME} ${PASSWRD} \
-        +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} \
-        +quit
+        if [ "${STEAM_GUARD}" == "" }; then
+            ${STEAMCMD_DIR}/steamcmd.sh \
+            +login ${USERNAME} ${PASSWRD} \
+            +force_install_dir ${SERVER_DIR} \
+            +app_update ${GAME_ID} \
+            +quit
+        else
+            echo "${STEAM_GUARD}" | ${STEAMCMD_DIR}/steamcmd.sh \
+            +login ${USERNAME} ${PASSWRD} \
+            +force_install_dir ${SERVER_DIR} \
+            +app_update ${GAME_ID} \
+            +quit
+        fi
     fi
 fi
 

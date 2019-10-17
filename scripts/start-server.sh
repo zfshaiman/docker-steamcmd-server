@@ -12,15 +12,9 @@ if [ "${USERNAME}" == "" ]; then
     +login anonymous \
     +quit
 else
-		if [ "${STEAM_GUARD}" == "" ]; then
-    		${STEAMCMD_DIR}/steamcmd.sh \
-    		+login ${USERNAME} ${PASSWRD} \
-    		+quit
-        else
-    		echo "${STEAM_GUARD}" | ${STEAMCMD_DIR}/steamcmd.sh \
-    		+login ${USERNAME} ${PASSWRD} \
-    		+quit
-        fi
+    ${STEAMCMD_DIR}/steamcmd.sh \
+    +login ${USERNAME} ${PASSWRD} \
+    +quit
 fi
 
 echo "---Update Server---"
@@ -42,33 +36,17 @@ if [ "${USERNAME}" == "" ]; then
 else
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
-        if [ "${STEAM_GUARD}" == "" ]; then
-            ${STEAMCMD_DIR}/steamcmd.sh \
-            +login ${USERNAME} ${PASSWRD} \
-            +force_install_dir ${SERVER_DIR} \
-            +app_update ${GAME_ID} validate \
-            +quit
-        else
-            echo "${STEAM_GUARD}" | ${STEAMCMD_DIR}/steamcmd.sh \
-            +login ${USERNAME} ${PASSWRD} \
-            +force_install_dir ${SERVER_DIR} \
-            +app_update ${GAME_ID} validate \
-            +quit
-        fi
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login ${USERNAME} ${PASSWRD} \
+        +force_install_dir ${SERVER_DIR} \
+        +app_update ${GAME_ID} validate \
+        +quit
     else
-        if [ "${STEAM_GUARD}" == "" ]; then
-            ${STEAMCMD_DIR}/steamcmd.sh \
-            +login ${USERNAME} ${PASSWRD} \
-            +force_install_dir ${SERVER_DIR} \
-            +app_update ${GAME_ID} \
-            +quit
-        else
-            echo "${STEAM_GUARD}" | ${STEAMCMD_DIR}/steamcmd.sh \
-            +login ${USERNAME} ${PASSWRD} \
-            +force_install_dir ${SERVER_DIR} \
-            +app_update ${GAME_ID} \
-            +quit
-        fi
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login ${USERNAME} ${PASSWRD} \
+        +force_install_dir ${SERVER_DIR} \
+        +app_update ${GAME_ID} \
+        +quit
     fi
 fi
 
@@ -92,4 +70,4 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/starbound_server ${GAME_PARAMS}
+${SERVER_DIR}/linux/starbound_server ${GAME_PARAMS}

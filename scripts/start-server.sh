@@ -12,7 +12,7 @@ if [ "${USERNAME}" == "" ]; then
     +login anonymous \
     +quit
 else
-		if [ "${STEAM_GUARD}" == "" }; then
+		if [ "${STEAM_GUARD}" == "" ]; then
     		${STEAMCMD_DIR}/steamcmd.sh \
     		+login ${USERNAME} ${PASSWRD} \
     		+quit
@@ -42,7 +42,7 @@ if [ "${USERNAME}" == "" ]; then
 else
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
-        if [ "${STEAM_GUARD}" == "" }; then
+        if [ "${STEAM_GUARD}" == "" ]; then
             ${STEAMCMD_DIR}/steamcmd.sh \
             +login ${USERNAME} ${PASSWRD} \
             +force_install_dir ${SERVER_DIR} \
@@ -56,7 +56,7 @@ else
             +quit
         fi
     else
-        if [ "${STEAM_GUARD}" == "" }; then
+        if [ "${STEAM_GUARD}" == "" ]; then
             ${STEAMCMD_DIR}/steamcmd.sh \
             +login ${USERNAME} ${PASSWRD} \
             +force_install_dir ${SERVER_DIR} \

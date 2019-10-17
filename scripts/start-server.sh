@@ -51,12 +51,23 @@ else
 fi
 
 echo "---Prepare Server---"
+if [ ! -f ${SERVER_DIR}/storage/starbound_server.config ]; then
+	if [ ! -d ${SERVER_DIR}/storage ]; then
+    	mkdir ${SERVER_DIR}/storage
+    fi
+	echo "---Starbound server configuration not found, downloading---"
+    cd ${SERVER_DIR}/storage
+	wget -qi - https://raw.githubusercontent.com/ich777/docker-steamcmd-server/starbound/config/starbound_server.config
+    if [ ! -f ${SERVER_DIR}/storage/starbound_server.config ]; then
+    	echo "---Something went wrong, can't download Starbound server configuration!---"
+        sleep infinity
+    fi
+else
+	echo "---Starbound server configuration found!---"
+fi
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Sleep zZz...---"
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/starbound_server ${GAME_PARAMS}

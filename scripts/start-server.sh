@@ -77,4 +77,4 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/./MordhauServer.sh -Port=${GAME_PORT} -QueryPort=${QUERY_PORT} -Beaconport=${BEACON_PORT} -GAMEINI=${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer/Game2.ini -ENGINEINI=${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer/Engine2.ini ${GAME_PARAMS}
+${SERVER_DIR}/MordhauServer.sh -Port=${GAME_PORT} -QueryPort=${QUERY_PORT} -Beaconport=${BEACON_PORT} -GAMEINI=${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer/Game2.ini -ENGINEINI=${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer/Engine2.ini ${GAME_PARAMS}

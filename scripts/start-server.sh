@@ -85,4 +85,4 @@ sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine ${SERVER_DIR}/TheForestDedicatedServer.exe -batchmode -dedicated -savefolderpath "${SERVER_DIR}/saves/" -configfilepath "${SERVER_DIR}/config/config.cfg" ${GAME_PARAMS}
+xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine ${SERVER_DIR}/srcds_run.exe -console -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}

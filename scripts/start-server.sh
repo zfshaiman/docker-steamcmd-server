@@ -100,6 +100,13 @@ if [ ! -f ${SERVER_DIR}/ShooterGame/ServerGrid.ServerOnly.json ]; then
 else
 	echo "---ServerGrid.ServerOnly.json found!---"
 fi
+if [ "${ENA_REDIS}" == "yes" ]; then
+	echo "---Configuring Redis---"
+    sleep 5
+	echo "CONFIG SET dir ${SERVER_DIR}" | redis-cli
+	echo "CONFIG SET dbfilename redis.rdb" | redis-cli
+	echo "BGSAVE" | redis-cli
+fi
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 

@@ -51,6 +51,8 @@ else
 fi
 
 echo "---Prepare Server---"
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
 chmod -R 770 ${DATA_DIR}
 echo "---Server ready---"
 

@@ -53,6 +53,8 @@ else
 fi
 
 echo "---Prepare Server---"
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
 if [ ! -d ${SERVER_DIR}/Saves ]; then
     mkdir ${SERVER_DIR}/Saves
 fi

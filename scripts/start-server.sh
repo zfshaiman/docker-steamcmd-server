@@ -85,7 +85,7 @@ else
     sed -i '4i\    <property name="UserDataFolder" value="/serverdata/serverfiles/User" />\' ${SERVER_DIR}/${SERVERCONFIG}
 fi
 echo "---UserDataFolder location found---"
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"

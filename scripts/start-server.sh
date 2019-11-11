@@ -1,6 +1,8 @@
 #!/bin/bash
 DL_URL_MULTIADMIN="$(curl -s https://api.github.com/repos/Grover-c13/MultiAdmin/releases/latest | grep browser_download_url | cut -d ":" -f 2,3 | cut -d '"' -f2)"
 DL_URL_SERVERMOD="$(curl -s https://api.github.com/repos/Grover-c13/Smod2/releases/latest | grep browser_download_url | cut -d ":" -f 2,3 | cut -d '"' -f2)"
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
 
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
@@ -122,7 +124,7 @@ else
 fi
 
 echo "---Prepare Server---"
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 echo "---Server ready---"

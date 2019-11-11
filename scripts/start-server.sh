@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
+
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
     wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 
@@ -63,7 +66,7 @@ if [ ! -f ${SERVER_DIR}/default.ini ]; then
 else
 	echo "---Configuration file 'default.ini' found---"
 fi
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"

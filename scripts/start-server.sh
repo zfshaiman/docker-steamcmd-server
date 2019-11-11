@@ -53,7 +53,7 @@ else
 fi
 
 echo "---Prepare Server---"
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Sleep zZz...---"

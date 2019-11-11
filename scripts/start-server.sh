@@ -59,11 +59,8 @@ if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
     cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
 fi
 echo "---Please wait---"
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"
 ${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}
-
-
-

@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
+
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
     wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 
@@ -109,7 +112,7 @@ if [ "${CAVES}" == "true" ]; then
         wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/worldgenoverride.lua https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/caves_worldgenoverride.lua
     fi
 fi
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
 if [ "${CAVES}" == "true" ]; then

@@ -118,7 +118,7 @@ fi
 
 echo "---Prepare Server---"
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

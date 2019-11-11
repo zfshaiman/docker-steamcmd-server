@@ -1,5 +1,7 @@
 #!/bin/bash
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${SERVER_DIR}/Unturned_Headless_Data/Plugins/x86_64/
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
 
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
@@ -82,7 +84,7 @@ if [ "${ROCKET_MOD}" == "true" ]; then
 fi
 
 echo "---Prepare Server---"
-chmod -R 770 ${DATA_DIR}
+chmod -R 777 ${DATA_DIR}
 if [ ! -f ${SERVER_DIR}/Unturned_Headless_Data/Plugins/x86_64/steamclient.so ]; then
 	cp ${STEAMCMD_DIR}/linux64/steamclient.so ${SERVER_DIR}/Unturned_Headless_Data/Plugins/x86_64
 fi

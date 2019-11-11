@@ -1,4 +1,4 @@
-#!/bin/bashecho "---Setting umask to ${UMASK}---"
+#!/bin/bash
 echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
 

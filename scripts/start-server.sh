@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
+
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "Arma3Log.0" -exec rm -f {} \;
 find ${SERVER_DIR} -name "ExileModLog.0" -exec rm -f {} \;

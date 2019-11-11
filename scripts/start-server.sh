@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "---Setting umask to ${UMASK}---"
+umask ${UMASK}
+
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
     wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 

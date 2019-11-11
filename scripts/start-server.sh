@@ -52,7 +52,22 @@ else
     fi
 fi
 
-echo "---Prepare Server---"
+#echo "---Prepare Server---"
+#echo "---Checking for 'Server.cfg'---"
+#if [ ! -f ${SERVER_DIR}/Server.cfg ]; then
+#	echo "---'Server.cfg' not found, downloading...---"
+#	cd ${SERVER_DIR}
+#    wget -qi Server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/squad/config/Server.cfg
+#	if [ ! -f ${SERVER_DIR}/Server.cfg ]; then
+#		echo "-----------------------------------------------------------------------------------------"
+#		echo "---Something went wrong can't download 'Server.cfg' Putting server in sleep mode!---"
+#		echo "-----------------------------------------------------------------------------------------"
+#		sleep infinity
+#	fi
+#else
+#	echo "---'Server.cfg' folder found---"
+#fi
+
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 

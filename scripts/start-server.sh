@@ -25,12 +25,14 @@ if [ "${USERNAME}" == "" ]; then
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
+        +@sSteamCmdForcePlatformType windows \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
+        +@sSteamCmdForcePlatformType windows \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} \
@@ -40,12 +42,14 @@ else
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
+        +@sSteamCmdForcePlatformType windows \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
+        +@sSteamCmdForcePlatformType windows \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
         +app_update ${GAME_ID} \

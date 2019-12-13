@@ -62,7 +62,7 @@ if [ ! -z "${WS_CONTENT}" ]; then
 	${STEAMCMD_DIR}/steamcmd.sh \
 	+@sSteamCmdForcePlatformType windows \
 	+login ${USERNAME} ${PASSWRD} \
-	+workshop_download_item ${GAME_ID} ${WS_CONTENT} \
+	+workshop_download_item $GAME_ID ${WS_CONTENT// / +workshop_download_item ${GAME_ID}  } \
 	+quit
 fi
 

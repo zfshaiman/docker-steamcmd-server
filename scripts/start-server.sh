@@ -58,11 +58,12 @@ else
 fi
 
 if [ ! -z "${WS_CONTENT}" ]; then
-	echo "---Installing Workshop Content: ${WS_CONTENT}---"
+	echo "---Installing Workshop Content with ID('s): ${WS_CONTENT}---"
 	${STEAMCMD_DIR}/steamcmd.sh \
 	+@sSteamCmdForcePlatformType windows \
 	+login ${USERNAME} ${PASSWRD} \
-	+workshop_download_item $GAME_ID ${WS_CONTENT// / +workshop_download_item ${GAME_ID}  } \
+    +force_install_dir ${SERVER_DIR} \
+	+workshop_download_item 440900 ${WS_CONTENT// / +workshop_download_item 440900  } \
 	+quit
 fi
 

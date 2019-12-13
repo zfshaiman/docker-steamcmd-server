@@ -69,6 +69,14 @@ fi
 
 echo "---Prepare Server---"
 chmod -R 777 ${DATA_DIR}
+echo "---Checking if WINE workdirectory is present---"
+if [ ! -d ${DATA_DIR}/.wine ]; then
+	echo "---WINE workdirectory not found, creating please wait...---"
+    winecfg > /dev/null 2>&1
+    sleep 15
+else
+	echo "---WINE workdirectory found---"
+fi
 echo "---Server ready---"
 
 echo "---Sleep zZz...---"

@@ -57,6 +57,15 @@ else
     fi
 fi
 
+if [ ! -z "${WS_CONTENT}" ]; then
+	echo "---Installing Workshop Content: ${WS_CONTENT}---"
+	${STEAMCMD_DIR}/steamcmd.sh \
+	+@sSteamCmdForcePlatformType windows \
+	+login ${USERNAME} ${PASSWRD} \
+	+workshop_download_item ${GAME_ID} ${WS_CONTENT} \
+	+quit
+fi
+
 echo "---Prepare Server---"
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"

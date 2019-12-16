@@ -1,4 +1,4 @@
-FROM ich777/winehq-baseimage
+FROM ich777/winehq-baseimage:staging
 
 MAINTAINER ich777
 

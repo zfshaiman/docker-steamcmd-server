@@ -82,6 +82,11 @@ echo "---Server ready---"
 echo "---Sleep zZz...---"
 sleep infinity
 
+wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+chmod +x winetricks
+apt-get install cabextract
+
+
 echo "---Start Server---"
 cd ${SERVER_DIR}
 ${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}

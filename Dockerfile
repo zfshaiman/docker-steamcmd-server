@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ich777/winehq-baseimage
 
 MAINTAINER ich777
 

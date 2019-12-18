@@ -68,25 +68,71 @@ if [ ! -z "${WS_CONTENT}" ]; then
 fi
 
 echo "---Prepare Server---"
+echo "---Looking for config files---"
+if [ ! -d ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer ]; then
+	if [ ! -d ${SERVER_DIR}/ConanSandbox ]; then
+    	echo "-----------------------------------------------------------"
+    	echo "---Something went wrong can't find folder 'ConanSandbox'---"
+    	echo "--------------Putting Server into sleep mode---------------"
+    	sleep infinity
+    	fi
+    if [ ! -d ${SERVER_DIR}/ConanSandbox/Saved ]; then
+		mkdir ${SERVER_DIR}/ConanSandbox/Saved
+    fi
+	if [ ! -d ${SERVER_DIR}/ConanSandbox/Saved/Config ]; then
+		mkdir ${SERVER_DIR}/ConanSandbox/Saved/Config
+    fi
+    if [ ! -d ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer ]; then
+		mkdir ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer
+    fi
+fi
+if [ ! -f ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer/Engine.ini ]; then
+	echo "---'Engine.ini' not found, downloading template---"
+    cd ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer
+	if wget https://raw.githubusercontent.com/ich777/docker-steamcmd-server/conanexiles/config/Engine.ini ; then
+		echo "---Sucessfully downloaded 'Engine.ini'---"
+	else
+		echo "---Something went wrong, can't download 'Engine.ini', putting server in sleep mode---"
+		sleep infinity
+	fi
+else
+	echo "---'Engine.ini' found---"
+fi
+if [ ! -f ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer/ServerSettings.ini ]; then
+	echo "---'ServerSettings.ini' not found, downloading template---"
+    cd ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer
+	if wget https://raw.githubusercontent.com/ich777/docker-steamcmd-server/conanexiles/config/ServerSettings.ini ; then
+		echo "---Sucessfully downloaded 'ServerSettings.ini'---"
+	else
+		echo "---Something went wrong, can't download 'ServerSettings.ini', putting server in sleep mode---"
+		sleep infinity
+	fi
+else
+	echo "---'ServerSettings.ini' found---"
+fi
+export WINEARCH=win64
+export WINEPREFIX=/serverdata/serverfiles/WINE64
+echo "---Checking if WINE workdirectory is present---"
+if [ ! -d ${SERVER_DIR}/WINE64 ]; then
+	echo "---WINE workdirectory not found, creating please wait...---"
+    mkdir ${SERVER_DIR}/WINE64
+else
+	echo "---WINE workdirectory found---"
+fi
+echo "---Checking if WINE is properly installed---"
+if [ ! -d ${SERVER_DIR}/WINE64/drive_C/windows ]; then
+	echo "---Setting up WINE---"
+    cd ${SERVER_DIR}
+    winecfg > /dev/null 2>&1
+    sleep 15
+else
+	echo "---WINE properly set up---"
+fi
+echo "---Checking for old display lock files---"
+find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
 chmod -R 777 ${DATA_DIR}
-#echo "---Checking if WINE workdirectory is present---"
-#if [ ! -d ${DATA_DIR}/.wine ]; then
-#	echo "---WINE workdirectory not found, creating please wait...---"
-#    winecfg > /dev/null 2>&1
-#    sleep 15
-#else
-#	echo "---WINE workdirectory found---"
-#fi
 echo "---Server ready---"
-
-echo "---Sleep zZz...---"
-sleep infinity
-
-wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
-chmod +x winetricks
-apt-get install cabextract
-
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine64 ${SERVER_DIR}/ConanSandboxServer.exe -log

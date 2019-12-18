@@ -69,6 +69,27 @@ if [ ! -f ${SERVER_DIR}/swarm/cfg/server.cfg ]; then
         sleep infinity
     fi
 fi
+export WINEARCH=win32
+export WINEPREFIX=/serverdata/serverfiles/WINE
+echo "---Checking if WINE workdirectory is present---"
+if [ ! -d ${SERVER_DIR}/WINE ]; then
+	echo "---WINE workdirectory not found, creating please wait...---"
+    mkdir ${SERVER_DIR}/WINE
+else
+	echo "---WINE workdirectory found---"
+fi
+echo "---Checking if WINE is properly installed---"
+if [ ! -d ${SERVER_DIR}/WINE/drive_C/windows ]; then
+	echo "---Setting up WINE---"
+    cd ${SERVER_DIR}
+    winecfg > /dev/null 2>&1
+    sleep 15
+else
+	echo "---WINE properly set up---"
+fi
+echo "---Checking for old display lock files---"
+find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
+
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 

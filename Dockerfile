@@ -2,9 +2,8 @@ FROM ich777/winehq-baseimage
 
 MAINTAINER ich777
 
-RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get -y install lib32gcc1 wget wine32 winbind xvfb screen
+RUN apt-get -y install lib32gcc1 wget xvfb screen
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

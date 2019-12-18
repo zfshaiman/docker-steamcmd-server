@@ -3,7 +3,7 @@ FROM ich777/winehq-baseimage
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install lib32gcc1 wget xvfb screen
+RUN apt-get -y install lib32gcc1 wget xvfb screen winbind
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

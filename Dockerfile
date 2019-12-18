@@ -33,5 +33,7 @@ RUN chown -R steam /opt/scripts
 
 USER steam
 
+VOLUME $SERVER_DIR
+
 #Server Start
 ENTRYPOINT ["/opt/scripts/start-server.sh"]

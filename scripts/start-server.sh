@@ -79,7 +79,7 @@ else
 	echo "---WINE workdirectory found---"
 fi
 echo "---Checking if WINE is properly installed---"
-if [ ! -d ${SERVER_DIR}/WINE/drive_C/windows ]; then
+if [ ! -d ${SERVER_DIR}/WINE/drive_c/windows ]; then
 	echo "---Setting up WINE---"
     cd ${SERVER_DIR}
     winecfg > /dev/null 2>&1
@@ -92,6 +92,10 @@ find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
+echo "---Starting Xvfb server---"
+screen -S Xvfb -L -Logfile ${DATA_DIR}/XvfbLog.0 -d -m /opt/scripts/start-Xvfb.sh
+sleep 5
+
 echo "---Start Server---"
 cd ${SERVER_DIR}
-xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine start srcds.exe -console -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT} +exec server.cfg
+wine start srcds.exe -console -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}

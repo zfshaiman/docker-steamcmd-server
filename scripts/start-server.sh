@@ -61,7 +61,7 @@ echo "---Prepare Server---"
 echo "---Checking for 'server.cfg'---"
 if [ ! -f ${SERVER_DIR}/swarm/cfg/server.cfg ]; then
     cd ${SERVER_DIR}/swarm/cfg
-    wget -qi ${SERVER_DIR}/swarm/cfg/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/alienswarm/config/server.cfg
+    wget -qi ${SERVER_DIR}/swarm/cfg/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/alienswarmreactivedrop/config/server.cfg
     if [ -f ${SERVER_DIR}/swarm/cfg/server.cfg ]; then
     	echo "---'server.cfg' successfully downloaded---"
     else
@@ -69,12 +69,39 @@ if [ ! -f ${SERVER_DIR}/swarm/cfg/server.cfg ]; then
         sleep infinity
     fi
 fi
+export WINEARCH=win64
+export WINEPREFIX=/serverdata/serverfiles/WINE64
+export DISPLAY=:99
+echo "---Checking if WINE workdirectory is present---"
+if [ ! -d ${SERVER_DIR}/WINE64 ]; then
+	echo "---WINE workdirectory not found, creating please wait...---"
+	mkdir ${SERVER_DIR}/WINE64
+else
+	echo "---WINE workdirectory found---"
+fi
+echo "---Checking if WINE is properly installed---"
+if [ ! -d ${SERVER_DIR}/WINE64/drive_c/windows ]; then
+	echo "---Setting up WINE---"
+	cd ${SERVER_DIR}
+	winecfg > /dev/null 2>&1
+	sleep 15
+else
+	echo "---WINE properly set up---"
+fi
+echo "---Checking for old display lock files---"
+find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
+echo "---Checking for old logfiles---"
+find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \; > /dev/null 2>&1
+find ${SERVER_DIR} -name "XvfbLog.*" -exec rm -f {} \; > /dev/null 2>&1
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Sleep zZz---"
-sleep infinity
+echo "---Starting Xvfb server---"
+screen -S Xvfb -L -Logfile ${SERVER_DIR}/XvfbLog.0 -d -m /opt/scripts/start-Xvfb.sh
+sleep 5
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine ${SERVER_DIR}/srcds.exe -console -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}
+screen -S AlienSwarm -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 start srcds.exe -console -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}
+sleep 5
+tail -f ${SERVER_DIR}/masterLog.0

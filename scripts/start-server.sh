@@ -71,6 +71,7 @@ if [ ! -f ${SERVER_DIR}/swarm/cfg/server.cfg ]; then
 fi
 export WINEARCH=win32
 export WINEPREFIX=/serverdata/serverfiles/WINE
+export DISPLAY=:99
 echo "---Checking if WINE workdirectory is present---"
 if [ ! -d ${SERVER_DIR}/WINE ]; then
 	echo "---WINE workdirectory not found, creating please wait...---"

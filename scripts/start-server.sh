@@ -89,7 +89,7 @@ else
 	echo "---WINE workdirectory found---"
 fi
 echo "---Checking if WINE is properly installed---"
-if [ ! -d ${SERVER_DIR}/WINE64/drive_C/windows ]; then
+if [ ! -d ${SERVER_DIR}/WINE64/drive_c/windows ]; then
 	echo "---Setting up WINE---"
     cd ${SERVER_DIR}
     winecfg > /dev/null 2>&1

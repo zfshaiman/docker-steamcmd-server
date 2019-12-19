@@ -59,10 +59,10 @@ fi
 
 echo "---Prepare Server---"
 echo "---Checking for 'server.cfg'---"
-if [ ! -f ${SERVER_DIR}/swarm/cfg/server.cfg ]; then
-    cd ${SERVER_DIR}/swarm/cfg
-    wget -qi ${SERVER_DIR}/swarm/cfg/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/alienswarmreactivedrop/config/server.cfg
-    if [ -f ${SERVER_DIR}/swarm/cfg/server.cfg ]; then
+if [ ! -f ${SERVER_DIR}/reactivedrop/cfg/server.cfg ]; then
+    cd ${SERVER_DIR}/reactivedrop/cfg
+    wget -qi ${SERVER_DIR}/reactivedrop/cfg/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/alienswarmreactivedrop/config/server.cfg
+    if [ -f ${SERVER_DIR}/reactivedrop/cfg/server.cfg ]; then
     	echo "---'server.cfg' successfully downloaded---"
     else
     	echo "---Something went wrong, can't download 'server.cfg'---"

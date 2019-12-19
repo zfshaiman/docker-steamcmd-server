@@ -61,10 +61,27 @@ if [ ! -z "${WS_CONTENT}" ]; then
 	echo "---Installing Workshop Content with ID('s): ${WS_CONTENT}---"
 	${STEAMCMD_DIR}/steamcmd.sh \
 	+@sSteamCmdForcePlatformType windows \
-	+login ${USERNAME} ${PASSWRD} \
-    +force_install_dir ${SERVER_DIR} \
+	+login anonymous \
+	+force_install_dir ${SERVER_DIR} \
 	+workshop_download_item 440900 ${WS_CONTENT// / +workshop_download_item 440900  } \
 	+quit
+	if [ ! -d ${SERVER_DIR}/ConanSandbox/Mods ]; then
+		if [ ! -d ${SERVER_DIR}/ConanSandbox ]; then
+			echo "-----------------------------------"
+			echo "------Something went wrong can't find folder-"
+			echo "---'ConanSandbox' putting server into sleep mode---"
+			echo "-"
+			sleep infinity
+		fi
+		echo "---Folder 'Mods' not found, creating...---"
+		mkdir ${SERVER_DIR}/ConanSandbox/Mods
+	fi
+	if [ ! -f ${SERVER_DIR}/ConanSandbox/Mods/modlist.txt ]; then
+		echo "---File 'modlist.txt' not found, creating...---"
+		touch ${SERVER_DIR}/ConanSandbox/Mods/modlist.txt
+	fi
+	echo "---Putting workshop content into modlist---"
+	find ${SERVER_DIR}/steamapps/workshop/content/ -name *.pak > ${SERVER_DIR}/ConanSandbox/Mods/modlist.txt
 fi
 
 echo "---Prepare Server---"

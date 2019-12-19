@@ -102,6 +102,6 @@ sleep 5
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S AlienSwarm -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 start srcds.exe -console -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}
+screen -S AlienSwarm-ReactiveDrop -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 start srcds.exe -console -game ${GAME_NAME} ${GAME_PARAMS} +port ${GAME_PORT}
 sleep 5
 tail -f ${SERVER_DIR}/masterLog.0

@@ -1,7 +1,4 @@
 #!/bin/bash
-export PATH="${SERVER_DIR}/jre64/bin:$PATH"
-export LD_LIBRARY_PATH="${SERVER_DIR}/linux64:${SERVER_DIR}/natives:${SERVER_DIR}:${SERVER_DIR}/jre64/lib/amd64:${LD_LIBRARY_PATH}"
-JSIG="libjsig.so"
 echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
 
@@ -57,12 +54,32 @@ else
 fi
 
 echo "---Prepare Server---"
+echo "---Setting up Environment---"
+export PATH="${SERVER_DIR}/jre64/bin:$PATH"
+export LD_LIBRARY_PATH="${SERVER_DIR}/linux64:${SERVER_DIR}/natives:${SERVER_DIR}:${SERVER_DIR}/jre64/lib/amd64:${LD_LIBRARY_PATH}"
+export JSIG="libjsig.so"
+export JARPATH="java/:java/lwjgl.jar:java/lwjgl_util.jar:java/sqlite-jdbc-3.8.10.1.jar:java/uncommons-maths-1.2.3.jar"
+echo "---Looking for server configuration files---"
+if [ ! -f ${SERVER_DIR}/Zomboid/Server/servertest.ini ]; then
+	echo "---No server configruation found, downloading template---"
+    cd ${SERVER_DIR}
+	if wget https://github.com/ich777/docker-steamcmd-server/raw/projectzomboid/config/cfg.zip ; then
+		echo "---Sucessfully downloaded server configuration files---"
+	else
+		echo "---Something went wrong, can't download server configuration files, putting server in sleep mode---"
+		sleep infinity
+	fi
+    unzip cfg.zip
+    rm ${SERVER_DIR}/cfg.zip
+else
+	echo "---Server configuration files found!---"
+fi
+
+echo "---Checking for old logs---"
+find ${SERVER_DIR} -name "masterLog.0" -exec rm -f {} \; > /dev/null 2>&1
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Sleep zZz...---"
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
-LD_PRELOAD="${LD_PRELOAD}:${JSIG}" ${SERVER_DIR}/ProjectZomboid64
+screen -S PZ -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/ProjectZomboid64

@@ -1,4 +1,7 @@
 #!/bin/bash
+export PATH="${SERVER_DIR}/jre64/bin:$PATH"
+export LD_LIBRARY_PATH="${SERVER_DIR}/linux64:${SERVER_DIR}/natives:${SERVER_DIR}:${SERVER_DIR}/jre64/lib/amd64:${LD_LIBRARY_PATH}"
+JSIG="libjsig.so"
 echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
 
@@ -62,4 +65,4 @@ sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+LD_PRELOAD="${LD_PRELOAD}:${JSIG}" ${SERVER_DIR}/ProjectZomboid64

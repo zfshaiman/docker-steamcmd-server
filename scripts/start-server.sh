@@ -54,12 +54,31 @@ else
 fi
 
 echo "---Prepare Server---"
+if [ ! -f ${DATA_DIR}/.steam/sdk32/steamclient.so ]; then
+	if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
+		if [ ! -d ${DATA_DIR}/.steam ]; then
+    		mkdir ${DATA_DIR}/.steam
+		fi
+    	mkdir ${DATA_DIR}/.steam/sdk32
+	fi
+    cp ${STEAMCMD_DIR}/linux32/steamclient.so ${DATA_DIR}/.steam/sdk32/steamclient.so
+fi
+echo "---Checking if server configuration file is present---"
+if [ ! -f ${SERVER_DIR}/svencoop/servers/server.cfg ]; then
+	echo "---No 'server.cfg' found, downloading template---"
+	if [ ! -d ${SERVER_DIR}/svencoop/servers ]; then
+    	mkdir ${SERVER_DIR}/svencoop/servers
+	fi
+    cd ${SERVER_DIR}/svencoop/servers
+	if wget https://raw.githubusercontent.com/ich777/docker-steamcmd-server/svencoop/config/server.cfg ; then
+		echo "---Sucessfully downloaded 'server.cfg'---"
+	else
+		echo "---Something went wrong, can't download 'server.cfg' starting without configuration file---"
+	fi
+fi
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Sleep zZz...---"
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/svends_run -svencoop ${GAME_PARAMS}

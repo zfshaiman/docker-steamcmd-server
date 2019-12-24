@@ -63,7 +63,7 @@ echo "---Looking for server configuration file---"
 if [ ! -f ${SERVER_DIR}/Zomboid/Server/servertest.ini ]; then
 	echo "---No server configruation found, downloading template---"
     if [ ! -d ${SERVER_DIR}/Zomboid ]; then
-    	${SERVER_DIR}/Zomboid
+    	mkdir ${SERVER_DIR}/Zomboid
 	fi
     if [ ! -d ${SERVER_DIR}/Zomboid/Server ]; then
 		mkdir ${SERVER_DIR}/Zomboid/Server

@@ -11,6 +11,7 @@ ENV SERVER_DIR="${DATA_DIR}/serverfiles"
 ENV GAME_ID="template"
 ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"
+ENV ADMIN_PWD="adminDocker"
 ENV GAME_PORT=27015
 ENV VALIDATE=""
 ENV UMASK=000

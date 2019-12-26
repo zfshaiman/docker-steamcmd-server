@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM ich777:debian-baseimage
 
 MAINTAINER ich777
 

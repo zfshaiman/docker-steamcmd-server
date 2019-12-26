@@ -3,7 +3,7 @@ FROM debian:buster-slim
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install lib32gcc1 wget locales
+RUN apt-get -y install lib32gcc1 wget locales libc6-i386
 RUN touch /etc/locale.gen
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 RUN locale-gen

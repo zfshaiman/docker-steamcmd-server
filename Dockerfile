@@ -3,7 +3,13 @@ FROM debian:buster-slim
 MAINTAINER ich777
 
 RUN apt-get update
-RUN apt-get -y install lib32gcc1 wget
+RUN apt-get -y install lib32gcc1 wget locales
+RUN touch /etc/locale.gen
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+RUN locale-gen
+ENV LANG=en_US.UTF-8  
+ENV LANGUAGE=en_US:en  
+ENV LC_ALL=en_US.UTF-8  
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

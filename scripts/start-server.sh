@@ -55,8 +55,11 @@ fi
 
 echo "---Prepare Server---"
 if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
+	if [ ! -d ${DATA_DIR}/.steam ]; then
+    	mkdir ${DATA_DIR}/.steam
+    fi
     mkdir ${DATA_DIR}/.steam/sdk32
-    cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
+    cp -R ${STEAMCMD_DIR}/linux32/* ${DATA_DIR}/.steam/sdk32/
 fi
 echo "---Please wait---"
 chmod -R 777 ${DATA_DIR}

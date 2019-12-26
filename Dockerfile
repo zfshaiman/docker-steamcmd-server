@@ -1,4 +1,4 @@
-FROM ich777:debian-baseimage
+FROM ich777/debian-baseimage
 
 MAINTAINER ich777
 

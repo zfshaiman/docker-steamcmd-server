@@ -2,8 +2,8 @@ FROM ich777:debian-baseimage
 
 MAINTAINER ich777
 
-RUN apt-get update
-RUN apt-get -y install lib32gcc1 lib32stdc++6 
+RUN apt-get update && \
+	apt-get -y install --no-install-recommends lib32gcc1 lib32stdc++6 
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

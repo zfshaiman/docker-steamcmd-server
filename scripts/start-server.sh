@@ -61,13 +61,12 @@ echo "---Prepare Server---"
 echo "---Checking for 'server.cfg'---"
 if [ ! -f ${SERVER_DIR}/swarm/cfg/server.cfg ]; then
     cd ${SERVER_DIR}/swarm/cfg
-    wget -qi ${SERVER_DIR}/swarm/cfg/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/alienswarm/config/server.cfg
-    if [ -f ${SERVER_DIR}/swarm/cfg/server.cfg ]; then
-    	echo "---'server.cfg' successfully downloaded---"
-    else
-    	echo "---Something went wrong, can't download 'server.cfg'---"
-        sleep infinity
-    fi
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/alienswarm/config/server.cfg ; then
+		echo "---Successfully downloaded 'server.cfg'---"
+	else
+		echo "---Something went wrong, can't download 'server.cfg', putting server in sleep mode---"
+		sleep infinity
+	fi
 fi
 export WINEARCH=win64
 export WINEPREFIX=/serverdata/serverfiles/WINE64

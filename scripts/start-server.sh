@@ -73,13 +73,12 @@ if [ ! -f ${SERVER_DIR}/config/config.cfg ]; then
     	mkdir ${SERVER_DIR}/config
     fi
     cd ${SERVER_DIR}/config
-    wget -qi ${SERVER_DIR}/config/config.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/theforest/config/config.cfg
-    if [ -f ${SERVER_DIR}/config/config.cfg ]; then
-    	echo "---'config.cfg' successfully downloaded---"
-    else
-    	echo "---Something went wrong, can't download 'config.cfg'---"
-        sleep infinity
-    fi
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/theforest/config/config.cfg ; then
+		echo "---Successfully downloaded 'config.cfg'---"
+	else
+		echo "---Something went wrong, can't download 'config.cfg', putting server in sleep mode---"
+		sleep infinity
+	fi
 fi
 echo "---Checking if WINE workdirectory is present---"
 if [ ! -d ${SERVER_DIR}/WINE64 ]; then

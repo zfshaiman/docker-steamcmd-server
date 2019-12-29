@@ -1,10 +1,11 @@
 FROM ich777/winehq-baseimage
 
-MAINTAINER ich777
+LABEL maintainer="admin@minenet.at"
 
 RUN dpkg --add-architecture i386 && \
 	apt-get update && \
-	apt-get -y install lib32gcc1 screen xvfb
+	apt-get -y install lib32gcc1 screen xvfb && \
+	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

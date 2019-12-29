@@ -106,7 +106,7 @@ fi
 if [ ! -f ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer/Engine.ini ]; then
 	echo "---'Engine.ini' not found, downloading template---"
     cd ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer
-	if wget https://raw.githubusercontent.com/ich777/docker-steamcmd-server/conanexiles/config/Engine.ini ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/conanexiles/config/Engine.ini ; then
 		echo "---Sucessfully downloaded 'Engine.ini'---"
 	else
 		echo "---Something went wrong, can't download 'Engine.ini', putting server in sleep mode---"
@@ -118,7 +118,7 @@ fi
 if [ ! -f ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer/ServerSettings.ini ]; then
 	echo "---'ServerSettings.ini' not found, downloading template---"
     cd ${SERVER_DIR}/ConanSandbox/Saved/Config/WindowsServer
-	if wget https://raw.githubusercontent.com/ich777/docker-steamcmd-server/conanexiles/config/ServerSettings.ini ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/conanexiles/config/ServerSettings.ini ; then
 		echo "---Sucessfully downloaded 'ServerSettings.ini'---"
 	else
 		echo "---Something went wrong, can't download 'ServerSettings.ini', putting server in sleep mode---"

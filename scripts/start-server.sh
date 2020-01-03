@@ -58,7 +58,7 @@ if [ "${ROCKET_MOD}" == "true" ]; then
 	if [ ! -f ${SERVER_DIR}/Modules ]; then
     	echo "---Rocket Mod not found, installing---"
 		cd ${SERVER_DIR}
-		if wget -q ${ROCKET_URL} ; then
+		if wget -q -nc --show-progress --progress=bar:force:noscroll ${ROCKET_URL} ; then
         	echo "---Rocketmod download complete---"
         else
         	echo "---Can't download Rocket Mod, putting server into sleep mode---"
@@ -72,7 +72,7 @@ if [ "${ROCKET_MOD}" == "true" ]; then
     if [ "${ROCKET_FORCE_UPDATE}" == "true" ]; then
     	echo "---Rocket Mod update forced---"
 		cd ${SERVER_DIR}
-		if wget -q ${ROCKET_URL} ; then
+		if wget -q -nc --show-progress --progress=bar:force:noscroll ${ROCKET_URL} ; then
         	echo "---Rocketmod download complete---"
         else
         	echo "---Can't download Rocket Mod, putting server into sleep mode---"

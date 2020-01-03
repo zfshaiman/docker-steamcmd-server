@@ -69,7 +69,7 @@ if [ ! -f ${SERVER_DIR}/Zomboid/Server/servertest.ini ]; then
 		mkdir ${SERVER_DIR}/Zomboid/Server
 	fi
 	cd ${SERVER_DIR}/Zomboid/Server
-	if wget https://github.com/ich777/docker-steamcmd-server/raw/projectzomboid/config/servertest.ini ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/docker-steamcmd-server/raw/projectzomboid/config/servertest.ini ; then
 		echo "---Sucessfully downloaded server configuration file---"
 	else
 		echo "---Something went wrong, can't download server configuration file, putting server in sleep mode---"

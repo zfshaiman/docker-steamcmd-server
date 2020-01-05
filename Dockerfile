@@ -2,7 +2,7 @@ FROM ich777/debian-baseimage
 
 LABEL maintainer="admin@minenet.at"
 
-RUN apt-get update && \ && \
+RUN apt-get update && \
 	apt-get -y install --no-install-recommends lib32gcc1 wget libc6-i386 lib32stdc++6 && \
 	rm -rf /var/lib/apt/lists/*
 

@@ -57,7 +57,7 @@ echo "---Prepare Server---"
 echo "---Checking if 'default.ini' is present---"
 if [ ! -f ${SERVER_DIR}/default.ini ]; then
 	cd ${SERVER_DIR}
-	if wget https://raw.githubusercontent.com/ich777/docker-steamcmd-server/stationeers/config/default.ini ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/stationeers/config/default.ini ; then
 		echo "---Sucessfully downloaded configuration file 'default.ini'---"
 	else
 		echo "---Something went wrong, can't download 'default.ini', putting server in sleep mode---"

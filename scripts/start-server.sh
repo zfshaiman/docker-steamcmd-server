@@ -70,7 +70,7 @@ if [ ! -f ${SERVER_DIR}/svencoop/servers/server.cfg ]; then
     	mkdir ${SERVER_DIR}/svencoop/servers
 	fi
     cd ${SERVER_DIR}/svencoop/servers
-	if wget https://raw.githubusercontent.com/ich777/docker-steamcmd-server/svencoop/config/server.cfg ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/svencoop/config/server.cfg ; then
 		echo "---Sucessfully downloaded 'server.cfg'---"
 	else
 		echo "---Something went wrong, can't download 'server.cfg' starting without configuration file---"

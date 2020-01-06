@@ -101,7 +101,7 @@ else
     if [ ! -f ${SERVER_DIR}/Assembly-CSharp.dll ]; then
     	echo "---File from ServerMod missing, installing---"
     	cd ${SERVER_DIR}
-        if wget -q ${DL_URL_SERVERMOD[0]} ; then
+        if wget -q -nc --show-progress --progress=bar:force:noscroll ${DL_URL_SERVERMOD[0]} ; then
             echo "---Assembly-Csharp.dll sucessfully installed---"
         else
             echo "---Couldn't download Assembly-Csharp.dll, putting server into sleep mode---"
@@ -111,7 +111,7 @@ else
     if [ ! -f ${SERVER_DIR}/Smod2.dll ]; then
     	echo "---File from ServerMod missing, installing---"
     	cd ${SERVER_DIR}
-        if wget -q ${DL_URL_SERVERMOD[1]} ; then
+        if wget -q -nc --show-progress --progress=bar:force:noscroll ${DL_URL_SERVERMOD[1]} ; then
             echo "---Smod2.dll sucessfully installed---"
         else
             echo "---Couldn't download Smod2.dll, putting server into sleep mode---"
@@ -128,7 +128,6 @@ chmod -R 777 ${DATA_DIR}
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
 echo "---Server ready---"
-
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

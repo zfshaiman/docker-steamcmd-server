@@ -59,18 +59,17 @@ if grep -rq 'ServerName="Squad Dedicated Server"' ${SERVER_DIR}/SquadGame/Server
     if [ -f ${SERVER_DIR}/SquadGame/ServerConfig/Server.cfg ]; then
     	mv ${SERVER_DIR}/SquadGame/ServerConfig/Server.cfg ${SERVER_DIR}/SquadGame/ServerConfig/Servercfg.bak
 	fi
-    wget -qi Server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/squad/config/Server.cfg
-	if [ ! -f ${SERVER_DIR}/SquadGame/ServerConfig/Server.cfg ]; then
-		echo "-----------------------------------------------------------------------------------------"
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/squad/config/Server.cfg ; then
+    	echo "---Download of custom 'Server.cfg' successfull---"
+        if [ -f ${SERVER_DIR}/SquadGame/ServerConfig/Servercfg.bak ]; then
+    		rm ${SERVER_DIR}/SquadGame/ServerConfig/Servercfg.bak
+		fi
+    else
+    	echo "-----------------------------------------------------------------------------------------"
 		echo "----Something went wrong can't download 'Server.cfg' falling back to standard config!----"
 		echo "-----------------------------------------------------------------------------------------"
         if [ -f ${SERVER_DIR}/SquadGame/ServerConfig/Servercfg.bak ]; then
 			mv ${SERVER_DIR}/SquadGame/ServerConfig/Servercfg.bak ${SERVER_DIR}/SquadGame/ServerConfig/Server.cfg
-		fi
-	else
-    	echo "---Download of custom 'Server.cfg' successfull---"
-        if [ -f ${SERVER_DIR}/SquadGame/ServerConfig/Servercfg.bak ]; then
-    		rm ${SERVER_DIR}/SquadGame/ServerConfig/Servercfg.bak
 		fi
 	fi
 fi

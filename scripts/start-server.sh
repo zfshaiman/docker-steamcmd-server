@@ -67,7 +67,7 @@ if [ ! -f ${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer/Game2.ini ]; then
     	mkdir ${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer
     fi
     cd ${SERVER_DIR}/Mordhau/Saved/Config/LinuxServer
-    if wget -q -nc --show-progress --progress=bar:force:noscroll Game2.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/mordhau/config/Game2.ini ; then
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/mordhau/config/Game2.ini ; then
     	echo "---Successfully downloaded 'Game2.ini'---"
 	else
     	echo "---Can't download 'Game2.ini' putting server into sleep mode---"

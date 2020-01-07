@@ -1,9 +1,10 @@
-FROM ubuntu
+FROM ich777/debian-baseimage
 
-MAINTAINER ich777
+LABEL maintainer="admin@minenet.at"
 
-RUN apt-get update
-RUN apt-get -y install lib32gcc1 wget libcurl4 libfontconfig1 libpangocairo-1.0-0 libnss3 libgconf2-4 libxi6 libxcursor1 libxss1 libxcomposite1 libasound2 libxdamage1 libxtst6 libatk1.0-0 libxrandr2
+RUN apt-get update && \
+	apt-get -y install --no-install-recommends lib32gcc1 libcurl4 libfontconfig1 libpangocairo-1.0-0 libnss3 libgconf-2-4 libxi6 libxcursor1 libxss1 libxcomposite1 libasound2 libxdamage1 libxtst6 libatk1.0-0 libxrandr2 && \
+	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
@@ -21,17 +22,16 @@ ENV GID=100
 ENV USERNAME=""
 ENV PASSWRD=""
 
-RUN mkdir $DATA_DIR
-RUN mkdir $STEAMCMD_DIR
-RUN mkdir $SERVER_DIR
-RUN useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam
-RUN chown -R steam $DATA_DIR
-
-RUN ulimit -n 2048
+RUN mkdir $DATA_DIR && \
+	mkdir $STEAMCMD_DIR && \
+	mkdir $SERVER_DIR && \
+	useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam && \
+	chown -R steam $DATA_DIR && \
+	ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 770 /opt/scripts/
-RUN chown -R steam /opt/scripts
+RUN chmod -R 770 /opt/scripts/ && \
+	chown -R steam /opt/scripts
 
 USER steam
 

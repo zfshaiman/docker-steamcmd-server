@@ -54,8 +54,9 @@ else
 fi
 
 echo "---Prepare Server---"
-echo "---Checking folder structure---"
+echo "---Checking if 'Game.ini' exists---"
 if [ ! -f ${SERVER_DIR}/Pavlov/Saved/Config/LinuxServer/Game.ini ]; then
+	echo "---'Game.ini' not found, downloading...---"
 	if [ ! -d ${SERVER_DIR}/Pavlov/Saved ]; then
     	mkdir ${SERVER_DIR}/Pavlov/Saved
 	fi
@@ -65,13 +66,19 @@ if [ ! -f ${SERVER_DIR}/Pavlov/Saved/Config/LinuxServer/Game.ini ]; then
 	if [ ! -d ${SERVER_DIR}/Pavlov/Saved/Config/LinuxServer ]; then
     	mkdir ${SERVER_DIR}/Pavlov/Saved/Config/LinuxServer
 	fi
-    
+    cd ${SERVER_DIR}/Pavlov/Saved/Config/LinuxServer
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/pavlovvr/config/Game.ini ; then
+		echo "---Successfully downloaded 'Game.ini'---"
+	else
+		echo "---Something went wrong, can't download 'Game.ini', putting server in sleep mode---"
+		sleep infinity
+	fi
+else
+	echo "---'Game.ini' found---"
+fi
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Sleep zZz...---"
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/PavlovServer.sh ${GAME_PARAMS}

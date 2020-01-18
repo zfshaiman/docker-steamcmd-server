@@ -59,8 +59,14 @@ if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
     cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
 fi
 if [ ! -f ${SERVER_DIR}/hl2mp/cfg/server.cfg ]; then
-    echo "---No server.cfg found, downloading...---"
-    wget -q -O ${SERVER_DIR}/hl2mp/cfg/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/hl2dm/config/server.cfg
+    echo "---No 'server.cfg' found, downloading...---"
+    cd ${SERVER_DIR}/hl2mp/cfg
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/hl2dm/config/server.cfg ; then
+		echo "---Successfully downloaded 'server.cfg'---"
+	else
+		echo "---Something went wrong, can't download 'server.cfg', putting server in sleep mode---"
+		sleep infinity
+	fi
 else
     echo "---server.cfg found..."
 fi

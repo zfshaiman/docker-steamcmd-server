@@ -54,6 +54,18 @@ else
 fi
 
 echo "---Prepare Server---"
+echo "---Checking folder structure---"
+if [ ! -f ${SERVER_DIR}/Pavlov/Saved/Config/LinuxServer/Game.ini ]; then
+	if [ ! -d ${SERVER_DIR}/Pavlov/Saved ]; then
+    	mkdir ${SERVER_DIR}/Pavlov/Saved
+	fi
+	if [ ! -d ${SERVER_DIR}/Pavlov/Saved/Config ]; then
+    	mkdir ${SERVER_DIR}/Pavlov/Saved/Config
+	fi
+	if [ ! -d ${SERVER_DIR}/Pavlov/Saved/Config/LinuxServer ]; then
+    	mkdir ${SERVER_DIR}/Pavlov/Saved/Config/LinuxServer
+	fi
+    
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 

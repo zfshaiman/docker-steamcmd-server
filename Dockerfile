@@ -21,7 +21,7 @@ ENV USERNAME=""
 ENV PASSWRD=""
 
 RUN mkdir $DATA_DIR && \
-	$STEAMCMD_DIR && \
+	mkdir $STEAMCMD_DIR && \
 	mkdir $SERVER_DIR && \
 	useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam && \
 	chown -R steam $DATA_DIR && \

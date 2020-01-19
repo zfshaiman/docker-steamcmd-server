@@ -57,8 +57,13 @@ echo "---Prepare Server---"
 echo "---Checking for 'serversettings.xml'---"
 if [ ! -f ${SERVER_DIR}/serversettings.xml ]; then
     echo "---No 'serversettings.xml' found, downloading...---"
-    wget -qO ${SERVER_DIR}/serversettings.xml https://raw.githubusercontent.com/Regalis11/Barotrauma/master/Barotrauma/BarotraumaShared/serversettings.xml
-    sleep 2
+    cd ${SERVER_DIR}
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/barotrauma/config/serversettings.xml ; then
+    	echo "---Sucessfully downloaded 'serversettings.xml'---"
+	else
+    	echo "Can't download 'serversettings.xml', putting server into sleep mode---"
+        sleep infinity
+	fi
 else
     echo "---'serversettings.xml' found..."
 fi
@@ -83,6 +88,6 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S Barotrauma -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/DedicatedServer ${GAME_PARAMS}
+screen -S Barotrauma -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/Server.bin.x86_64 ${GAME_PARAMS}
 sleep 2
 tail -f ${SERVER_DIR}/masterLog.0

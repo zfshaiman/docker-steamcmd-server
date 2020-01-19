@@ -59,10 +59,16 @@ if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
     cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/
 fi
 if [ ! -f ${SERVER_DIR}/dod/cfg/server.cfg ]; then
-    echo "---No server.cfg found, downloading...---"
-    wget -q -O ${SERVER_DIR}/dod/cfg/server.cfg https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dods/config/server.cfg
+    echo "---No s'erver.cfg' found, downloading...---"
+    cd ${SERVER_DIR}/dod/cfg
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dods/config/server.cfg ; then
+    	echo "---Sucessfully downloaded 'server.cfg'---"
+	else
+    	echo "---Can't download 'server.cfg', putting server into sleep mode---"
+        sleep infinity
+	fi
 else
-    echo "---server.cfg found..."
+    echo "---'server.cfg' found..."
 fi
 echo "---Please wait---"
 chmod -R 777 ${DATA_DIR}

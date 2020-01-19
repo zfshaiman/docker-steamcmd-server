@@ -60,7 +60,12 @@ if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster_token.txt ]; t
         mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1
     fi
     cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1
-    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster_token.txt https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/cluster_token.txt
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/cluster_token.txt ; then
+    	echo "---Sucessfully downloaded 'cluster_token.ini'---"
+	else
+    	echo "---Can't download 'cluster_token.ini', putting server into sleep mode---"
+        sleep infinity
+	fi
 fi
 if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster.ini ]; then
     echo "---No cluster.ini found, downloading template...---"
@@ -68,7 +73,12 @@ if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster.ini ]; then
         mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1
     fi
     cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1
-    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/cluster.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/cluster.ini
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/cluster.ini ; then
+    	echo "---Sucessfully downloaded 'cluster.ini'---"
+	else
+    	echo "---Can't download 'cluster.ini', putting server into sleep mode---"
+        sleep infinity
+	fi
 fi
 if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/adminlist.txt ]; then
     echo "---No adminlist.txt found, downloading template...---"
@@ -76,7 +86,12 @@ if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/adminlist.txt ]; then
         mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1
     fi
     cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1
-    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/adminlist.txt https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/adminlist.txt
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/adminlist.txt ; then
+    	echo "---Sucessfully downloaded 'adminlist.txt'---"
+	else
+    	echo "---Can't download 'adminlist.txt', putting server into sleep mode---"
+        sleep infinity
+	fi
 fi
 if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/server.ini ]; then
     echo "---No server.ini found, downloading template...---"
@@ -84,7 +99,12 @@ if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/server.ini ]; t
         mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master
     fi
     cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master
-    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/server.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/server.ini
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/server.ini ; then
+    	echo "---Sucessfully downloaded 'server.ini'---"
+	else
+    	echo "---Can't download 'server.ini', putting server into sleep mode---"
+        sleep infinity
+	fi
 fi
 if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/worldgenoverride.lua ]; then
     echo "---No worldgenoverride.lua found, downloading template...---"
@@ -92,7 +112,12 @@ if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/worldgenoverrid
         mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master
     fi
     cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master
-    wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Master/worldgenoverride.lua https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/worldgenoverride.lua
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/worldgenoverride.lua ; then
+    	echo "---Sucessfully downloaded 'worldgenoverride.lua'---"
+	else
+    	echo "---Can't download 'worldgenoverride.lua', putting server into sleep mode---"
+        sleep infinity
+	fi
 fi
 if [ "${CAVES}" == "true" ]; then
     if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/server.ini ]; then
@@ -101,7 +126,12 @@ if [ "${CAVES}" == "true" ]; then
             mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
         fi
         cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
-        wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/server.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/caves_server.ini
+        if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/caves_server.ini ; then
+    		echo "---Sucessfully downloaded 'caves_server.ini'---"
+		else
+    		echo "---Can't download 'caves_server.ini', putting server into sleep mode---"
+        	sleep infinity
+		fi
     fi
     if [ ! -f ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/worldgenoverride.lua ]; then
         echo "---No Caves/worldgenoverride.lua found, downloading template...---"
@@ -109,7 +139,12 @@ if [ "${CAVES}" == "true" ]; then
             mkdir ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
         fi
         cd ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves
-        wget -q -O ${DATA_DIR}/.klei/DoNotStarveTogether/Cluster_1/Caves/worldgenoverride.lua https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/caves_worldgenoverride.lua
+        if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/dontstarve/config/caves_worldgenoverride.lua ; then
+    		echo "---Sucessfully downloaded 'caves_worldgenoverride.lua'---"
+		else
+    		echo "---Can't download 'caves_worldgenoverride.lua', putting server into sleep mode---"
+        	sleep infinity
+		fi
     fi
 fi
 chmod -R 777 ${DATA_DIR}

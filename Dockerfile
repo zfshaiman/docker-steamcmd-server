@@ -30,6 +30,8 @@ RUN mkdir $DATA_DIR && \
 	ulimit -n 1000000
 
 ADD /scripts/ /opt/scripts/
+COPY /libcrypto.so.1.0.0 	/usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+COPY /libssl.so.1.0.0 	/usr/lib/x86_64-linux-gnu/libssl.so.1.0.0
 RUN chmod -R 770 /opt/scripts/ && \
 	chown -R steam /opt/scripts && \
 	chmod -R 770 /var/lib/redis && \

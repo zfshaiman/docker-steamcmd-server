@@ -51,11 +51,12 @@ if [ ! -d ${SERVER_DIR}/data ]; then
 	mkdir ${SERVER_DIR}/data
     cd ${SERVER_DIR}/data
     echo "---Downloading ExileMod Server---"
-    wget -q --show-progress ${EXILEMOD_SERVER_URL}
-    if [ ! -f ${SERVER_DIR}/data/${EXILEMOD_SERVER_URL##*/} ]; then
-    	echo "---Something went wrong, could not find download---"
+    if wget -q -nc --show-progress --progress=bar:force:noscroll ${EXILEMOD_SERVER_URL} ; then
+    	echo "---Sucessfully downloaded ExileMod Server---"
+	else
+    	echo "---Can't download ExileMod Server, putting server into sleep mode---"
         sleep infinity
-    fi
+	fi
     unzip ${EXILEMOD_SERVER_URL##*/}
     cp -R ${SERVER_DIR}/data/Arma\ 3\ Server/* ${SERVER_DIR}
     rm -R ${SERVER_DIR}/data/Arma\ 3\ Server/
@@ -67,11 +68,13 @@ if [ ! -d ${SERVER_DIR}/data ]; then
     fi
     echo "---ExileMod Server successfully installed---"
     echo "---Downloading ExileMod (this can take some time)---"
-    wget -q --show-progress ${EXILEMOD_URL}
-	if [ ! -f ${SERVER_DIR}/data/${EXILEMOD_URL##*/} ]; then
-		echo "---Something went wrong, could not find download---"
-		sleep infinity
-    fi
+	cd ${SERVER_DIR}/data
+    if wget -q -nc --show-progress --progress=bar:force:noscroll ${EXILEMOD_URL} ; then
+    	echo "---Sucessfully downloaded ExileMod---"
+	else
+    	echo "---Can't download ExileMod, putting server into sleep mode---"
+        sleep infinity
+	fi
     unzip ${EXILEMOD_URL##*/}
     mv ${SERVER_DIR}/data/@Exile ${SERVER_DIR}
     rm ${SERVER_DIR}/data/${EXILEMOD_URL##*/}

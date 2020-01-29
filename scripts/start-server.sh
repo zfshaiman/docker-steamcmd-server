@@ -152,4 +152,4 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine64 ${SERVER_DIR}/ConanSandboxServer.exe -log
+xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine64 ${SERVER_DIR}/ConanSandboxServer.exe -log ${GAME_PARAMS}

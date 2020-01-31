@@ -84,10 +84,13 @@ if [ ! -f ${SERVER_DIR}/DaysOfWar/Saved/Config/LinuxServer/Game.ini ]; then
 else
 	echo "---'Game.ini' found---"
 fi
+if [ ! -x ${SERVER_DIR}/DaysOfWar/Binaries/Linux/DaysOfWarServer ]; then
+    chmod +x ${SERVER_DIR}/DaysOfWar/Binaries/Linux/DaysOfWarServer
+fi
 
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"
-cd ${SERVER_DIR}
-${SERVER_DIR}/DaysOfWarServer.sh ${GAME_PARAMS} Port=${GAME_PORT} QueryPort=${QUERY_PORT}
+cd ${SERVER_DIR}/DaysOfWar/Binaries/Linux
+${SERVER_DIR}/DaysOfWar/Binaries/Linux/DaysOfWarServer ${GAME_PARAMS} Port=${GAME_PORT} QueryPort=${QUERY_PORT}

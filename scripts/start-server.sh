@@ -54,11 +54,39 @@ else
 fi
 
 echo "---Prepare Server---"
+echo "---Looking for config file---"
+if [ ! -d ${SERVER_DIR}/DaysOfWar/Saved/Config/LinuxServer ]; then
+	if [ ! -d ${SERVER_DIR}/DaysOfWar ]; then
+    	echo "-----------------------------------------------------------"
+    	echo "---Something went wrong can't find folder 'DaysOfWar'---"
+    	echo "--------------Putting Server into sleep mode---------------"
+    	sleep infinity
+    	fi
+    if [ ! -d ${SERVER_DIR}/DaysOfWar/Saved ]; then
+		mkdir ${SERVER_DIR}/DaysOfWar/Saved
+    fi
+	if [ ! -d ${SERVER_DIR}/DaysOfWar/Saved/Config ]; then
+		mkdir ${SERVER_DIR}/DaysOfWar/Saved/Config
+    fi
+    if [ ! -d ${SERVER_DIR}/DaysOfWar/Saved/Config/LinuxServer ]; then
+		mkdir ${SERVER_DIR}/DaysOfWar/Saved/Config/LinuxServer
+    fi
+fi
+if [ ! -f ${SERVER_DIR}/DaysOfWar/Saved/Config/LinuxServer/Game.ini ]; then
+	echo "---'Game.ini' not found, downloading template---"
+    cd ${SERVER_DIR}/DaysOfWar/Saved/Config/LinuxServer
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/docker-steamcmd-server/raw/daysofwar/config/Game.ini ; then
+		echo "---Sucessfully downloaded 'Game.ini'---"
+	else
+		echo "---Something went wrong, can't download 'Game.ini', putting server in sleep mode---"
+		sleep infinity
+	fi
+else
+	echo "---'Game.ini' found---"
+fi
+
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
-
-echo "---Sleep zZz...---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

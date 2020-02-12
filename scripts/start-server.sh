@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
+export LD_LIBRARY_PATH=${SERVER_DIR}/linux64
 
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
@@ -57,9 +58,6 @@ echo "---Prepare Server---"
 chmod -R 777 ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Sleep zZz...---"
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/bin/AvorionServer --galaxy-name ${GALAXY_NAME} --datapath ${GALAXY_NAME} ${GAME_PARAMS}

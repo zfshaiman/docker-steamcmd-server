@@ -23,12 +23,14 @@ ENV UID=99
 ENV GID=100
 ENV USERNAME=""
 ENV PASSWRD=""
+ENV USER="steam"
+ENV DATA_PERM=770
 
 RUN mkdir $DATA_DIR && \
 	mkdir $STEAMCMD_DIR && \
 	mkdir $SERVER_DIR && \
-	useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam && \
-	chown -R steam $DATA_DIR && \
+	useradd -d $DATA_DIR -s /bin/bash $USER && \
+	chown -R $USER $DATA_DIR && \
 	mkdir -p $DATA_DIR/".local/share/Arma 3" && mkdir -p $DATA_DIR/".local/share/Arma 3 - Other Profiles" && \
 	ulimit -n 2048 && \
 	/etc/init.d/mysql start && \
@@ -39,15 +41,7 @@ RUN mkdir $DATA_DIR && \
 	sed -i '$a\[mysqld]\nsql-mode="ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_AUTO_CREATE_USER"' /etc/alternatives/my.cnf
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 770 /opt/scripts/ && \
-	chmod -R 770 $DATA_DIR/".local/share/Arma 3" && chmod -R 770 $DATA_DIR/".local/share/Arma 3 - Other Profiles" && \
-	chown -R steam /opt/scripts && chown -R steam $DATA_DIR/.local && \
-	chown -R steam:users /var/lib/mysql && \
-	chmod -R 770 /var/lib/mysql && \
-	chown -R steam:users /var/run/mysqld && \
-	chmod -R 770 /var/run/mysqld
-
-USER steam
+RUN chmod -R 770 /opt/scripts/
 
 #Server Start
-ENTRYPOINT ["/opt/scripts/start-server.sh"]
+ENTRYPOINT ["/opt/scripts/start.sh"]

@@ -1,7 +1,4 @@
 #!/bin/bash
-echo "---Setting umask to ${UMASK}---"
-umask ${UMASK}
-
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
     wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 
@@ -54,7 +51,7 @@ else
 fi
 
 echo "---Prepare Server---"
-chmod -R 777 ${DATA_DIR}
+chmod -R ${DATA_PERM} ${DATA_DIR}
 if grep -rq '"A New Quake Live Dedicated Server"' ${SERVER_DIR}/baseq3/server.cfg; then
 	sed -i '/set sv_hostname "A New Quake Live Dedicated Server"/c\set sv_hostname "Quake Live Docker"' ${SERVER_DIR}/baseq3/server.cfg
 	sed -i '/g_password ""/c\set g_password "Docker"          // Set a server-wide password, and stop all users from connecting without it.' ${SERVER_DIR}/baseq3/server.cfg

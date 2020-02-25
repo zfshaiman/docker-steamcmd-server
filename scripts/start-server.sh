@@ -1,7 +1,4 @@
 #!/bin/bash
-echo "---Setting umask to ${UMASK}---"
-umask ${UMASK}
-
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
     wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 
@@ -68,7 +65,7 @@ if [ "${MOD_LAUNCHER}" == "true" ]; then
        | wget -qi -
        unzip -qo server-modlauncher-$LAT_V.zip
        mv ${SERVER_DIR}/server-modlauncher-$LAT_V.zip ${DATA_DIR}/modlauncher-$LAT_V
-       chmod -R 770 *
+       chmod -R ${DATA_PERM} *
        ${SERVER_DIR}/patcher.sh
     elif [ "$LAT_V" != "$CUR_V" ]; then
        echo "---Newer version found, installing!---"
@@ -81,7 +78,7 @@ if [ "${MOD_LAUNCHER}" == "true" ]; then
        | wget -qi -
        unzip -qo server-modlauncher-$LAT_V.zip
        mv ${SERVER_DIR}/server-modlauncher-$LAT_V.zip ${DATA_DIR}/modlauncher-$LAT_V
-       chmod -R 770 *
+       chmod -R ${DATA_PERM} *
        ${SERVER_DIR}/patcher.sh
     elif [ "$LAT_V" == "$CUR_V" ]; then
        echo "---ModLauncher Version up-to-date---"
@@ -137,7 +134,7 @@ else
 	echo "---Steam file present---"
 fi
 echo "---Please wait---"
-chmod -R 777 ${DATA_DIR}
+chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"

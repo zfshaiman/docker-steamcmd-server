@@ -1,6 +1,4 @@
 #!/bin/bash
-echo "---Setting umask to ${UMASK}---"
-umask ${UMASK}
 export LD_LIBRARY_PATH=${SERVER_DIR}/linux64
 
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
@@ -55,7 +53,7 @@ else
 fi
 
 echo "---Prepare Server---"
-chmod -R 777 ${DATA_DIR}
+chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"

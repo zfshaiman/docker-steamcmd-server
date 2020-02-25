@@ -1,7 +1,4 @@
 #!/bin/bash
-echo "---Setting umask to ${UMASK}---"
-umask ${UMASK}
-
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "Arma3Log.0" -exec rm -f {} \;
 find ${SERVER_DIR} -name "ExileModLog.0" -exec rm -f {} \;
@@ -121,7 +118,7 @@ fi
 
 echo "---Prepare Server---"
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
-chmod -R 777 ${DATA_DIR}
+chmod -R ${DATA_PERM} ${DATA_DIR}
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

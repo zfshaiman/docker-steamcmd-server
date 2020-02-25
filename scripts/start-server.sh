@@ -1,7 +1,4 @@
 #!/bin/bash
-echo "---Setting umask to ${UMASK}---"
-umask ${UMASK}
-
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "Steamcmd not found!"
     wget -q -O ${STEAMCMD_DIR}/steamcmd_linux.tar.gz http://media.steampowered.com/client/steamcmd_linux.tar.gz 
@@ -38,7 +35,7 @@ if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
 else
     echo "---Server ready---"
 fi
-chmod -R 777 ${DATA_DIR}
+chmod -R ${DATA_PERM} ${DATA_DIR}
    
 echo "---Start Server---"
 ${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}

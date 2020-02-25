@@ -21,25 +21,20 @@ ENV UID=99
 ENV GID=100
 ENV USERNAME=""
 ENV PASSWRD=""
+ENV USER="steam"
+ENV DATA_PERM=770
 
 RUN mkdir $DATA_DIR && \
 	mkdir $STEAMCMD_DIR && \
 	mkdir $SERVER_DIR && \
-	useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam && \
-	chown -R steam $DATA_DIR && \
+	useradd -d $DATA_DIR -s /bin/bash $USER && \
+	chown -R $USER $DATA_DIR && \
 	ulimit -n 1000000
 
 ADD /scripts/ /opt/scripts/
 COPY /libcrypto.so.1.0.0 	/usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
 COPY /libssl.so.1.0.0 	/usr/lib/x86_64-linux-gnu/libssl.so.1.0.0
-RUN chmod -R 770 /opt/scripts/ && \
-	chown -R steam /opt/scripts && \
-	chmod -R 770 /var/lib/redis && \
-	chown -R steam /var/lib/redis && \
-	chown -R steam /usr/bin/redis-server && \
-	chown -R steam /usr/bin/redis-cli
-
-USER steam
+RUN chmod -R 770 /opt/scripts/
 
 #Server Start
-ENTRYPOINT ["/opt/scripts/start-server.sh"]
+ENTRYPOINT ["/opt/scripts/start.sh"]

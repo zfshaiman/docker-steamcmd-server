@@ -19,21 +19,19 @@ ENV UID=99
 ENV GID=100
 ENV USERNAME=""
 ENV PASSWRD=""
+ENV USER="steam"
+ENV DATA_PERM=770
 
 RUN mkdir $DATA_DIR && \
 	mkdir $STEAMCMD_DIR && \
 	mkdir $SERVER_DIR && \
-	useradd -d $DATA_DIR -s /bin/bash --uid $UID --gid $GID steam && \
-	chown -R steam $DATA_DIR && \
+	useradd -d $DATA_DIR -s /bin/bash $USER && \
+	chown -R $USER $DATA_DIR && \
 	mkdir -p $DATA_DIR/".local/share/Arma 3" && mkdir -p $DATA_DIR/".local/share/Arma 3 - Other Profiles" && \
 	ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 770 /opt/scripts/ && \
-	chmod -R 770 $DATA_DIR/".local/share/Arma 3" && chmod -R 770 $DATA_DIR/".local/share/Arma 3 - Other Profiles" & \
-	chown -R steam /opt/scripts && chown -R steam $DATA_DIR/.local
-
-USER steam
+RUN chmod -R 770 /opt/scripts/
 
 #Server Start
-ENTRYPOINT ["/opt/scripts/start-server.sh"]
+ENTRYPOINT ["/opt/scripts/start.sh"]

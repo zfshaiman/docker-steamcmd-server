@@ -56,11 +56,12 @@ if [ ! -f ${SERVER_DIR}/ShooterGame/Binaries/Linux/libsteam_api.so ]; then
     cd ${SERVER_DIR}/ShooterGame/Binaries/Linux
 	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/arkse/lib.tar.gz ; then
 		echo "---Download complete, extracting---"
-        tar -xvf ${SERVER_DIR}/ShooterGame/Binaries/Linux/lib.tar.gz
-        rm ${SERVER_DIR}/ShooterGame/Binaries/Linux/lib.tar.gz
+		tar -xvf ${SERVER_DIR}/ShooterGame/Binaries/Linux/lib.tar.gz
+		rm ${SERVER_DIR}/ShooterGame/Binaries/Linux/lib.tar.gz
 	else
 		echo "---Something went wrong, can't download Librarys, putting server in sleep mode---"
 		sleep infinity
+	fi
 fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"

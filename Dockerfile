@@ -1,9 +1,10 @@
-FROM ubuntu
+FROM ich777/debian-baseimage
 
-MAINTAINER ich777
+LABEL maintainer="admin@minenet.at"
 
-RUN apt-get update
-RUN apt-get -y install lib32gcc1 wget libvorbisfile3
+RUN apt-get update && \
+	apt-get -y install lib32gcc1 libvorbisfile3 && \
+	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

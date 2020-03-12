@@ -1,9 +1,9 @@
-FROM ich777/mono-baseimage
+FROM ich777/mono-baseimage:6.0
 
 LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc1 && \
+	apt-get -y install --no-install-recommends lib32gcc1 libcanberra-gtk-module && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"

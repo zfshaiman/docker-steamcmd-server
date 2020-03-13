@@ -54,6 +54,11 @@ echo "---Prepare Server---"
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
+export DISPLAY=:0
+
+echo "---Sleep zZz---"
+sleep infinity
+
 echo "---Start Server---"
 cd ${SERVER_DIR}
 mono ${SERVER_DIR}/EcoServer.exe ${GAME_PARAMS}

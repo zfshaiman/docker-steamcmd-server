@@ -1,4 +1,4 @@
-FROM ich777/mono-baseimage:6.0
+FROM ich777/mono-baseimage:6.0-vnc
 
 LABEL maintainer="admin@minenet.at"
 

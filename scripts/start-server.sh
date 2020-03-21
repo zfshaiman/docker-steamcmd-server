@@ -98,8 +98,6 @@ else
 fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 
-sleep infinity
-
 echo "---Start Server---"
 if [ "${INSTALL_STRACKER}" == "true" ]; then
 	cd ${SERVER_DIR}

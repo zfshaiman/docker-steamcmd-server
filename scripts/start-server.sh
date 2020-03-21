@@ -58,7 +58,7 @@ echo "---Searching for Stracker installation---"
 			cp ${SERVER_DIR}/stracker.ini ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini
 			rm ${SERVER_DIR}/stracker/stracker-default.ini
 		else
-			mv ${SERVER_DIR}/stracker/stracker-default.ini ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini
+			rm ${SERVER_DIR}/stracker/stracker-default.ini
 		fi
 	else
 		echo "---Stracker found, continuing---"
@@ -87,8 +87,15 @@ if [ "${INSTALL_STRACKER}" == "true" ]; then
 	echo "---Checking if Server is configured properly---"
 	sed -i '/UDP_PLUGIN_ADDRESS/c\UDP_PLUGIN_ADDRESS=127.0.0.1:12000' ${SERVER_DIR}/cfg/server_cfg.ini
 	sed -i '/UDP_PLUGIN_LOCAL_PORT/c\UDP_PLUGIN_LOCAL_PORT=11000' ${SERVER_DIR}/cfg/server_cfg.ini
-	sed -i '/ac_server_cfg_ini =/c\ac_server_cfg_ini = /serverdata/serverfiles/cfg/server_cfg.ini' ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini
-	sed -i '/log_file =/c\log_file = /serverdata/serverfiles/stracker.log' ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini
+	if [ ! -f ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini ]; then
+		cd ${SERVER_DIR}/stracker/stracker_linux_x86
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O stracker.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/betaac/config/stracker.ini ; then
+			echo "---Successfully downloaded 'stacker.ini'---"
+		else
+			echo "---Something went wrong, can't download 'stacker.ini', putting server in sleep mode---"
+			sleep infinity
+		fi
+	fi
 	echo "---Checking for old logs---"
 	find ${SERVER_DIR} -name "AC.log" -exec rm -f {} \;
 	find ${SERVER_DIR} -name "stracker.log" -exec rm -f {} \;

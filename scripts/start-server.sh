@@ -103,7 +103,7 @@ sleep infinity
 echo "---Start Server---"
 if [ "${INSTALL_STRACKER}" == "true" ]; then
 	cd ${SERVER_DIR}
-	screen -S AssettoCorsa -L -Logfile ${SERVER_DIR}/AC.log ${SERVER_DIR}/acServer
+	screen -S AssettoCorsa -L -Logfile ${SERVER_DIR}/AC.log -d -m ${SERVER_DIR}/acServer
 	sleep 10
 	cd ${SERVER_DIR}/stracker/stracker_linux_x86
 	screen -S Stracker -L -d -m ${SERVER_DIR}/stracker/stracker_linux_x86/stracker --stracker_ini ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini

@@ -55,7 +55,7 @@ echo "---Searching for Stracker installation---"
 		rm ${SERVER_DIR}/stracker/start-stracker.cmd
 		if [ -f ${SERVER_DIR}/stracker.ini ]; then
 			echo "---Old stracker.ini found, copying!---"
-			cp ${SERVER_DIR}/stracker.ini ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini
+			mv ${SERVER_DIR}/stracker.ini ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini
 			rm ${SERVER_DIR}/stracker/stracker-default.ini
 		else
 			rm ${SERVER_DIR}/stracker/stracker-default.ini

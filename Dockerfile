@@ -3,7 +3,7 @@ FROM ich777/debian-baseimage
 LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc1 && \
+	apt-get -y install --no-install-recommends lib32gcc1 libc6-i386 lib32z1 unzip screen && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
@@ -13,6 +13,7 @@ ENV GAME_ID="template"
 ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"
 ENV GAME_PORT=27015
+ENV INSTALL_STRACKER=""
 ENV VALIDATE=""
 ENV UMASK=000
 ENV UID=99

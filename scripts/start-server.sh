@@ -66,13 +66,15 @@ echo "---Starting Xvfb server---"
 screen -S Xvfb -L -Logfile ${DATA_DIR}/XvfbLog.0 -d -m /opt/scripts/start-Xvfb.sh
 sleep 5
 
-echo "---Starting x11vnc server---"
-screen -S x11vnc -L -Logfile ${DATA_DIR}/x11vncLog.0 -d -m /opt/scripts/start-x11.sh
-sleep 5
+if [ "${START_SRV_MGMT}" == "true" ]; then
+	echo "---Starting x11vnc server---"
+	screen -S x11vnc -L -Logfile ${DATA_DIR}/x11vncLog.0 -d -m /opt/scripts/start-x11.sh
+	sleep 5
 
-echo "---Starting noVNC server---"
-websockify -D --web=/usr/share/novnc/ --cert=/etc/ssl/novnc.pem 8080 localhost:5900
-sleep 5
+	echo "---Starting noVNC server---"
+	websockify -D --web=/usr/share/novnc/ --cert=/etc/ssl/novnc.pem 8080 localhost:5900
+	sleep 5
+fi
 
 echo "---Sleep zZz---"
 sleep infinity

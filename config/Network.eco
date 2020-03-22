@@ -1,0 +1,16 @@
+{
+  "PublicServer": true,
+  "Playtime": "",
+  "Password": "Docker",
+  "Description": "ECO Docker",
+  "DetailedDescription": "",
+  "ServerCategory": "None",
+  "IPAddress": "Any",
+  "GameServerPort": 3000,
+  "WebServerPort": 3001,
+  "Rate": 20,
+  "MaxConnections": -1,
+  "ID": "e699cf07-1e13-4b64-b303-ae95da7e965c",
+  "Passport": "aab4ade5-c106-484e-8a23-b2a40805e632",
+  "UPnPEnabled": true
+}

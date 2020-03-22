@@ -12,7 +12,7 @@ ENV SERVER_DIR="${DATA_DIR}/serverfiles"
 ENV GAME_ID="template"
 ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"
-ENV GAME_PORT=27015
+ENV START_SRV_MGMT="true"
 ENV VALIDATE=""
 ENV UMASK=000
 ENV UID=99
@@ -31,6 +31,10 @@ RUN mkdir $DATA_DIR && \
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
+
+EXPOSE 3001
+EXPOSE 8080
+EXPOSE 3000/udp
 
 #Server Start
 ENTRYPOINT ["/opt/scripts/start.sh"]

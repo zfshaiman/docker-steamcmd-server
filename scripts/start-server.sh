@@ -57,7 +57,7 @@ export LD_LIBRARY_PATH="${SERVER_DIR}/linux64:${SERVER_DIR}/natives:${SERVER_DIR
 export JSIG="libjsig.so"
 export JARPATH="java/:java/lwjgl.jar:java/lwjgl_util.jar:java/sqlite-jdbc-3.8.10.1.jar:java/uncommons-maths-1.2.3.jar"
 echo "---Looking for server configuration file---"
-if [ ! -f ${SERVER_DIR}/Zomboid/Server/servertest.ini ]; then
+if [ ! -d ${SERVER_DIR}/Zomboid ]; then
 	echo "---No server configruation found, downloading template---"
 	cd ${SERVER_DIR}
 	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/docker-steamcmd-server/raw/projectzomboid/config/cfg.zip ; then

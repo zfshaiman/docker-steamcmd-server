@@ -59,19 +59,15 @@ export JARPATH="java/:java/lwjgl.jar:java/lwjgl_util.jar:java/sqlite-jdbc-3.8.10
 echo "---Looking for server configuration file---"
 if [ ! -f ${SERVER_DIR}/Zomboid/Server/servertest.ini ]; then
 	echo "---No server configruation found, downloading template---"
-    if [ ! -d ${SERVER_DIR}/Zomboid ]; then
-    	mkdir ${SERVER_DIR}/Zomboid
-	fi
-    if [ ! -d ${SERVER_DIR}/Zomboid/Server ]; then
-		mkdir ${SERVER_DIR}/Zomboid/Server
-	fi
-	cd ${SERVER_DIR}/Zomboid/Server
-	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/docker-steamcmd-server/raw/projectzomboid/config/servertest.ini ; then
+	cd ${SERVER_DIR}
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/docker-steamcmd-server/raw/projectzomboid/config/cfg.zip ; then
 		echo "---Sucessfully downloaded server configuration file---"
 	else
 		echo "---Something went wrong, can't download server configuration file, putting server in sleep mode---"
 		sleep infinity
 	fi
+	unzip -o ${SERVER_DIR}/cfg.zip
+	rm ${SERVER_DIR}/cfg.zip
 else
 	echo "---Server configuration files found!---"
 fi

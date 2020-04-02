@@ -112,11 +112,16 @@ else
 			+workshop_download_item 107410 1487484880 \
 			+quit
 			if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880 ]; then
+				echo
 				echo "----------------------------------------------------"
 				echo "---Can't download ExileMod, please make sure that---"
 				echo "-----the account that you specified has a valid-----"
 				echo "--------license/purchase for the game ArmA3---------"
 				echo "---itself otherwise the download will always fail!--"
+				echo "----------------------------------------------------"
+				echo "-----------You can also set the variable:-----------"
+				echo "-----------'WORKSHOP_MAN_INST' to 'true'------------"
+				echo "----if you want to install the ExileMod manually----"
 				echo "----------------------------------------------------"
 				echo "-----------Putting server into sleep mode-----------"
 				echo "----------------------------------------------------"

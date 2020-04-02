@@ -41,87 +41,137 @@ echo "---Starting MariaDB...---"
 screen -S MariaDB -L -Logfile ${SERVER_DIR}/MariaDBLog.0 -d -m mysqld_safe
 sleep 10
 
-#echo "---Checking for ExileMod---"
-#if [ ! -d ${SERVER_DIR}/data ]; then
-#	echo "---ExileMod not found, creating 'data' directory---"
-#	cd ${SERVER_DIR}
-#	mkdir ${SERVER_DIR}/data
-#	cd ${SERVER_DIR}/data
-#	echo "---Downloading ExileMod Server---"
-#	if wget -q -nc --show-progress --progress=bar:force:noscroll ${EXILEMOD_SERVER_URL} ; then
-#		echo "---Sucessfully downloaded ExileMod Server---"
-#	else
-#		echo "---Can't download ExileMod Server, putting server into sleep mode---"
-#	    sleep infinity
-#	fi
-#	unzip ${EXILEMOD_SERVER_URL##*/}
-#	cp -R ${SERVER_DIR}/data/Arma\ 3\ Server/* ${SERVER_DIR}
-#	rm -R ${SERVER_DIR}/data/Arma\ 3\ Server/
-#	rm ${SERVER_DIR}/data/${EXILEMOD_SERVER_URL##*/}
-#	touch ${SERVER_DIR}/data/"${EXILEMOD_SERVER_URL##*/}_installed"
-#	if [ ! -d ${SERVER_DIR}/@ExileServer ]; then
-#		echo "---Something went wrong, ExileModServer not correctly installed---"
-#		sleep infinity
-#	fi
-#	echo "---ExileMod Server successfully installed---"
-#	echo "---Downloading ExileMod (this can take some time)---"
-#	cd ${SERVER_DIR}/data
-#	if wget -q -nc --show-progress --progress=bar:force:noscroll ${EXILEMOD_URL} ; then
-#		echo "---Sucessfully downloaded ExileMod---"
-#	else
-#		echo "---Can't download ExileMod, putting server into sleep mode---"
-#		sleep infinity
-#	fi
-#	unzip ${EXILEMOD_URL##*/}
-#	mv ${SERVER_DIR}/data/@Exile ${SERVER_DIR}
-#	rm ${SERVER_DIR}/data/${EXILEMOD_URL##*/}
-#	touch ${SERVER_DIR}/data/"${EXILEMOD_URL##*/}_installed"
-#	if [ ! -d ${SERVER_DIR}/@Exile ]; then
-#	echo "---Something went wrong, ExileMod not correctly installed---"
-#		sleep infinity
-#	fi
-#	echo "---ExileMod successfully installed---"
-#fi
+echo "---Checking for ExileMod Server---"
+if [ ! -d ${SERVER_DIR}/@ExileServer ]; then
+	if [ ! -d ${SERVER_DIR}/data ]; then
+		echo "---ExileMod Server not found, creating 'data' directory---"
+		cd ${SERVER_DIR}
+		mkdir ${SERVER_DIR}/data
+		cd ${SERVER_DIR}/data
+		echo "---Downloading ExileMod Server---"
+		if wget -q -nc --show-progress --progress=bar:force:noscroll ${EXILEMOD_SERVER_URL} ; then
+			echo "---Sucessfully downloaded ExileMod Server---"
+		else
+			echo "---Can't download ExileMod Server, putting server into sleep mode---"
+		    sleep infinity
+		fi
+		unzip ${EXILEMOD_SERVER_URL##*/}
+		cp -R ${SERVER_DIR}/data/Arma\ 3\ Server/* ${SERVER_DIR}
+		rm -R ${SERVER_DIR}/data/Arma\ 3\ Server/
+		rm ${SERVER_DIR}/data/${EXILEMOD_SERVER_URL##*/}
+		touch ${SERVER_DIR}/data/"${EXILEMOD_SERVER_URL##*/}_installed"
+		if [ ! -d ${SERVER_DIR}/@ExileServer ]; then
+			echo "---Something went wrong, ExileMod Server not correctly installed---"
+			sleep infinity
+		fi
+		echo "---ExileMod Server successfully installed---"
+	fi
+else
+	echo "---ExileMod Server found!---"
+fi
 
-#echo "---Checking if 'exile' database is connected correctly---"
-#INJECTED="$(mysql -u "steam" -p"exile" -e "USE 'exile'; SHOW TABLES;" | grep 'account')"
-#if [ "$INJECTED" = "" ] ; then
-#	echo "---Database not connected, connecting...---"
-#	mysql -u "steam" -p"exile" -e "SOURCE $SERVER_DIR/data/MySQL/exile.sql"
-#	INJECTED="$(mysql -u "steam" -p"exile" -e "USE 'exile'; SHOW TABLES;" | grep 'account')"
-#	if [ "$INJECTED" = "account" ] ; then
-#	echo "---Database successfully connected!---"
-#	else
-#		echo "---Something went wrong, could not connect database!---"
-#		sleep infinity
-#	fi
-#fi
-#if [ "$INJECTED" = "account" ] ; then
-#	echo "---Database setup correct!---"
-#fi
+echo "---Checking for ExileMod Files---"
+if [ "${WORKSHOP_MAN_INST}" == "true" ]; then
+	if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880 ]; then
+		echo "------------------------------------------------------------------------------"
+		echo "---Workshop installation set to manual please install the modfiles manually---"
+		echo "--------with this command when you opened a console for the container:--------"
+    	echo "${STEAMCMD_DIR}/steamcmd.sh +login [USERNAME] +force_install_dir ${SERVER_DIR} +workshop_download_item 107410 1487484880 +quit"
+		echo
+		echo "-----or with this command when you are running the console from the host:-----"
+		echo "docker exec -u steam -ti [NAMEOFYOURCONTAINER] ${STEAMCMD_DIR}/steamcmd.sh +login [USERNAME] +force_install_dir ${SERVER_DIR} +workshop_download_item 107410 1487484880 +quit"
+		echo
+		echo "-----------Please replace [USERNAME] with your Steam username and-------------"
+		echo "-----[NAMEOFYOURCONTAINER] with the name of your containername if you are-----"
+		echo "----executing the second command and restart the container if it's finished---"
+		echo "----Also please let the variable for the manual installation set to 'true'----"
+		echo "------------------------------------------------------------------------------"
+		sleep infinity
+	else
+		if [ ! -d ${SERVER_DIR}/@Exile ]; then
+			mkdir ${SERVER_DIR}/@Exile
+			mv ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880/* ${SERVER_DIR}/@Exile
+			INSTALLED_M_V="$(ls -la -d ${SERVER_DIR}/@Exile/* 2>/dev/null | head -1 | cut -d "/" -f 5)"
+			if [ -z "$INSTALLED_M_V" ]; then
+				echo "---Something went wrong, ExileMod not correctly installed---"
+				sleep infinity
+			fi
+			echo "---ExileMod successfully installed---"
+		else
+			echo "---ExileMod Files found!---"
+		fi
+	fi
+else
+	if [ ! -d ${SERVER_DIR}/@Exile ]; then
+		echo "---ExlieMod Files not found, installing---"
+		mkdir ${SERVER_DIR}/@Exile
+		if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880 ]; then
+			echo "---ExileMod not found, downloading from Stem Workshop---"
+			${STEAMCMD_DIR}/steamcmd.sh \
+			+login ${USERNAME} ${PASSWRD} \
+			+force_install_dir ${SERVER_DIR} \
+			+workshop_download_item 107410 1487484880 \
+			+quit
+			if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880 ]; then
+				echo "----------------------------------------------------"
+				echo "---Can't download ExileMod, please make sure that---"
+				echo "-----the account that you specified has a valid-----"
+				echo "--------license/purchase for the game ArmA3---------"
+				echo "---itself otherwise the download will always fail!--"
+				echo "----------------------------------------------------"
+		        echo "-----------Putting server into sleep mode-----------"
+				echo "----------------------------------------------------"
+				sleep infinity
+			fi
+			mv ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880/* ${SERVER_DIR}/@Exile
+			INSTALLED_M_V="$(ls -la -d ${SERVER_DIR}/@Exile/* 2>/dev/null | head -1 | cut -d "/" -f 5)"
+			if [ -z "$INSTALLED_M_V" ]; then
+				echo "---Something went wrong, ExileMod not correctly installed---"
+				sleep infinity
+			fi
+			echo "---ExileMod successfully installed---"
+		fi
+	else
+		echo "---ExileMod Files found!---"
+	fi
+fi
 
-#echo "---Checking if ExileMod is configured correctly for database connection---"
-#if grep -rq 'Username = changeme' ${SERVER_DIR}/@ExileServer/extdb-conf.ini; then
-#	sed -i '/Username = changeme/c\Username = steam' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
-#	sed -i '/Username = steam/!b;n;cPassword = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
-#	echo "---Corrected ExileMod database connection---"
-#fi
+echo "---Checking if 'exile' database is connected correctly---"
+INJECTED="$(mysql -u "steam" -p"exile" -e "USE 'exile'; SHOW TABLES;" | grep 'account')"
+if [ "$INJECTED" = "" ] ; then
+	echo "---Database not connected, connecting...---"
+	mysql -u "steam" -p"exile" -e "SOURCE $SERVER_DIR/data/MySQL/exile.sql"
+	INJECTED="$(mysql -u "steam" -p"exile" -e "USE 'exile'; SHOW TABLES;" | grep 'account')"
+	if [ "$INJECTED" = "account" ] ; then
+	echo "---Database successfully connected!---"
+	else
+		echo "---Something went wrong, could not connect database!---"
+		sleep infinity
+	fi
+fi
+if [ "$INJECTED" = "account" ] ; then
+	echo "---Database setup correct!---"
+fi
 
-#if grep -rq 'Username = steam' ${SERVER_DIR}/@ExileServer/extdb-conf.ini; then
-#	if grep -rq 'Password = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini; then
-#		:
-#	else
-#		sed -i '/Username = steam/!b;n;cPassword = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
-#	fi
-#	echo "---ExileMod database connection correct---"
-#fi
+echo "---Checking if ExileMod is configured correctly for database connection---"
+if grep -rq 'Username = changeme' ${SERVER_DIR}/@ExileServer/extdb-conf.ini; then
+	sed -i '/Username = changeme/c\Username = steam' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
+	sed -i '/Username = steam/!b;n;cPassword = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
+	echo "---Corrected ExileMod database connection---"
+fi
+
+if grep -rq 'Username = steam' ${SERVER_DIR}/@ExileServer/extdb-conf.ini; then
+	if grep -rq 'Password = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini; then
+		:
+	else
+		sed -i '/Username = steam/!b;n;cPassword = exile' ${SERVER_DIR}/@ExileServer/extdb-conf.ini
+	fi
+	echo "---ExileMod database connection correct---"
+fi
 
 echo "---Prepare Server---"
 cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
 chmod -R ${DATA_PERM} ${DATA_DIR}
-
-echo "---Putting server to sleep, Container is now under construction---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

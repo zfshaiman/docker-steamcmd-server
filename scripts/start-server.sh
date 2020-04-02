@@ -59,7 +59,6 @@ if [ ! -d ${SERVER_DIR}/@ExileServer ]; then
 		cp -R ${SERVER_DIR}/data/Arma\ 3\ Server/* ${SERVER_DIR}
 		rm -R ${SERVER_DIR}/data/Arma\ 3\ Server/
 		rm ${SERVER_DIR}/data/${EXILEMOD_SERVER_URL##*/}
-		touch ${SERVER_DIR}/data/"${EXILEMOD_SERVER_URL##*/}_installed"
 		if [ ! -d ${SERVER_DIR}/@ExileServer ]; then
 			echo "---Something went wrong, ExileMod Server not correctly installed---"
 			sleep infinity
@@ -76,7 +75,7 @@ if [ "${WORKSHOP_MAN_INST}" == "true" ]; then
 		echo "------------------------------------------------------------------------------"
 		echo "---Workshop installation set to manual please install the modfiles manually---"
 		echo "--------with this command when you opened a console for the container:--------"
-    	echo "${STEAMCMD_DIR}/steamcmd.sh +login [USERNAME] +force_install_dir ${SERVER_DIR} +workshop_download_item 107410 1487484880 +quit"
+		echo "${STEAMCMD_DIR}/steamcmd.sh +login [USERNAME] +force_install_dir ${SERVER_DIR} +workshop_download_item 107410 1487484880 +quit"
 		echo
 		echo "-----or with this command when you are running the console from the host:-----"
 		echo "docker exec -u steam -ti [NAMEOFYOURCONTAINER] ${STEAMCMD_DIR}/steamcmd.sh +login [USERNAME] +force_install_dir ${SERVER_DIR} +workshop_download_item 107410 1487484880 +quit"

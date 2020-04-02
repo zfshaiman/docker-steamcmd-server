@@ -118,7 +118,7 @@ else
 				echo "--------license/purchase for the game ArmA3---------"
 				echo "---itself otherwise the download will always fail!--"
 				echo "----------------------------------------------------"
-		        echo "-----------Putting server into sleep mode-----------"
+				echo "-----------Putting server into sleep mode-----------"
 				echo "----------------------------------------------------"
 				sleep infinity
 			fi

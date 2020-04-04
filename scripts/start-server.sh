@@ -71,14 +71,14 @@ fi
 
 echo "---Checking for ExileMod Files---"
 if [ "${WORKSHOP_MAN_INST}" == "true" ]; then
-	if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880 ]; then
+	if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/${WORKSHOP_ID} ]; then
 		echo "------------------------------------------------------------------------------"
 		echo "---Workshop installation set to manual please install the modfiles manually---"
 		echo "--------with this command when you opened a console for the container:--------"
-		echo "${STEAMCMD_DIR}/steamcmd.sh +login [USERNAME] +force_install_dir ${SERVER_DIR} +workshop_download_item 107410 1487484880 +quit"
+		echo "${STEAMCMD_DIR}/steamcmd.sh +login [USERNAME] +force_install_dir ${SERVER_DIR} +workshop_download_item 107410 1339410397 +quit"
 		echo
 		echo "-----or with this command when you are running the console from the host:-----"
-		echo "docker exec -u steam -ti [NAMEOFYOURCONTAINER] ${STEAMCMD_DIR}/steamcmd.sh +login [USERNAME] +force_install_dir ${SERVER_DIR} +workshop_download_item 107410 1487484880 +quit"
+		echo "docker exec -u steam -ti [NAMEOFYOURCONTAINER] ${STEAMCMD_DIR}/steamcmd.sh +login [USERNAME] +force_install_dir ${SERVER_DIR} +workshop_download_item 107410 1339410397 +quit"
 		echo
 		echo "-----------Please replace [USERNAME] with your Steam username and-------------"
 		echo "-----[NAMEOFYOURCONTAINER] with the name of your containername if you are-----"
@@ -89,7 +89,7 @@ if [ "${WORKSHOP_MAN_INST}" == "true" ]; then
 	else
 		if [ ! -d ${SERVER_DIR}/@Exile ]; then
 			mkdir ${SERVER_DIR}/@Exile
-			mv ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880/* ${SERVER_DIR}/@Exile
+			mv ${SERVER_DIR}/steamapps/workshop/content/107410/${WORKSHOP_ID}/* ${SERVER_DIR}/@Exile
 			INSTALLED_M_V="$(ls -la -d ${SERVER_DIR}/@Exile/* 2>/dev/null | head -1 | cut -d "/" -f 5)"
 			if [ -z "$INSTALLED_M_V" ]; then
 				echo "---Something went wrong, ExileMod not correctly installed---"
@@ -104,14 +104,14 @@ else
 	if [ ! -d ${SERVER_DIR}/@Exile ]; then
 		echo "---ExlieMod Files not found, installing---"
 		mkdir ${SERVER_DIR}/@Exile
-		if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880 ]; then
+		if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/${WORKSHOP_ID} ]; then
 			echo "---ExileMod not found, downloading from Stem Workshop---"
 			${STEAMCMD_DIR}/steamcmd.sh \
 			+login ${USERNAME} ${PASSWRD} \
 			+force_install_dir ${SERVER_DIR} \
-			+workshop_download_item 107410 1487484880 \
+			+workshop_download_item 107410 ${WORKSHOP_ID} \
 			+quit
-			if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880 ]; then
+			if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/${WORKSHOP_ID} ]; then
 				echo
 				echo "----------------------------------------------------"
 				echo "---Can't download ExileMod, please make sure that---"
@@ -127,7 +127,7 @@ else
 				echo "----------------------------------------------------"
 				sleep infinity
 			fi
-			mv ${SERVER_DIR}/steamapps/workshop/content/107410/1487484880/* ${SERVER_DIR}/@Exile
+			mv ${SERVER_DIR}/steamapps/workshop/content/107410/${WORKSHOP_ID}/* ${SERVER_DIR}/@Exile
 			INSTALLED_M_V="$(ls -la -d ${SERVER_DIR}/@Exile/* 2>/dev/null | head -1 | cut -d "/" -f 5)"
 			if [ -z "$INSTALLED_M_V" ]; then
 				echo "---Something went wrong, ExileMod not correctly installed---"

@@ -9,8 +9,8 @@ umask ${UMASK}
 echo "---Checking for optional scripts---"
 if [ -f /opt/scripts/user.sh ]; then
 	echo "---Found optional script, executing---"
-    chmod +x /opt/scripts/user.sh
-    /opt/scripts/user.sh
+	chmod +x /opt/scripts/user.sh
+	/opt/scripts/user.sh
 else
 	echo "---No optional script found, continuing---"
 fi

@@ -65,14 +65,17 @@ else
     echo "---'serversettings.xml' found..."
 fi
 echo "---Checking if everything is in place---"
-if [ ! -f ${SERVER_DIR}/lib64/steamclient.so ]; then
-    echo "---Correcting errors---"
-	cp ${STEAMCMD_DIR}/linux64/steamclient.so ${SERVER_DIR}/lib64/steamclient.so
-    if [ ! -f ${SERVER_DIR}/lib64/steamclient.so ]; then
-    	echo "---Something went wrong, can't copy 'steamclient.so' putting server into sleep mode---"
-        sleep infinity
-    fi
-    echo "---Errors corrected---"
+if [ ! -f ${DATA_DIR}/.steam/sdk64/steamclient.so ]; then
+	echo "---Correcting errors---"
+	if [ ! -d ${DATA_DIR}/.steam/sdk64 ]; then
+		mkdir -p ${DATA_DIR}/.steam/sdk64
+	fi
+	cp ${SERVER_DIR}/linux64/steamclient.so ${DATA_DIR}/.steam/sdk64/
+	if [ ! -f ${DATA_DIR}/.steam/sdk64/steamclient.so ]; then
+		echo "---Something went wrong, can't copy 'steamclient.so' putting server into sleep mode---"
+		sleep infinity
+	fi
+	echo "---Errors corrected---"
 else
 	echo "---Everything is in place---"
 fi
@@ -85,6 +88,6 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S Barotrauma -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/Server.bin.x86_64 ${GAME_PARAMS}
+screen -S Barotrauma -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/DedicatedServer ${GAME_PARAMS}
 sleep 2
 tail -f ${SERVER_DIR}/masterLog.0

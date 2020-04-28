@@ -17,6 +17,7 @@ fi
 
 echo "---Starting...---"
 chown -R ${UID}:${GID} /opt/scripts
+chown -R ${UID}:${GID} ${DATA_DIR}
 chown -R ${UID}:${GID} $DATA_DIR/.local
 chmod -R 770 $DATA_DIR/".local/share/Arma 3"
 chmod -R 770 $DATA_DIR/".local/share/Arma 3 - Other Profiles"

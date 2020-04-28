@@ -2,8 +2,10 @@ FROM ich777/debian-baseimage
 
 LABEL maintainer="admin@minenet.at"
 
-RUN apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc1 screen ca-certificates && \
+RUN wget https://packages.microsoft.com/config/ubuntu/19.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+	dpkg -i packages-microsoft-prod.deb && \
+	apt-get update && \
+	apt-get -y install --no-install-recommends lib32gcc1 screen ca-certificates apt-transport-https dotnet-runtime-3.1 && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"

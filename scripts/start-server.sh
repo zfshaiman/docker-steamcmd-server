@@ -57,29 +57,37 @@ fi
 echo "---Prepare Server---"
 export WINEARCH=win64
 export WINEPREFIX=/serverdata/serverfiles/WINE64
+export DISPLAY=:99
 echo "---Checking if WINE workdirectory is present---"
 if [ ! -d ${SERVER_DIR}/WINE64 ]; then
 	echo "---WINE workdirectory not found, creating please wait...---"
-    mkdir ${SERVER_DIR}/WINE64
+	mkdir ${SERVER_DIR}/WINE64
 else
 	echo "---WINE workdirectory found---"
 fi
 echo "---Checking if WINE is properly installed---"
 if [ ! -d ${SERVER_DIR}/WINE64/drive_c/windows ]; then
 	echo "---Setting up WINE---"
-    cd ${SERVER_DIR}
-    winecfg > /dev/null 2>&1
-    sleep 15
+	cd ${SERVER_DIR}
+	winecfg > /dev/null 2>&1
+	sleep 15
 else
 	echo "---WINE properly set up---"
 fi
 echo "---Checking for old display lock files---"
 find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
+echo "---Checking for old logfiles---"
+find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \; > /dev/null 2>&1
+find ${SERVER_DIR} -name "XvfbLog.*" -exec rm -f {} \; > /dev/null 2>&1
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
-sleep infinity
+cho "---Starting Xvfb server---"
+screen -S Xvfb -L -Logfile ${SERVER_DIR}/XvfbLog.0 -d -m /opt/scripts/start-Xvfb.sh
+sleep 5
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine64 ${SERVER_DIR}/srcds.exe -game ${GAME_NAME} ${GAME_PARAMS} -console -port ${GAME_PORT}
+screen -S Neotokyo -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 srcds.exe -game ${GAME_NAME} ${GAME_PARAMS} -console -port ${GAME_PORT}
+sleep 5
+tail -f ${SERVER_DIR}/masterLog.0

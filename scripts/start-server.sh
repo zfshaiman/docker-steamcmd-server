@@ -82,12 +82,12 @@ find ${SERVER_DIR} -name "XvfbLog.*" -exec rm -f {} \; > /dev/null 2>&1
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
-cho "---Starting Xvfb server---"
+echo "---Starting Xvfb server---"
 screen -S Xvfb -L -Logfile ${SERVER_DIR}/XvfbLog.0 -d -m /opt/scripts/start-Xvfb.sh
 sleep 5
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S Neotokyo -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 srcds.exe -game ${GAME_NAME} ${GAME_PARAMS} -console -port ${GAME_PORT}
+screen -S Neotokyo -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 start srcds.exe -game ${GAME_NAME} ${GAME_PARAMS} -console -port ${GAME_PORT}
 sleep 5
 tail -f ${SERVER_DIR}/masterLog.0

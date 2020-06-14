@@ -1,6 +1,6 @@
 #!/bin/bash
-DL_URL_MULTIADMIN="$(curl -s https://api.github.com/repos/Grover-c13/MultiAdmin/releases/latest | grep browser_download_url | cut -d ":" -f 2,3 | cut -d '"' -f2)"
-DL_URL_SERVERMOD="$(curl -s https://api.github.com/repos/Grover-c13/Smod2/releases/latest | grep browser_download_url | cut -d ":" -f 2,3 | cut -d '"' -f2)"
+DL_URL_MULTIADMIN="$(curl -s https://api.github.com/repos/ServerMod/MultiAdmin/releases/latest | grep browser_download_url | cut -d ":" -f 2,3 | cut -d '"' -f2)"
+DL_URL_SERVERMOD="$(curl -s https://api.github.com/repos/ServerMod/Smod2/releases/latest | grep browser_download_url | cut -d ":" -f 2,3 | cut -d '"' -f2)"
 
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"

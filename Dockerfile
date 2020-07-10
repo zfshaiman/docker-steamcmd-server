@@ -4,7 +4,7 @@ LABEL maintainer="admin@minenet.at"
 
 RUN dpkg --add-architecture i386 && \
 	apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc1 perl-modules curl lsof libc6-i386 bzip2 jq libssl1.1 libidn11 redis-server screen && \
+	apt-get -y install --no-install-recommends lib32gcc1 perl-modules curl lsof libc6-i386 bzip2 jq libssl1.1 libidn11 redis-server screen libtbb2:i386 && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"

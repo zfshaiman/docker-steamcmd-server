@@ -82,6 +82,34 @@ else
 	fi
 fi
 
+if [ "${INSTALL_ASSETTO_SERVER_MANAGER}" == "true" ]; then
+	if [ ! -f ${SERVER_DIR}/assetto-server-manager/linux/server-manager ]; then
+		echo "---Assetto-Server-Manager not found, installing!---"
+		echo "---Trying to get latest version for Assetto-Server-Manager---"
+		ASSETTO_SERVER_MANAGER_V="$(curl -s https://api.github.com/repos/JustaPenguin/assetto-server-manager/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'v' -f2)"
+		if [ -z $ASSETTO_SERVER_MANAGER_V ]; then
+			echo "---Can't get latest version for Assetto-Server-Manager, putting container into sleep mode!---"
+			sleep infinity
+		fi
+		echo "---Latest version for Assetto-Server-Manager: v$ASSETTO_SERVER_MANAGER_V---"
+		if [ ! -d ${SERVER_DIR}/assetto-server-manager ]; then
+			mkdir -p ${SERVER_DIR}/assetto-server-manager
+		fi
+		cd ${SERVER_DIR}/assetto-server-manager
+		echo "---Downloading Assetto-Server-Manager v$ASSETTO_SERVER_MANAGER_V, please wait!---"
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/assetto-server-manager/asm.zip "https://github.com/JustaPenguin/assetto-server-manager/releases/download/v$ASSETTO_SERVER_MANAGER_V/server-manager_v$ASSETTO_SERVER_MANAGER_V.zip" ; then
+			echo "---Successfully downloaded Assetto-Server-Manager v$ASSETTO_SERVER_MANAGER_V---"
+		else
+			echo "---Download of Assetto-Server-Manager v$ASSETTO_SERVER_MANAGER_V failed, putting container into sleep mode!---"
+			sleep infinity
+		fi
+		unzip ${SERVER_DIR}/assetto-server-manager/asm.zip
+		rm ${SERVER_DIR}/assetto-server-manager/asm.zip
+	else
+		echo "---Assetto-Server-Manager found, continuing!---"
+	fi
+fi
+
 echo "---Prepare Server---"
 if [ "${INSTALL_STRACKER}" == "true" ]; then
 	echo "---Checking if Server is configured properly---"
@@ -103,6 +131,11 @@ else
 	sed -i '/UDP_PLUGIN_ADDRESS/c\UDP_PLUGIN_ADDRESS=' ${SERVER_DIR}/cfg/server_cfg.ini
 	sed -i '/UDP_PLUGIN_LOCAL_PORT/c\UDP_PLUGIN_LOCAL_PORT=0' ${SERVER_DIR}/cfg/server_cfg.ini
 fi
+if [ "${INSTALL_ASSETTO_SERVER_MANAGER}" == "true" ]; then
+	sed -i '/  username:/c\  username:' ${SERVER_DIR}/assetto-server-manager/linux/config.yml
+	sed -i '/  password:/c\  password:' ${SERVER_DIR}/assetto-server-manager/linux/config.yml
+	sed -i '/  install_path:/c\  install_path: /serverdata/serverfiles/' ${SERVER_DIR}/assetto-server-manager/linux/config.yml
+fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 
 echo "---Start Server---"
@@ -114,6 +147,9 @@ if [ "${INSTALL_STRACKER}" == "true" ]; then
 	screen -S Stracker -L -d -m ${SERVER_DIR}/stracker/stracker_linux_x86/stracker --stracker_ini ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini
 	sleep 2
 	tail -f ${SERVER_DIR}/AC.log ${SERVER_DIR}/stracker.log
+elif [ "${INSTALL_ASSETTO_SERVER_MANAGER}" == "true" ]; then
+	cd ${SERVER_DIR}/assetto-server-manager/linux
+	${SERVER_DIR}/assetto-server-manager/linux/server-manager
 else
 	cd ${SERVER_DIR}
 	${SERVER_DIR}/acServer

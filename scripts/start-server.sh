@@ -110,6 +110,7 @@ if [ "${ENA_REDIS}" == "yes" ]; then
 	echo "CONFIG SET dbfilename redis.rdb" | redis-cli
 	echo "BGSAVE" | redis-cli
 fi
+sleep 3
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 

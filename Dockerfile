@@ -5,6 +5,10 @@ LABEL maintainer="admin@minenet.at"
 RUN dpkg --add-architecture i386 && \
 	apt-get update && \
 	apt-get -y install --no-install-recommends lib32gcc1 perl-modules curl lsof libc6-i386 bzip2 jq libssl1.1 libidn11 redis-server screen libtbb2:i386 && \
+	cd /tmp && \
+	wget -q -nc --show-progress --progress=bar:force:noscroll http://ftp.fr.debian.org/debian/pool/main/p/protobuf/libprotobuf10_3.0.0-9_amd64.deb && \
+	dpkg -i /tmp/libprotobuf10_3.0.0-9_amd64.deb && \
+	rm /tmp/libprotobuf10_3.0.0-9_amd64.deb && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"

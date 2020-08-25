@@ -51,12 +51,15 @@ else
 fi
 
 echo "---Prepare Server---"
-chmod -R ${DATA_PERM} ${DATA_DIR}
-echo "---Server ready---"
+sed -i "/\"ServerName\": \"mom_dedicated\",/c\\\t\"ServerName\": \"MOM Docker Server\"," ${SERVER_DIR}/DedicatedServerConfig.cfg
+sed -i "/\"ServerPassword\": \"mom\",/c\\\t\"ServerPassword\": \"Docker\"," ${SERVER_DIR}/DedicatedServerConfig.cfg
+sed -i "/\"MaxPlayers\": 2,/c\\\t\"MaxPlayers\": 64," ${SERVER_DIR}/DedicatedServerConfig.cfg
+sed -i "/\"Headless\": false,/c\\\t\"Headless\": true," ${SERVER_DIR}/DedicatedServerConfig.cfg
 
-echo "---Sleep zZz...---"
-sleep infinity
+chmod -R ${DATA_PERM} ${DATA_DIR}
+chmod +x ${SERVER_DIR}/Game/Binaries/Linux/MemoriesOfMarsServer
+echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/Game/Binaries/Linux/MemoriesOfMarsServer ${GAME_PARAMS}

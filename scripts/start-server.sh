@@ -62,4 +62,4 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/Game/Binaries/Linux/MemoriesOfMarsServer ${GAME_PARAMS}
+${SERVER_DIR}/Game/Binaries/Linux/MemoriesOfMarsServer -MULTIHOME=${MULTIHOME} ${GAME_PARAMS}

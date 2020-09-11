@@ -12,7 +12,6 @@ ENV SERVER_DIR="${DATA_DIR}/serverfiles"
 ENV GAME_ID="template"
 ENV GAME_NAME="template"
 ENV GAME_PARAMS="template"
-ENV START_SRV_MGMT="true"
 ENV VALIDATE=""
 ENV UMASK=000
 ENV UID=99

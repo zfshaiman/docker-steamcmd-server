@@ -1,4 +1,4 @@
-FROM ich777/mono-baseimage:6.0-vnc
+FROM ich777/debian-baseimage
 
 LABEL maintainer="admin@minenet.at"
 
@@ -33,7 +33,6 @@ ADD /scripts/ /opt/scripts/
 RUN chmod -R 770 /opt/scripts/
 
 EXPOSE 3001
-EXPOSE 8080
 EXPOSE 3000/udp
 
 #Server Start

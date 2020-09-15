@@ -70,8 +70,8 @@ if [ ! -f ${DATA_DIR}/.steam/sdk64/steamclient.so ]; then
 	if [ ! -d ${DATA_DIR}/.steam/sdk64 ]; then
 		mkdir -p ${DATA_DIR}/.steam/sdk64
 	fi
-	cp ${SERVER_DIR}/linux64/steamclient.so ${DATA_DIR}/.steam/sdk64/
-	if [ ! -f ${DATA_DIR}/.steam/sdk64/steamclient.so ]; then
+	cp ${STEAMCMD_DIR}/linux64/steamclient.so ${DATA_DIR}/.steam/sdk64/
+	if [ ! -f ${STEAMCMD_DIR}/linux64/steamclient.so ]; then
 		echo "---Something went wrong, can't copy 'steamclient.so' putting server into sleep mode---"
 		sleep infinity
 	fi
@@ -83,6 +83,7 @@ sed -i '/name="Server"/c\  name="DockerServer"' ${SERVER_DIR}/serversettings.xml
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Checking for old logs---"
 find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \;
+screen -wipe 2&>/dev/null
 
 echo "---Server ready---"
 
@@ -90,4 +91,5 @@ echo "---Start Server---"
 cd ${SERVER_DIR}
 screen -S Barotrauma -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/DedicatedServer ${GAME_PARAMS}
 sleep 2
+screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
 tail -f ${SERVER_DIR}/masterLog.0

@@ -82,10 +82,13 @@ if [ "${ROCKET_MOD}" == "true" ]; then
 fi
 
 echo "---Prepare Server---"
-chmod -R ${DATA_PERM} ${DATA_DIR}
-if [ ! -f ${SERVER_DIR}/Unturned_Headless_Data/Plugins/x86_64/steamclient.so ]; then
-	cp ${STEAMCMD_DIR}/linux64/steamclient.so ${SERVER_DIR}/Unturned_Headless_Data/Plugins/x86_64
+if [ ! -d ${SERVER_DIR}/.steam/sdk64 ]; then
+    mkdir -p ${SERVER_DIR}/.steam/sdk64
 fi
+if [ ! -f ${SERVER_DIR}/Unturned_Headless_Data/Plugins/x86_64/steamclient.so ]; then
+	cp ${STEAMCMD_DIR}/linux64/steamclient.so ${SERVER_DIR}/.steam/sdk64/
+fi
+chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Start Server---"

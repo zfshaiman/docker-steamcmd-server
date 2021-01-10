@@ -83,4 +83,4 @@ sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}/ShooterGame/Binaries/Win64
-xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine64 ${SERVER_DIR}/ShooterGame/Binaries/Win64/PixARKServer.exe  ${GAME_PARAMS} -NoBattlEye -nosteamclient -game -server -log
+xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine64 ${SERVER_DIR}/ShooterGame/Binaries/Win64/PixARKServer.exe  ${MAP}?listen?SessionName=${SERVER_NAME}?ServerPassword=${SRV_PWD}?ServerAdminPassword=${SRV_ADMIN_PWD}${GAME_PARAMS} ${GAME_PARAMS_EXTRA}

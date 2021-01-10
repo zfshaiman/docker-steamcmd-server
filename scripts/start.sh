@@ -26,11 +26,7 @@ term_handler() {
 }
 
 trap 'kill ${!}; term_handler' SIGTERM
-if [ "${SAVE_LOG}" == "true" ]; then
-	/opt/scripts/start-server.sh 2>&1 | tee ${DATA_DIR}/"$(date +'%Y-%m-%d_%H.%M.%S')".log &
-else
-	/opt/scripts/start-server.sh &
-fi
+su ${USER} -c "/opt/scripts/start-server.sh" &
 killpid="$!"
 while true
 do

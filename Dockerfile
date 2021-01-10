@@ -2,9 +2,9 @@ FROM ich777/winehq-baseimage
 
 LABEL maintainer="admin@minenet.at"
 
-RUN apt-get update && \
-	apt-get -y install lib32gcc1 winbind xvfb screen && \
-	rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && \
+#	apt-get -y install lib32gcc1 winbind xvfb screen && \
+#	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"

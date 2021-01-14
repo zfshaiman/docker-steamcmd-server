@@ -117,7 +117,7 @@ if [ "${INSTALL_STRACKER}" == "true" ]; then
 	sed -i '/UDP_PLUGIN_LOCAL_PORT/c\UDP_PLUGIN_LOCAL_PORT=11000' ${SERVER_DIR}/cfg/server_cfg.ini
 	if [ ! -f ${SERVER_DIR}/stracker/stracker_linux_x86/stracker.ini ]; then
 		cd ${SERVER_DIR}/stracker/stracker_linux_x86
-		if wget -q -nc --show-progress --progress=bar:force:noscroll -O stracker.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/betaac/config/stracker.ini ; then
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O stracker.ini https://raw.githubusercontent.com/ich777/docker-steamcmd-server/assettocorsa/config/stracker.ini ; then
 			echo "---Successfully downloaded 'stacker.ini'---"
 		else
 			echo "---Something went wrong, can't download 'stacker.ini', putting server in sleep mode---"

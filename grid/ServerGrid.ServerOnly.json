@@ -44,6 +44,12 @@
   },
   "DatabaseConnections": [
     {
+      "Name": "TradeDB",
+      "URL": "127.0.0.1",
+      "Port": 6379,
+      "Password": "foobared"
+    },
+    {
       "Name": "Default",
       "URL": "127.0.0.1",
       "Port": 6379,

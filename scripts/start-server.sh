@@ -101,6 +101,9 @@ if [ ! -f ${SERVER_DIR}/ShooterGame/ServerGrid.ServerOnly.json ]; then
         sleep infinity
 	fi
 else
+    if [ ! "$(grep '"Name": "TradeDB",' ${SERVER_DIR}/ShooterGame/ServerGrid.ServerOnly.json)" ]; then
+        sed '/\"DatabaseConnections\": \[/a\    {\n      \"Name\": \"TradeDB\",\n      \"URL\": \"127.0.0.1\",\n      \"Port"\: 6379,\n      \"Password\": \"foobared\"\n    },' ${SERVER_DIR}/ShooterGame/ServerGrid.ServerOnly.json
+    fi
 	echo "---'ServerGrid.ServerOnly.json' found!---"
 fi
 if [ "${ENA_REDIS}" == "yes" ]; then

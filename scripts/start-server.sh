@@ -50,28 +50,6 @@ else
     fi
 fi
 
-sleep infinity
-
-echo "---Checking if everything is installed correctly---"
-if [ ! -d ${SERVER_DIR}/dmc ]; then
-    echo "---Not everything is installed correctly, trying again---"
-    if [ "${USERNAME}" == "" ]; then
-        ${STEAMCMD_DIR}/steamcmd.sh \
-        +login anonymous \
-        +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} validate \
-        +quit
-    else
-        ${STEAMCMD_DIR}/steamcmd.sh \
-        +login ${USERNAME} ${PASSWRD} \
-        +force_install_dir ${SERVER_DIR} \
-        +app_update ${GAME_ID} validate \
-        +quit
-    fi
-else
-echo "---Everything is installed correctly---"
-fi
-
 echo "---Prepare Server---"
 mkdir ${DATA_DIR}/.steam/sdk32
 cp ${SERVER_DIR}/steamclient.so ${DATA_DIR}/.steam/sdk32/steamclient.so
@@ -85,4 +63,4 @@ fi
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/hlds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/hlds_run ${GAME_PARAMS} -console +port ${GAME_PORT}

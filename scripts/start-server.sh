@@ -54,6 +54,8 @@ else
     fi
 fi
 
+sleep infinity
+
 echo "---Checking if everything is installed correctly---"
 if [ ! -d ${SERVER_DIR}/dmc ]; then
     echo "---Not everything is installed correctly, trying again---"

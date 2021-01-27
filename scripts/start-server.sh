@@ -24,7 +24,6 @@ if [ "${USERNAME}" == "" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
-        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
@@ -41,14 +40,12 @@ else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
-        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
-        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} \
         +quit
     fi
@@ -63,14 +60,12 @@ if [ ! -d ${SERVER_DIR}/dmc ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
-        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
-        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit
     fi

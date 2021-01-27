@@ -50,6 +50,28 @@ else
     fi
 fi
 
+echo "---Checking if everything is installed correctly---"
+if [ ! -f ${SERVER_DIR}/valve/gfx.wad ]; then
+    echo "---Not everything is installed correctly, trying again---"
+    if [ "${USERNAME}" == "" ]; then
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login anonymous \
+        +force_install_dir ${SERVER_DIR} \
+        +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} validate \
+        +quit
+    else
+        ${STEAMCMD_DIR}/steamcmd.sh \
+        +login ${USERNAME} ${PASSWRD} \
+        +force_install_dir ${SERVER_DIR} \
+        +app_set_config ${GAME_MOD} \
+        +app_update ${GAME_ID} validate \
+        +quit
+    fi
+else
+echo "---Everything is installed correctly---"
+fi
+
 echo "---Prepare Server---"
 if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
     mkdir ${DATA_DIR}/.steam/sdk32

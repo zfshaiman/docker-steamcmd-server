@@ -30,7 +30,6 @@ if [ "${USERNAME}" == "" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
         +login anonymous \
         +force_install_dir ${SERVER_DIR} \
-        +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} \
         +quit
     fi

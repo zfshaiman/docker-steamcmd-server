@@ -51,8 +51,12 @@ else
 fi
 
 echo "---Prepare Server---"
-mkdir ${DATA_DIR}/.steam/sdk32
-cp ${SERVER_DIR}/steamclient.so ${DATA_DIR}/.steam/sdk32/steamclient.so
+if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
+    mkdir ${DATA_DIR}/.steam/sdk32
+fi
+if [ ! -f ${DATA_DIR}/.steam/sdk32/steamclient.so ]; then
+    cp ${SERVER_DIR}/steamclient.so ${DATA_DIR}/.steam/sdk32/steamclient.so
+fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 if [ ! -d ${SERVER_DIR}/cstrike ]; then
     echo "---Server ready---"

@@ -129,6 +129,6 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S SCP -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m mono MultiAdmin.exe ${GAME_PARAMS}
+screen -S SCP -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m mono MultiAdmin.exe ${GAME_PARAMS} -headless
 sleep 2
 tail -f ${SERVER_DIR}/masterLog.0

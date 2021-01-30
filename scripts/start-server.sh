@@ -121,6 +121,15 @@ else
 	fi
 fi
 
+#Temporary fix for Logfile ballooning
+if [ ! -f ${SERVER_DIR}/scp_multiadmin.cfg ]; then
+    echo 'multiadmin_nolog: true' > ${SERVER_DIR}/scp_multiadmin.cfg
+else
+    if [ -z "$(grep "multiadmin_nolog: true" ${SERVER_DIR}/scp_multiadmin.cfg)" ]; then
+        echo 'multiadmin_nolog: true' >> ${SERVER_DIR}/scp_multiadmin.cfg
+    fi
+fi
+
 echo "---Prepare Server---"
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Checking for old logs---"
@@ -129,6 +138,8 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S SCP -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m mono MultiAdmin.exe ${GAME_PARAMS}
+#Temporary fix for Logfile ballooning
+#screen -S SCP -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m mono MultiAdmin.exe ${GAME_PARAMS}
+screen -S SCP -d -m mono MultiAdmin.exe ${GAME_PARAMS}
 sleep 2
 tail -f ${SERVER_DIR}/masterLog.0

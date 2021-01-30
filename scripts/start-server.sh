@@ -141,5 +141,6 @@ cd ${SERVER_DIR}
 #Temporary fix for Logfile ballooning
 #screen -S SCP -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m mono MultiAdmin.exe ${GAME_PARAMS}
 screen -S SCP -d -m mono MultiAdmin.exe ${GAME_PARAMS}
+echo 'Logging disabled to preven logfile ballooning' > ${SERVER_DIR}/masterLog.0
 sleep 2
 tail -f ${SERVER_DIR}/masterLog.0

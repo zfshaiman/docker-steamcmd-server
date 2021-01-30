@@ -121,6 +121,7 @@ else
 	fi
 fi
 
+
 #Temporary fix for Logfile ballooning
 if [ ! -f ${SERVER_DIR}/scp_multiadmin.cfg ]; then
     echo 'multiadmin_nolog: true' > ${SERVER_DIR}/scp_multiadmin.cfg
@@ -129,6 +130,11 @@ else
         echo 'multiadmin_nolog: true' >> ${SERVER_DIR}/scp_multiadmin.cfg
     fi
 fi
+if [ ! -z "$(ls -A ${SERVER_DIR}/logs)" ]; then
+   rm -rf ${SERVER_DIR}/logs/*
+fi
+#Temporary fix end
+
 
 echo "---Prepare Server---"
 chmod -R ${DATA_PERM} ${DATA_DIR}

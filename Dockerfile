@@ -9,10 +9,13 @@ RUN apt-get update && \
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"
-ENV GAME_ID="template"
-ENV GAME_NAME="template"
-ENV GAME_PARAMS="template"
-ENV GAME_PORT=27015
+ENV SRV_NAME="Valheim Docker"
+ENV WORLD_NAME="Dedicated"
+ENV SRV_PWD="Docker"
+ENV PUBLIC=1
+ENV GAME_ID="896660"
+ENV GAME_PARAMS=""
+ENV GAME_PORT=2456
 ENV VALIDATE=""
 ENV UMASK=000
 ENV UID=99

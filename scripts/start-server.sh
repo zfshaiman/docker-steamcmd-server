@@ -59,7 +59,7 @@ echo "---Server ready---"
 echo "---Start Server---"
 cd ${SERVER_DIR}
 if [ "${DEBUG_OUTPUT}" == "true" ]; then
-    ${SERVER_DIR}/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -public ${PUBLIC} ${GAME_PARAMS}
+    ${SERVER_DIR}/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -public ${PUBLIC} ${GAME_PARAMS}
 else
-    ${SERVER_DIR}/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -public ${PUBLIC} ${GAME_PARAMS} > /dev/null
+    ${SERVER_DIR}/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -public ${PUBLIC} ${GAME_PARAMS} > /dev/null
 fi

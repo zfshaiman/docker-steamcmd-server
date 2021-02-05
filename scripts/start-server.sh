@@ -1,6 +1,6 @@
 #!/bin/bash
-DL_URL_MULTIADMIN="$(curl -s https://api.github.com/repos/ServerMod/MultiAdmin/releases/latest | grep browser_download_url | cut -d ":" -f 2,3 | cut -d '"' -f2)"
-DL_URL_SERVERMOD="$(curl -s https://api.github.com/repos/ServerMod/Smod2/releases/latest | grep browser_download_url | cut -d ":" -f 2,3 | cut -d '"' -f2)"
+DL_URL_MULTIADMIN="$(curl -s https://api.github.com/repos/ServerMod/MultiAdmin/releases | grep browser_download_url | head -1 | cut -d '"' -f4)"
+DL_URL_SERVERMOD="$(curl -s https://api.github.com/repos/ServerMod/Smod2/releases/latest | grep browser_download_url | cut -d '"' -f4)"
 
 if [ ! -f ${STEAMCMD_DIR}/steamcmd.sh ]; then
     echo "SteamCMD not found!"
@@ -121,21 +121,6 @@ else
 	fi
 fi
 
-
-#Temporary fix for Logfile ballooning
-if [ ! -f ${SERVER_DIR}/scp_multiadmin.cfg ]; then
-    echo 'multiadmin_nolog: true' > ${SERVER_DIR}/scp_multiadmin.cfg
-else
-    if [ -z "$(grep "multiadmin_nolog: true" ${SERVER_DIR}/scp_multiadmin.cfg)" ]; then
-        echo 'multiadmin_nolog: true' >> ${SERVER_DIR}/scp_multiadmin.cfg
-    fi
-fi
-if [ ! -z "$(ls -A ${SERVER_DIR}/logs)" ]; then
-   rm -rf ${SERVER_DIR}/logs/*
-fi
-#Temporary fix end
-
-
 echo "---Prepare Server---"
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Checking for old logs---"
@@ -144,9 +129,6 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-#Temporary fix for Logfile ballooning
-#screen -S SCP -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m mono MultiAdmin.exe ${GAME_PARAMS}
-screen -S SCP -d -m mono MultiAdmin.exe ${GAME_PARAMS}
-echo 'Logging disabled to preven logfile ballooning' > ${SERVER_DIR}/masterLog.0
+screen -S SCP -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m mono MultiAdmin.exe ${GAME_PARAMS}
 sleep 2
 tail -f ${SERVER_DIR}/masterLog.0

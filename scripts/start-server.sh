@@ -131,4 +131,4 @@ echo "---Start Server---"
 cd ${SERVER_DIR}
 screen -S SCP -d -m mono MultiAdmin.exe ${GAME_PARAMS}
 sleep 5
-tail -f ${SERVER_DIR}/logs/*_MA_log_*.txt
+tail -f "$(ls -lat ${SERVER_DIR}/logs/*_MA_log*.txt | head -1 | awk '{print $9}')"

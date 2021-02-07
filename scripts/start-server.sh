@@ -179,6 +179,6 @@ chmod -R ${DATA_PERM} ${DATA_DIR}
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m ./arma3server_x64 -cfg=@ExileServer/basic.cfg -config=@ExileServer/config.cfg -autoinit -mod=@Exile\; -servermod=@ExileServer\; >> ExileModLog.0 ${GAME_PARAMS}
+screen -S ArmA3 -L -Logfile ${SERVER_DIR}/Arma3Log.0 -d -m ./arma3server -cfg=@ExileServer/basic.cfg -config=@ExileServer/config.cfg -autoinit -mod=@Exile\; -servermod=@ExileServer\; >> ExileModLog.0 ${GAME_PARAMS}
 sleep 2
 tail -f ${SERVER_DIR}/MariaDBLog.0 ${SERVER_DIR}/Arma3Log.0 ${SERVER_DIR}/ExileModLog.0

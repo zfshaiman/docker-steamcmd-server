@@ -26,8 +26,8 @@ ENV DATA_PERM=770
 RUN mkdir $DATA_DIR && \
 	mkdir $STEAMCMD_DIR && \
 	mkdir $SERVER_DIR && \
-	useradd -d $DATA_DIR -s /bin/bash $USER && \
-	chown -R $USER $DATA_DIR && \
+	useradd -d $SERVER_DIR -s /bin/bash $USER && \
+	chown -R $USER $SERVER_DIR && \
 	ulimit -n 2048
 
 ADD /scripts/ /opt/scripts/

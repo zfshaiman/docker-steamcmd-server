@@ -57,11 +57,10 @@ fi
 if [ ! -f ${SERVER_DIR}/Binaries/Linux/steam_appid.txt ]; then
     echo "219640" > ${SERVER_DIR}/Binaries/Linux/steam_appid.txt
 fi
+sed -i "/ServerName=Dev Testing Server/c\ServerName=Chivalry Docker" ${SERVER_DIR}/UDKGame/Config/PCServer-UDKGame.ini
+sed -i "/MessageOfTheDay=Welcome to a UDK Server\!/c\MessageOfTheDay=Welcome to Chivalry: Medieval Warfare in Docker on Unraid\!" ${SERVER_DIR}/UDKGame/Config/PCServer-UDKGame.ini
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
-
-echo "---Sleep zZz...---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}/Binaries/Linux

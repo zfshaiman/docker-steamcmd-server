@@ -51,6 +51,12 @@ else
 fi
 
 echo "---Prepare Server---"
+if [ ! -f ${SERVER_DIR}/Binaries/Linux/lib/steamclient.so ]; then
+    cp ${STEAMCMD_DIR}/linux32/steamclient.so ${SERVER_DIR}/Binaries/Linux/lib/
+fi
+if [ ! -f ${SERVER_DIR}/Binaries/Linux/steam_appid.txt ]; then
+    echo "219640" > ${SERVER_DIR}/Binaries/Linux/steam_appid.txt
+fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
@@ -58,5 +64,5 @@ echo "---Sleep zZz...---"
 sleep infinity
 
 echo "---Start Server---"
-cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+cd ${SERVER_DIR}/Binaries/Linux
+${SERVER_DIR}/Binaries/Linux/UDKGameServer-Linux ${MAP}?adminpassword=${ADMIN_PWD}?steamsockets${GAME_PARAMS} ${GAME_PARAMS_EXTRA}

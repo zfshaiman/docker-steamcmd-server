@@ -21,9 +21,8 @@ chown -R ${UID}:${GID} ${DATA_DIR}
 
 term_handler() {
 	echo 1 > ${SERVER_DIR}/server_exit.drp
-	sleep 3
-	kill -SIGTERM "$killpid"
-	wait "$killpid" -f 2>/dev/null
+	kill -SIGINT valheim
+	wait "$(pidof valheim)" -f 2>/dev/null
 	exit 143;
 }
 

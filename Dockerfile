@@ -3,7 +3,7 @@ FROM ich777/debian-baseimage
 LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc1 && \
+	apt-get -y install --no-install-recommends lib32gcc1 screen && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
@@ -13,6 +13,9 @@ ENV SRV_NAME="Valheim Docker"
 ENV WORLD_NAME="Dedicated"
 ENV SRV_PWD="Docker"
 ENV PUBLIC=1
+ENV BACKUP_FILES="true"
+ENV BACKUP_INTERVAL=35
+ENV BACKUP_TO_KEEP=15
 ENV GAME_ID="896660"
 ENV DEBUG_OUTPUT=""
 ENV GAME_PARAMS=""

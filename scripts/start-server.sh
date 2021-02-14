@@ -54,6 +54,7 @@ echo "---Prepare Server---"
 export LD_LIBRARY_PATH=${SERVER_DIR}/linux64:$LD_LIBRARY_PATH
 export templdpath=$LD_LIBRARY_PATH
 chmod -R ${DATA_PERM} ${DATA_DIR}
+screen -wipe 2&>/dev/null
 echo "---Server ready---"
 
 if [ "${BACKUP_FILES}" == "true" ]; then

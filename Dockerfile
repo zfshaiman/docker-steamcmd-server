@@ -3,7 +3,7 @@ FROM ich777/debian-baseimage
 LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc1 screen && \
+	apt-get -y install --no-install-recommends lib32gcc1 screen file libc6-dev && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
@@ -20,6 +20,7 @@ ENV GAME_ID="896660"
 ENV DEBUG_OUTPUT=""
 ENV GAME_PARAMS=""
 ENV GAME_PORT=2456
+ENV ENABLE_VALHEIMPLUS="false"
 ENV VALIDATE=""
 ENV UMASK=000
 ENV UID=99

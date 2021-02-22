@@ -84,6 +84,7 @@ else
 fi
 echo "---UserDataFolder location found---"
 chmod -R ${DATA_PERM} ${DATA_DIR}
+screen -wipe 2&>/dev/null
 echo "---Server ready---"
 
 if [ "${BACKUP_FILES}" == "true" ]; then

@@ -86,6 +86,14 @@ echo "---UserDataFolder location found---"
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
+if [ "${BACKUP_FILES}" == "true" ]; then
+    echo "---Starting Backup daemon---"
+    if [ ! -d ${SERVER_DIR}/Backups ]; then
+        mkdir -p ${SERVER_DIR}/Backups
+    fi
+    screen -S backup -d -m /opt/scripts/start-backup.sh
+fi
+
 echo "---Start Server---"
 cd ${SERVER_DIR}
 ${SERVER_DIR}/7DaysToDieServer.x86_64 -configfile=${SERVERCONFIG} ${GAME_PARAMS}

@@ -100,14 +100,6 @@ if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
     elif [ "${CUR_V}" == "${LAT_V}" ]; then
         echo "---ValheimPlus v$CUR_V up-to-date---"
     fi
-    if [ "${DEBUG_OUTPUT}" == "true" ]; then
-        sed -i '/"${PWD}\/${executable_name}" -name/c\${SERVER_DIR}\/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -nographics -batchmode -public ${PUBLIC} ${GAME_PARAMS}' ${SERVER_DIR}/run_bepinex.sh
-        sed -i '/${SERVER_DIR}\/valheim_server.x86_64 -name "${SRV_NAME}"/c\${SERVER_DIR}\/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -nographics -batchmode -public ${PUBLIC} ${GAME_PARAMS}' ${SERVER_DIR}/run_bepinex.sh
-    else
-        sed -i '/"${PWD}\/${executable_name}" -name/c\${SERVER_DIR}\/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -nographics -batchmode -public ${PUBLIC} ${GAME_PARAMS} > \/dev\/null' ${SERVER_DIR}/run_bepinex.sh
-        sed -i '/${SERVER_DIR}\/valheim_server.x86_64 -name "${SRV_NAME}"/c\${SERVER_DIR}\/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -nographics -batchmode -public ${PUBLIC} ${GAME_PARAMS} > \/dev\/null' ${SERVER_DIR}/run_bepinex.sh
-    fi
-    chmod +x ${SERVER_DIR}/run_bepinex.sh
 fi
 echo "---Server ready---"
 
@@ -122,7 +114,19 @@ fi
 echo "---Start Server---"
 cd ${SERVER_DIR}
 if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
-    ${SERVER_DIR}/run_bepinex.sh
+    export templdpath=$LD_LIBRARY_PATH
+    export DOORSTOP_ENABLE=TRUE
+    export DOORSTOP_INVOKE_DLL_PATH=./BepInEx/core/BepInEx.Preloader.dll
+    export DOORSTOP_CORLIB_OVERRIDE_PATH=./unstripped_corlib
+    export LD_LIBRARY_PATH=./doorstop_libs:$LD_LIBRARY_PATH
+    export LD_PRELOAD=libdoorstop_x64.so:$LD_PRELOAD
+    export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH
+    export SteamAppId=892970
+    if [ "${DEBUG_OUTPUT}" == "true" ]; then
+        ${SERVER_DIR}/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -public ${PUBLIC} ${GAME_PARAMS}
+    else
+        ${SERVER_DIR}/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -public ${PUBLIC} ${GAME_PARAMS} > /dev/null
+    fi
 else
     if [ "${DEBUG_OUTPUT}" == "true" ]; then
         ${SERVER_DIR}/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -public ${PUBLIC} ${GAME_PARAMS}

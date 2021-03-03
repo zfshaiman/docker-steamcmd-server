@@ -111,6 +111,10 @@ if [ "${BACKUP_FILES}" == "true" ]; then
     screen -S backup -d -m /opt/scripts/start-backup.sh
 fi
 
+if [ "${UPDATE_CHECK_ENABLED}" == "true" ]; then
+    /opt/scripts/start-updatecheck.sh &
+fi
+
 echo "---Start Server---"
 cd ${SERVER_DIR}
 if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then

@@ -111,7 +111,7 @@ if [ "${BACKUP_FILES}" == "true" ]; then
     screen -S backup -d -m /opt/scripts/start-backup.sh
 fi
 
-if [ "${UPDATE_CHECK_ENABLED}" == "true" ]; then
+if [ "${UPDATE_CHECK}" == "true" ]; then
     /opt/scripts/start-updatecheck.sh &
 fi
 

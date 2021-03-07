@@ -51,6 +51,11 @@ else
 fi
 
 echo "---Prepare Server---"
+if [ "$(grep 'hostname "Zombie Panic! Source"' ${SERVER_DIR}/zps/cfg/server.cfg)" ]; then
+    sed -i '/hostname "Zombie Panic! Source"/c\hostname "Zombie Panic! Source Docker"' ${SERVER_DIR}/zps/cfg/server.cfg
+    sed -i '/sv_password ""/c\sv_password "Docker"' ${SERVER_DIR}/zps/cfg/server.cfg
+    sed -i '/rcon_password ""/c\rcon_password "adminDocker"' ${SERVER_DIR}/zps/cfg/server.cfg
+fi
 if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
     mkdir ${DATA_DIR}/.steam/sdk32
     cp -R ${SERVER_DIR}/bin/* ${DATA_DIR}/.steam/sdk32/

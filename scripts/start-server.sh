@@ -51,9 +51,11 @@ else
 fi
 
 echo "---Prepare Server---"
-export LD_LIBRARY_PATH=${SERVER_DIR}/linux64:$LD_LIBRARY_PATH
-export templdpath=$LD_LIBRARY_PATH
-export SteamAppId=892970
+if [ "${ENABLE_VALHEIMPLUS}" != "true" ]; then
+    export LD_LIBRARY_PATH=${SERVER_DIR}/linux64:$LD_LIBRARY_PATH
+    export templdpath=$LD_LIBRARY_PATH
+    export SteamAppId=892970
+fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 screen -wipe 2&>/dev/null
 
@@ -118,13 +120,15 @@ fi
 echo "---Start Server---"
 cd ${SERVER_DIR}
 if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
-    export templdpath=$LD_LIBRARY_PATH
     export DOORSTOP_ENABLE=TRUE
-    export DOORSTOP_INVOKE_DLL_PATH=./BepInEx/core/BepInEx.Preloader.dll
-    export DOORSTOP_CORLIB_OVERRIDE_PATH=./unstripped_corlib
-    export LD_LIBRARY_PATH=./doorstop_libs:$LD_LIBRARY_PATH
+    export DOORSTOP_INVOKE_DLL_PATH=${SERVER_DIR}/BepInEx/core/BepInEx.Preloader.dll
+    export DOORSTOP_CORLIB_OVERRIDE_PATH=${SERVER_DIR}/unstripped_corlib
+    export LD_LIBRARY_PATH="${SERVER_DIR}/doorstop_libs":$LD_LIBRARY_PATH
     export LD_PRELOAD=libdoorstop_x64.so:$LD_PRELOAD
-    export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH
+    export DYLD_LIBRARY_PATH="${SERVER_DIR}/doorstop_libs"
+    export DYLD_INSERT_LIBRARIES="${SERVER_DIR}/libdoorstop_x64.so"
+    export templdpath="$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH=${SERVER_DIR}/linux64:"$LD_LIBRARY_PATH"
     export SteamAppId=892970
     if [ "${DEBUG_OUTPUT}" == "true" ]; then
         ${SERVER_DIR}/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -public ${PUBLIC} ${GAME_PARAMS}

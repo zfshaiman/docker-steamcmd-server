@@ -184,6 +184,7 @@ fi
 echo "---Start Server---"
 cd ${SERVER_DIR}
 if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
+    echo "---with Valheim Plus---"
     export DOORSTOP_ENABLE=TRUE
     export DOORSTOP_INVOKE_DLL_PATH=${SERVER_DIR}/BepInEx/core/BepInEx.Preloader.dll
     export DOORSTOP_CORLIB_OVERRIDE_PATH=${SERVER_DIR}/unstripped_corlib
@@ -200,6 +201,10 @@ if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
         ${SERVER_DIR}/valheim_server.x86_64 -name "${SRV_NAME}" -port ${GAME_PORT} -world "${WORLD_NAME}" -password "${SRV_PWD}" -public ${PUBLIC} ${GAME_PARAMS} > /dev/null
     fi
 elif [ "${ENABLE_BEPINEX}" == "true" ]; then
+    echo "---with BepInEx for Valheim---"
+    echo
+    echo "---https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/---"
+    echo
     export DOORSTOP_ENABLE=TRUE
     export DOORSTOP_INVOKE_DLL_PATH=${SERVER_DIR}/BepInEx/core/BepInEx.Preloader.dll
     export DOORSTOP_CORLIB_OVERRIDE_PATH=${SERVER_DIR}/unstripped_corlib

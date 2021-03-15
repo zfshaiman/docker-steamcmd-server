@@ -100,6 +100,8 @@ if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
         echo "---Version missmatch, ValheimPlus v$CUR_V installed, downloading and installing v$LAT_V...---"
         cd ${SERVER_DIR}
     	rm -rf ${SERVER_DIR}/ValheimPlus-$CUR_V
+        mkdir /tmp/Backup
+        cp -R ${SERVER_DIR}/BepInEx/config /tmp/Backup/
         if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/ValheimPlus.zip "https://github.com/nxPublic/ValheimPlus/releases/download/${LAT_V}/UnixServer.zip" ; then
             echo "---Successfully downloaded ValheimPlus v$LAT_V---"
         else
@@ -108,7 +110,8 @@ if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
         fi
         unzip -o ${SERVER_DIR}/ValheimPlus.zip
 	    touch ${SERVER_DIR}/ValheimPlus-$LAT_V
-        rm ${SERVER_DIR}/ValheimPlus.zip
+        cp -R /tmp/Backup/config ${SERVER_DIR}/BepInEx/
+        rm ${SERVER_DIR}/ValheimPlus.zip /tmp/Backup
     elif [ "${CUR_V}" == "${LAT_V}" ]; then
         echo "---ValheimPlus v$CUR_V up-to-date---"
     fi
@@ -151,6 +154,8 @@ if [ "${ENABLE_BEPINEX}" == "true" ]; then
         echo "---Version missmatch, BepInEx v$CUR_V installed, downloading and installing v$LAT_V...---"
         cd ${SERVER_DIR}
     	rm -rf ${SERVER_DIR}/BepInEx-$CUR_V
+        mkdir /tmp/Backup
+        cp -R ${SERVER_DIR}/BepInEx/config /tmp/Backup/
         if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/BepInEx.zip --user-agent=Mozilla --content-disposition -E -c "https://valheim.thunderstore.io/package/download/denikson/BepInExPack_Valheim/$LAT_V/" ; then
             echo "---Successfully downloaded BepInEx for Valheim v$LAT_V---"
         else
@@ -161,7 +166,8 @@ if [ "${ENABLE_BEPINEX}" == "true" ]; then
         cp -rf /tmp/BepInEx/BepInEx*/* ${SERVER_DIR}/
         cp /tmp/BepInEx/README* ${SERVER_DIR}/README_BepInEx_for_Valheim
 	    touch ${SERVER_DIR}/BepInEx-$LAT_V
-        rm -rf ${SERVER_DIR}/BepInEx.zip /tmp/BepInEx
+        cp -R /tmp/Backup/config ${SERVER_DIR}/BepInEx/
+        rm -rf ${SERVER_DIR}/BepInEx.zip /tmp/BepInEx /tmp/Backup
     elif [ "${CUR_V}" == "${LAT_V}" ]; then
         echo "---BepInEx v$CUR_V up-to-date---"
     fi

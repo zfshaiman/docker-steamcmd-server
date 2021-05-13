@@ -65,7 +65,7 @@ if [ "${OXIDE_MOD}" == "true" ]; then
     fi
   fi
 
-  if [ -z "$CUR_V%.*" ]; then
+  if [ -z "${CUR_V%.}" ]; then
     echo "---Oxide Mod not found, downloading!---"
     cd ${SERVER_DIR}
     if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/OxideMod-${LAT_V}.zip "https://github.com/OxideMod/Oxide.Rust/releases/download/${LAT_V}/Oxide.Rust-linux.zip" ; then
@@ -75,7 +75,7 @@ if [ "${OXIDE_MOD}" == "true" ]; then
         sleep infinity
     fi
     unzip -o ${SERVER_DIR}/OxideMod-${LAT_V}.zip -d ${SERVER_DIR}
-  elif [ "$LAT_V" != "$CUR_V%.*" ]; then
+  elif [ "${LAT_V}" != "${CUR_V%.*}" ]; then
     cd ${SERVER_DIR}
     rm -rf ${SERVER_DIR}/OxideMod-*.zip
     echo "---Newer version of Oxide Mod v${LAT_V} found, currently installed: v${CUR_V%.*}---"
@@ -85,8 +85,8 @@ if [ "${OXIDE_MOD}" == "true" ]; then
         echo "---Something went wrong, can't download Oxide Mod v${LAT_V}, putting server in sleep mode---"
         sleep infinity
     fi
-    unzip -o ${SERVER_DIR}/OxideMod${LAT_V}.zip -d ${SERVER_DIR}
-  elif [ "$LAT_V" == "$CUR_V%.*" ]; then
+    unzip -o ${SERVER_DIR}/OxideMod-${LAT_V}.zip -d ${SERVER_DIR}
+  elif [ "$LAT_V" == "${CUR_V%.*}" ]; then
     echo "---Oxide Mod v${CUR_V%.*} is Up-To-Date!---"
   fi
 

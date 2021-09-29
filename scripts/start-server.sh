@@ -58,7 +58,9 @@ if [ "${ENABLE_VALHEIMPLUS}" != "true" ]; then
 fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 screen -wipe 2&>/dev/null
-if [ "${DEBUG_OUTPUT" == "true" ]; then
+if [ "${DEBUG_OUTPUT}" == "true" ]; then
+    ADDITIONAL=""
+else
     ADDITIONAL="/dev/null"
 fi
 if [ "${LOG_OUTPUT}" == "true" ]; then

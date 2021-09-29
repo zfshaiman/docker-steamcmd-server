@@ -21,8 +21,8 @@ chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
 
 term_handler() {
-	kill -SIGTERM "$killpid"
-	wait "$killpid" -f 2>/dev/null
+	pkill -SIGINT Server_Linux_x6
+	tail --pid=$(pgrep Server_Linux_x6) -f 2>/dev/null
 	exit 143;
 }
 

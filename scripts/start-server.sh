@@ -51,8 +51,18 @@ else
 fi
 
 echo "---Prepare Server---"
+if [ ! -d ${SERVER_DIR}/Config ]; then
+    echo "---Please wait, initializing server!---"
+    timeout 2 ${SERVER_DIR}/Server_Linux_x64 >/dev/null 2>&1
+    if [ ! -d ${SERVER_DIR}/Config ]; then
+        echo "---Something went wrong, can't initialize server!---"
+        sleep infinity
+    fi
+    sed -i '/ServerIP=/c\ServerIP=0.0.0.0' ${SERVER_DIR}/Config/ServerConfig.txt
+    sed -i '/ServerName=\"New Private Server\"/c\ServerName=\"StN Docker Server\"' ${SERVER_DIR}/Config/ServerConfig.txt
+    sed -i '/ServerPassword=/c\ServerPassword=\"Docker"' ${SERVER_DIR}/Config/ServerConfig.txt
+fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
-
 echo "---Server ready---"
 
 echo "---Start Server---"

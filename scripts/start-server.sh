@@ -53,7 +53,7 @@ fi
 echo "---Prepare Server---"
 if [ ! -d ${SERVER_DIR}/Config ]; then
     echo "---Please wait, initializing server!---"
-    timeout 2 ${SERVER_DIR}/Server_Linux_x64 >/dev/null 2>&1
+    timeout 10 ${SERVER_DIR}/Server_Linux_x64 >/dev/null 2>&1
     if [ ! -d ${SERVER_DIR}/Config ]; then
         echo "---Something went wrong, can't initialize server!---"
         sleep infinity

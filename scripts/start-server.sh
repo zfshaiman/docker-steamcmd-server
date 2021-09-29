@@ -76,8 +76,8 @@ if [ "$(grep 'ServerName="New Private Server"' ${SERVER_DIR}/Config/ServerConfig
   sed -i '/ServerName=\"New Private Server\"/c\ServerName=\"StN Docker Server\"' ${SERVER_DIR}/Config/ServerConfig.txt
   sed -i '/ServerPassword=/c\ServerPassword=\"Docker"' ${SERVER_DIR}/Config/ServerConfig.txt
 fi
-
 chmod -R ${DATA_PERM} ${DATA_DIR}
+
 echo "---Server ready---"
 
 echo "---Start Server---"

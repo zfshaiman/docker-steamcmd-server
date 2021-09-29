@@ -70,11 +70,15 @@ if [ "${LOG_OUTPUT}" == "true" ]; then
     fi
     ADDITIONAL="| tee -a ${SERVER_DIR}/${LOG_FILE}"
 fi
+
+if [ "$(grep 'ServerName="New Private Server"' ${SERVER_DIR}/Config/ServerConfig.txt | cut -d '"' -f2)" == "New Private Server" ]; then
+  sed -i '/ServerIP=/c\ServerIP=0.0.0.0' ${SERVER_DIR}/Config/ServerConfig.txt
+  sed -i '/ServerName=\"New Private Server\"/c\ServerName=\"StN Docker Server\"' ${SERVER_DIR}/Config/ServerConfig.txt
+  sed -i '/ServerPassword=/c\ServerPassword=\"Docker"' ${SERVER_DIR}/Config/ServerConfig.txt
+fi
+
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
-
-echo "---Sleep zZz...---"
-sleep infinity
 
 echo "---Start Server---"
 cd ${SERVER_DIR}

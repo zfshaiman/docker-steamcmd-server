@@ -58,8 +58,8 @@ else
 fi
 if [ "${LOG_OUTPUT}" == "true" ]; then
     if [ -z "${LOG_FILE}" ]; then
-        echo "---Variable 'LOG_FILE' cannot be empty! Setting name to 'valheim.log'!---"
-        LOG_FILE="valheim.log"
+        echo "---Variable 'LOG_FILE' cannot be empty! Setting name to 'stn.log'!---"
+        LOG_FILE="stn.log"
         if [ "${DELETE_LOG}" == "true" ]; then
             rm -rf ${SERVER_DIR}/${LOG_FILE}
         fi

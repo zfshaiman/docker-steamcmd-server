@@ -51,34 +51,14 @@ else
 fi
 
 echo "---Prepare Server---"
-if [ "${DEBUG_OUTPUT}" == "true" ]; then
-    ADDITIONAL=""
-else
-    ADDITIONAL="1>/dev/null"
-fi
-if [ "${LOG_OUTPUT}" == "true" ]; then
-    if [ -z "${LOG_FILE}" ]; then
-        echo "---Variable 'LOG_FILE' cannot be empty! Setting name to 'stn.log'!---"
-        LOG_FILE="stn.log"
-        if [ "${DELETE_LOG}" == "true" ]; then
-            rm -rf ${SERVER_DIR}/${LOG_FILE}
-        fi
-    else
-        if [ "${DELETE_LOG}" == "true" ]; then
-            rm -rf ${SERVER_DIR}/${LOG_FILE}
-        fi
-    fi
-    ADDITIONAL="| tee -a ${SERVER_DIR}/${LOG_FILE}"
-fi
-
-if [ ! -f ${SERVER_DIR}/Config/ServerConfig.txt ]; then
-    mkdir -p ${SERVER_DIR}/Config
-    cp /tmp/ServerConfig.txt ${SERVER_DIR}/Config/ServerConfig.txt
-fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 
 echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-eval ${SERVER_DIR}/Server_Linux_x64 ${GAME_PARAMS} ${ADDITIONAL}
+if [ "${DEBUG_OUTPUT}" == "true" ]; then
+        ${SERVER_DIR}/Server_Linux_x64 ${GAME_PARAMS}
+else
+        ${SERVER_DIR}/Server_Linux_x64 ${GAME_PARAMS} > /dev/null
+fi

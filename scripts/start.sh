@@ -21,9 +21,9 @@ chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
 
 term_handler() {
-	pkill -SIGINT valheim
-	wait "$(pidof valheim_server.x86_64)" -f 2>/dev/null
-	sleep 4
+	kill -SIGINT $(pidof valheim_server.x86_64)
+	tail --pid=$(pidof valheim_server.x86_64) -f 2>/dev/null
+	sleep 0.5
 	echo 1 > ${SERVER_DIR}/server_exit.drp
 	exit 143;
 }

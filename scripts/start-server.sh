@@ -74,4 +74,4 @@ echo "---Server ready---"
 
 echo "---Start Server---"
 cd ${SERVER_DIR}/Engine/Binaries/Linux
-./UE4Server-Linux-Shipping FactoryGame $GAME_PARAMS $GAME_PARAMS_EXTRA
+./UE4Server-Linux-Shipping FactoryGame $GAME_PARAMS

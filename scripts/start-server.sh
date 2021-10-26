@@ -51,18 +51,18 @@ else
 fi
 
 echo "---Prepare Server---"
-if [ ! -f ${SERVER_DIR}/Engine/Binaries/Linux/libsteam_api.so ]; then
-    echo "---Librarys not found, downloading---"
-    cd ${SERVER_DIR}/Engine/Binaries/Linux
-    if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/arkse/lib.tar.gz ; then
-		echo "---Download complete, extracting---"
-		tar -xvf ${SERVER_DIR}/Engine/Binaries/Linux/lib.tar.gz
-		rm ${SERVER_DIR}/Engine/Binaries/Linux/lib.tar.gz
-	else
-		echo "---Something went wrong, can't download Librarys, putting server in sleep mode---"
-		sleep infinity
-	fi
-fi
+#if [ ! -f ${SERVER_DIR}/Engine/Binaries/Linux/libsteam_api.so ]; then
+#    echo "---Librarys not found, downloading---"
+#    cd ${SERVER_DIR}/Engine/Binaries/Linux
+#    if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/arkse/lib.tar.gz ; then
+#		echo "---Download complete, extracting---"
+#		tar -xvf ${SERVER_DIR}/Engine/Binaries/Linux/lib.tar.gz
+#		rm ${SERVER_DIR}/Engine/Binaries/Linux/lib.tar.gz
+#	else
+#		echo "---Something went wrong, can't download Librarys, putting server in sleep mode---"
+#		sleep infinity
+#	fi
+#fi
 if [ ! -d ${SERVER_DIR}/.steam/sdk64 ]; then
   mkdir -p ${SERVER_DIR}/.steam/sdk64
 fi

@@ -51,12 +51,27 @@ else
 fi
 
 echo "---Prepare Server---"
+if [ ! -f ${SERVER_DIR}/Engine/Binaries/Linux/libsteam_api.so ]; then
+    echo "---Librarys not found, downloading---"
+    cd ${SERVER_DIR}/Engine/Binaries/Linux
+    if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/arkse/lib.tar.gz ; then
+		echo "---Download complete, extracting---"
+		tar -xvf ${SERVER_DIR}/Engine/Binaries/Linux/lib.tar.gz
+		rm ${SERVER_DIR}/Engine/Binaries/Linux/lib.tar.gz
+	else
+		echo "---Something went wrong, can't download Librarys, putting server in sleep mode---"
+		sleep infinity
+	fi
+fi
+if [ ! -d ${SERVER_DIR}/.steam/sdk64 ]; then
+  mkdir -p ${SERVER_DIR}/.steam/sdk64
+fi
+if [ ! -f ${SERVER_DIR}/.steam/sdk64/steamclient.so ]; then
+  cp ${STEAMCMD_DIR}/linux64/steamclient.so ${SERVER_DIR}/.steam/sdk64/steamclient.so
+fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Sleep zZz...---"
-sleep infinity
-
 echo "---Start Server---"
-cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+cd ${SERVER_DIR}/Engine/Binaries/Linux
+./UE4Server-Linux-Shipping FactoryGame $GAME_PARAMS $GAME_PARAMS_EXTRA

@@ -60,6 +60,7 @@ if [ ! -f ${SERVER_DIR}/ShooterGame/Binaries/Linux/libsteam_api.so ]; then
 		rm ${SERVER_DIR}/ShooterGame/Binaries/Linux/lib.tar.gz
 	else
 		echo "---Something went wrong, can't download Librarys, putting server in sleep mode---"
+        rm ${SERVER_DIR}/ShooterGame/Binaries/Linux/lib.tar.gz
 		sleep infinity
 	fi
 fi

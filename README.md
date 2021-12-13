@@ -1,5 +1,7 @@
 # SteamCMD in Docker optimized for Unraid
-This Docker will download and install SteamCMD. It will also install Counter-Strike: Source and run it. Update Notice: Simply restart the container if a newer version of the game is available.
+This Docker will download and install SteamCMD and the according game that is pulled via specifying the Tag.
+
+Please see the different Tags/Branches which games are available
 
 ## Env params
 | Name | Value | Example |
@@ -16,13 +18,13 @@ This Docker will download and install SteamCMD. It will also install Counter-Str
 | USERNAME | Leave blank for anonymous login | blank |
 | PASSWRD | Leave blank for anonymous login | blank |
 
-***ATTENTION: You have to disable Steam Guard for games that require authentication, Steam recommends to create a seperate account for dedicated servers***
+**ATTENTION: You have to disable Steam Guard for games that require authentication, but not all games need Steam credentials, Steam recommends to create a seperate account for dedicated servers **
 
 >**NOTE** GAME_ID values can be found [here](https://developer.valvesoftware.com/wiki/Dedicated_Servers_List)
 
 > And for GAME_NAME there is no list, so a quick search should give you the result
 
-## Run example
+## Run example for CS:Source
 ```
 docker run --name CSSource -d \
 	-p 27015:27015 -p 27015:27015/udp \

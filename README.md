@@ -12,7 +12,6 @@ This Docker will download and install SteamCMD. It will also install Project Zom
 | ADMIN_PWD | Password to become admin ingame | adminDocker |
 | UID | User Identifier | 99 |
 | GID | Group Identifier | 100 |
-| GAME_PORT | Port the server will be running on | 27015 |
 | VALIDATE | Validates the game data | false |
 | USERNAME | Leave blank for anonymous login | blank |
 | PASSWRD | Leave blank for anonymous login | blank |

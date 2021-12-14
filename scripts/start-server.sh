@@ -22,14 +22,14 @@ if [ "${USERNAME}" == "" ]; then
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login anonymous \
         +force_install_dir ${SERVER_DIR} \
+        +login anonymous \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login anonymous \
         +force_install_dir ${SERVER_DIR} \
+        +login anonymous \
         +app_update ${GAME_ID} \
         +quit
     fi
@@ -37,14 +37,14 @@ else
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
+        +login ${USERNAME} ${PASSWRD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
+        +login ${USERNAME} ${PASSWRD} \
         +app_update ${GAME_ID} \
         +quit
     fi
@@ -81,4 +81,5 @@ echo "---Start Server---"
 cd ${SERVER_DIR}
 screen -S PZ -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m ${SERVER_DIR}/ProjectZomboid64 -adminpassword ${ADMIN_PWD} ${GAME_PARAMS}
 sleep 2
+screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
 tail -f ${SERVER_DIR}/masterLog.0

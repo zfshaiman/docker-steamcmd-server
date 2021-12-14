@@ -22,7 +22,7 @@ This Docker will download and install SteamCMD. It will also install Valheim and
 | UID | User Identifier | 99 |
 | GID | Group Identifier | 100 |
 | GAME_PORT | Only change if you know what you are doing (intital GAME_PORT - Dont forget to create create a new UDP port mapping with the corresponding port range and delete the default port range - GAME_PORT +2) | 2456 |
-| VALIDATE | Validates the game data | true |
+| VALIDATE | Validates the game data | false |
 | USERNAME | Leave blank for anonymous login | blank |
 | PASSWRD | Leave blank for anonymous login | blank |
 

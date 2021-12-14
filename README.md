@@ -1,14 +1,14 @@
 # SteamCMD in Docker optimized for Unraid
 This Docker will download and install SteamCMD and the according game that is pulled via specifying the Tag.
 
-Please see the different Tags/Branches which games are available
+**Please see the different Tags/Branches which games are available.**
 
-## Env params
+## Example Env params for CS:Source
 | Name | Value | Example |
 | --- | --- | --- |
 | STEAMCMD_DIR | Folder for SteamCMD | /serverdata/steamcmd |
 | SERVER_DIR | Folder for gamefile | /serverdata/serverfiles |
-| GAME_ID | SteamID for server | 232330 |
+| GAME_ID | The GAME_ID that the container downloads at startup. If you want to install a static or beta version of the game change the value to: '232330 -beta YOURBRANCH' (without quotes, replace YOURBRANCH with the branch or version you want to install). | 232330 |
 | GAME_NAME | SRCDS gamename | cstrike |
 | GAME_PARAMS | Values to start the server | -secure +maxplayers 32 +map de_dust2 |
 | UID | User Identifier | 99 |

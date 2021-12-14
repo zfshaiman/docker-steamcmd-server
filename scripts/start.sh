@@ -21,8 +21,9 @@ chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
 
 term_handler() {
-	kill -SIGTERM "$killpid"
-	wait "$killpid" -f 2>/dev/null
+	kill -SIGINT $(pidof AAPG)
+	tail --pid=$(pidof AAPG) -f 2>/dev/null
+	sleep 0.5
 	exit 143;
 }
 

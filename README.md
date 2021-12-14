@@ -1,14 +1,14 @@
 # SteamCMD in Docker optimized for Unraid
 This Docker will download and install SteamCMD. It will also install Valheim and run it.
 
-Update Notice: Simply restart the container if a newer version of the game is available.
+**Update Notice:** Simply restart the container if a newer version of the game is available.
 
 ## Env params
 | Name | Value | Example |
 | --- | --- | --- |
 | STEAMCMD_DIR | Folder for SteamCMD | /serverdata/steamcmd |
 | SERVER_DIR | Folder for gamefile | /serverdata/serverfiles |
-| GAME_ID | The GAME_ID that the container downloads at startup. | 896660 |
+| GAME_ID | The GAME_ID that the container downloads at startup. If you want to install a static or beta version of the game change the value to: '896660 -beta YOURBRANCH' (without quotes, replace YOURBRANCH with the branch or version you want to install). | 896660 |
 | SRV_NAME | Name of the Server | Valheim Docker |
 | WORLD_NAME | Name of the Server World | Dedicated |
 | SRV_PWD | Server Password - **ATTENTION:** the minimum length is 6 characters! | Docker |

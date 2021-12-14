@@ -11,6 +11,9 @@ This Docker will download and install SteamCMD. It will also install 7DaysToDie 
 | GAME_ID | The GAME_ID that the container downloads at startup. If you want to use a static version of the game and not always the latest one then enter this: '294420 -beta stable_alpha19.4' or '294420 -beta latest_experimental' (without quotes) if you want to stay for example on alpha19.4. | 294420 |
 | SERVERCONFIG | Please change if your serverconfigfile has another name. | serverconfig.xml |
 | GAME_PARAMS | Values to start the server | -logfile 7DaysToDie_Data/output_log.txt $@ |
+| BACKUP_FILES | Set this value to 'true' to enable the automated backup function from the container, you find the backups in '.../7dtd/Backups/'. Set to 'false' to disable the backup function. | false |
+| BACKUP_INTERVAL | The backup interval in minutes | 60 |
+|BACKUP_TO_KEEP | Number of backups to keep | 12 |
 | UID | User Identifier | 99 |
 | GID | Group Identifier | 100 |
 | VALIDATE | Validates the game data | false |

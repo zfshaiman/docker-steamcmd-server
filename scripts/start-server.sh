@@ -78,6 +78,11 @@ if [ ! -f ~/.screenrc ]; then
     echo "defscrollback 30000
 bindkey \"^C\" echo 'Blocked. Please use to command \"exit\" to shutdown the server or close this window to exit the terminal.'" > ~/.screenrc
 fi
+if [ ! -f ${SERVER_DIR}/server_config.cfg ]; then
+	cp /tmp/server_config.cfg ${SERVER_DIR}/
+else
+    echo "---'server_config.cfg' found..."
+fi
 echo "---Checking for old display lock files---"
 find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
 echo "---Checking for old logfiles---"

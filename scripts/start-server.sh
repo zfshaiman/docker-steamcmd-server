@@ -74,6 +74,10 @@ if [ ! -d ${SERVER_DIR}/WINE64/drive_c/windows ]; then
 else
 	echo "---WINE properly set up---"
 fi
+if [ ! -f ~/.screenrc ]; then
+    echo "defscrollback 30000
+bindkey \"^C\" echo 'Blocked. Please use to command \"exit\" to shutdown the server or close this window to exit the terminal.'" > ~/.screenrc
+fi
 echo "---Checking for old display lock files---"
 find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
 echo "---Checking for old logfiles---"

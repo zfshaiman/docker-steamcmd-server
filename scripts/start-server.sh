@@ -75,6 +75,10 @@ if [ ! -d ${SERVER_DIR}/WINE64/drive_c/windows ]; then
 else
 	echo "---WINE properly set up---"
 fi
+if [ ! -f ~/.screenrc ]; then
+    echo "defscrollback 30000
+bindkey \"^C\" echo 'Blocked. Please use to command \"exit\" to shutdown the server or close this window to exit the terminal.'" > ~/.screenrc
+fi
 if [ ! -f ${SERVER_DIR}/server_config.cfg ]; then
     cp ${SERVER_DIR}/initial_server_config.cfg ${SERVER_DIR}/server_config.cfg
     sed -i '/server_name=/c\server_name="Wreckfest Docker"' ${SERVER_DIR}/server_config.cfg
@@ -95,7 +99,11 @@ sleep 3
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S Wreckfest -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 start Wreckfest_x64.exe -s server_config=server_config.cfg ${GAME_PARAMS}
+screen -S Wreckfest -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 Wreckfest_x64.exe -s server_config=server_config.cfg ${GAME_PARAMS}
+sleep 1
+if [ "${ENABLE_WEBCONSOLE}" == "true" ]; then
+    /opt/scripts/start-gotty.sh 2>/dev/null &
+fi
 sleep 1
 screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
 tail -f ${SERVER_DIR}/masterLog.0

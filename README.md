@@ -4,7 +4,7 @@ Servername: 'Wreckfest Docker' Password: 'Docker'
 
 **Update Notice:** Simply restart the container if a newer version of the game is available.
 
->**WEB CONSOLE:** You can connect to the Wreckfest console by opening your browser and go to HOSTIP:9028 (eg: 192.168.1.1:9028) or click on WebUI on the Docker page within Unraid.
+**WEB CONSOLE:** You can connect to the Wreckfest console by opening your browser and go to HOSTIP:9028 (eg: 192.168.1.1:9028) or click on WebUI on the Docker page within Unraid.
 
 ## Env params
 | Name | Value | Example |

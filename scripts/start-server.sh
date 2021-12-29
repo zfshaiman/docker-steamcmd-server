@@ -90,8 +90,6 @@ else
 fi
 echo "---Checking for old display lock files---"
 find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
-echo "---Checking for old logfiles---"
-find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \; > /dev/null 2>&1
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
@@ -101,11 +99,10 @@ sleep 3
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S Wreckfest -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 Wreckfest_x64.exe -s server_config=server_config.cfg ${GAME_PARAMS}
+screen -S Wreckfest -d -m wine64 Wreckfest_x64.exe -s server_config=server_config.cfg ${GAME_PARAMS}
 sleep 1
 if [ "${ENABLE_WEBCONSOLE}" == "true" ]; then
     /opt/scripts/start-gotty.sh 2>/dev/null &
 fi
 sleep 1
-screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
-tail -f ${SERVER_DIR}/masterLog.0
+tail --pid=$(pgrep Wreckfest_x64.e) -f /dev/null

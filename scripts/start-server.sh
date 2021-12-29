@@ -91,7 +91,7 @@ chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
 echo "---Starting Xvfb server---"
-Xvfb :99 -screen scrn 640x480x16
+Xvfb :99 -screen scrn 640x480x16 2>/dev/null &
 sleep 5
 
 echo "---Start Server---"

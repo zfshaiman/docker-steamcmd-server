@@ -57,6 +57,7 @@ fi
 echo "---Prepare Server---"
 export WINEARCH=win64
 export WINEPREFIX=/serverdata/serverfiles/WINE64
+export WINEDEBUG=-all
 export DISPLAY=:99
 echo "---Checking if WINE workdirectory is present---"
 if [ ! -d ${SERVER_DIR}/WINE64 ]; then
@@ -79,8 +80,10 @@ if [ ! -f ~/.screenrc ]; then
 bindkey \"^C\" echo 'Blocked. Please use to command \"exit\" to shutdown the server or close this window to exit the terminal.'" > ~/.screenrc
 fi
 if [ ! -f ${SERVER_DIR}/server_config.cfg ]; then
-	cp /tmp/server_config.cfg ${SERVER_DIR}/
-else
+    cp ${SERVER_DIR}/initial_server_config.cfg ${SERVER_DIR}/server_config.cfg
+    sed -i '/server_name=/c\server_name=Wreckfest Docker' ${SERVER_DIR}/server_config.cfg
+    sed -i '/welcome_message=/c\welcome_message=Welcome to Wreckfest running on Docker' ${SERVER_DIR}/server_config.cfg
+    sed -i '/password=/c\password=Docker' ${SERVER_DIR}/server_config.cfg
     echo "---'server_config.cfg' found..."
 fi
 echo "---Checking for old display lock files---"
@@ -96,9 +99,5 @@ sleep 5
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-screen -S Wreckfest -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 Wreckfest_x64.exe -s server_config=server_config.cfg ${GAME_PARAMS}
-if [ "${ENABLE_WEBCONSOLE}" == "true" ]; then
-    /opt/scripts/start-gotty.sh 2>/dev/null &
-fi
-sleep 5
+screen -S Wreckfest -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 start Wreckfest_x64.exe -s server_config=server_config.cfg ${GAME_PARAMS}
 tail -f ${SERVER_DIR}/masterLog.0

@@ -57,6 +57,7 @@ fi
 echo "---Prepare Server---"
 export WINEARCH=win64
 export WINEPREFIX=/serverdata/serverfiles/WINE64
+export DISPLAY=:99
 echo "---Checking if WINE workdirectory is present---"
 if [ ! -d ${SERVER_DIR}/WINE64 ]; then
 	echo "---WINE workdirectory not found, creating please wait...---"
@@ -75,11 +76,20 @@ else
 fi
 echo "---Checking for old display lock files---"
 find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
+echo "---Checking for old logfiles---"
+find ${SERVER_DIR} -name "masterLog.*" -exec rm -f {} \; > /dev/null 2>&1
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
-sleep infinity
+echo "---Starting Xvfb server---"
+Xvfb :99 -screen scrn 640x480x16
+sleep 5
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine64 ${SERVER_DIR}/ConanSandboxServer.exe -log ${GAME_PARAMS}
+screen -S Wreckfest -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 Wreckfest_x64.exe -s server_config=server_config.cfg ${GAME_PARAMS}
+if [ "${ENABLE_WEBCONSOLE}" == "true" ]; then
+    /opt/scripts/start-gotty.sh 2>/dev/null &
+fi
+sleep 5
+tail -f ${SERVER_DIR}/masterLog.0

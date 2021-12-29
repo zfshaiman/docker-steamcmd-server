@@ -21,7 +21,7 @@ chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
 
 term_handler() {
-	kill -SIGINT $(pgrep Wreckfest_x64.e)
+	kill -SIGTERM $(pgrep Wreckfest_x64.e)
 	tail --pid=$(pgrep Wreckfest_x64.e) -f 2>/dev/null
 	exit 143;
 }

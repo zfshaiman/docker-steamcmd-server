@@ -75,10 +75,6 @@ if [ ! -d ${SERVER_DIR}/WINE64/drive_c/windows ]; then
 else
 	echo "---WINE properly set up---"
 fi
-if [ ! -f ~/.screenrc ]; then
-    echo "defscrollback 30000
-bindkey \"^C\" echo 'Blocked. Please use to command \"exit\" to shutdown the server or close this window to exit the terminal.'" > ~/.screenrc
-fi
 if [ ! -f ${SERVER_DIR}/server_config.cfg ]; then
     cp ${SERVER_DIR}/initial_server_config.cfg ${SERVER_DIR}/server_config.cfg
     sed -i '/server_name=/c\server_name=Wreckfest Docker' ${SERVER_DIR}/server_config.cfg

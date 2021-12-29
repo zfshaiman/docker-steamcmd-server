@@ -7,6 +7,10 @@ RUN dpkg --add-architecture i386 && \
 	apt-get -y install lib32gcc-s1 screen xvfb winbind && \
 	rm -rf /var/lib/apt/lists/*
 
+RUN wget -O /tmp/gotty.tar.gz https://github.com/yudai/gotty/releases/download/v1.0.1/gotty_linux_amd64.tar.gz && \
+	tar -C /usr/bin/ -xvf /tmp/gotty.tar.gz && \
+	rm -rf /tmp/gotty.tar.gz
+
 ENV DATA_DIR="/serverdata"
 ENV STEAMCMD_DIR="${DATA_DIR}/steamcmd"
 ENV SERVER_DIR="${DATA_DIR}/serverfiles"

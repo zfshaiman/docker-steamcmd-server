@@ -4,7 +4,7 @@ LABEL maintainer="admin@minenet.at"
 
 RUN dpkg --add-architecture i386 && \
 	apt-get update && \
-	apt-get -y install lib32gcc-s1 screen xvfb && \
+	apt-get -y install lib32gcc-s1 screen xvfb winbind && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"
@@ -13,6 +13,8 @@ ENV SERVER_DIR="${DATA_DIR}/serverfiles"
 ENV GAME_ID="template"
 ENV GAME_PARAMS=""
 ENV VALIDATE=""
+ENV ENABLE_WEBCONSOLE="true"
+ENV GOTTY_PARAMS="-w --title-format Wreckfest"
 ENV UMASK=000
 ENV UID=99
 ENV GID=100

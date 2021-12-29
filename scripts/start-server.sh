@@ -84,6 +84,7 @@ if [ ! -f ${SERVER_DIR}/server_config.cfg ]; then
     sed -i '/^#/!s/server_name=.*/server_name="Wreckfest Docker"/g' ${SERVER_DIR}/server_config.cfg
     sed -i '/welcome_message=/c\welcome_message="Welcome to Wreckfest running on Docker"' ${SERVER_DIR}/server_config.cfg
     sed -i '/password=/c\password="Docker"' ${SERVER_DIR}/server_config.cfg
+else
     echo "---'server_config.cfg' found..."
 fi
 echo "---Checking for old display lock files---"

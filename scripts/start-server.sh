@@ -77,9 +77,9 @@ else
 fi
 if [ ! -f ${SERVER_DIR}/server_config.cfg ]; then
     cp ${SERVER_DIR}/initial_server_config.cfg ${SERVER_DIR}/server_config.cfg
-    sed -i '/server_name=/c\server_name=Wreckfest Docker' ${SERVER_DIR}/server_config.cfg
-    sed -i '/welcome_message=/c\welcome_message=Welcome to Wreckfest running on Docker' ${SERVER_DIR}/server_config.cfg
-    sed -i '/password=/c\password=Docker' ${SERVER_DIR}/server_config.cfg
+    sed -i '/server_name=/c\server_name="Wreckfest Docker"' ${SERVER_DIR}/server_config.cfg
+    sed -i '/welcome_message=/c\welcome_message="Welcome to Wreckfest running on Docker"' ${SERVER_DIR}/server_config.cfg
+    sed -i '/password=/c\password="Docker"' ${SERVER_DIR}/server_config.cfg
     echo "---'server_config.cfg' found..."
 fi
 echo "---Checking for old display lock files---"

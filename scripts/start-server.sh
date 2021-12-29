@@ -91,9 +91,11 @@ echo "---Server ready---"
 
 echo "---Starting Xvfb server---"
 Xvfb :99 -screen scrn 640x480x16 2>/dev/null &
-sleep 5
+sleep 3
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
 screen -S Wreckfest -L -Logfile ${SERVER_DIR}/masterLog.0 -d -m wine64 start Wreckfest_x64.exe -s server_config=server_config.cfg ${GAME_PARAMS}
+sleep 1
+screen -S watchdog -d -m /opt/scripts/start-watchdog.sh
 tail -f ${SERVER_DIR}/masterLog.0

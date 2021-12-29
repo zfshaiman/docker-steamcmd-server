@@ -4,7 +4,7 @@ LABEL maintainer="admin@minenet.at"
 
 RUN dpkg --add-architecture i386 && \
 	apt-get update && \
-	apt-get -y install lib32gcc-s1 screen xvfb winbind && \
+	apt-get -y install --no-install-recommends lib32gcc-s1 screen xvfb winbind && \
 	rm -rf /var/lib/apt/lists/*
 
 RUN wget -O /tmp/gotty.tar.gz https://github.com/yudai/gotty/releases/download/v1.0.1/gotty_linux_amd64.tar.gz && \

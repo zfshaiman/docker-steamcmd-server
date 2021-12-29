@@ -58,6 +58,7 @@ echo "---Prepare Server---"
 export WINEARCH=win64
 export WINEPREFIX=/serverdata/serverfiles/WINE64
 export WINEDEBUG=-all
+export DBUS_FATAL_WARNINGS=0
 export DISPLAY=:99
 echo "---Checking if WINE workdirectory is present---"
 if [ ! -d ${SERVER_DIR}/WINE64 ]; then

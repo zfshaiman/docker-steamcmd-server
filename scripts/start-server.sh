@@ -83,6 +83,58 @@ else
     sed -i '4i\    <property name="UserDataFolder" value="/serverdata/serverfiles/User" />\' ${SERVER_DIR}/${SERVERCONFIG}
 fi
 echo "---UserDataFolder location found---"
+
+if [ "${ENABLE_BEPINEX}" == "true" ]; then
+    echo "---BepInEx enabled!---"
+    CUR_V="$(find ${SERVER_DIR} -maxdepth 1 -name "BepInEx-*" | cut -d '-' -f2)"
+    LAT_V="$(wget -qO- https://api.github.com/repos/BepInEx/BepInEx/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'v' -f2)"
+    if [ -z "${LAT_V}" ] && [ -z "${CUR_V}" ]; then
+        echo "---Can't get latest version of BepInEx!---"
+        echo "---Please try to run the Container without BepInEx, putting Container into sleep mode!---"
+        sleep infinity
+    fi
+
+    if [ -f ${SERVER_DIR}/BepInEx.zip ]; then
+	    rm -rf ${SERVER_DIR}/BepInEx.zip
+    fi
+
+    echo "---BepInEx Version Check---"
+    echo
+    echo "---https://github.com/BepInEx/BepInEx---"
+    echo
+    if [ -z "${CUR_V}" ]; then
+        echo "---BepInEx for Valheim not found, downloading and installing v$LAT_V...---"
+        cd ${SERVER_DIR}
+        if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/BepInEx.zip "https://github.com/BepInEx/BepInEx/releases/download/v${LAT_V}/BepInEx_unix_${LAT_V}.0.zip" ; then
+            echo "---Successfully downloaded BepInEx v$LAT_V---"
+        else
+            echo "---Something went wrong, can't download BepInEx v$LAT_V, putting container into sleep mode!---"
+            sleep infinity
+        fi
+        unzip -o ${SERVER_DIR}/BepInEx.zip -d ${SERVER_DIR}
+	    touch ${SERVER_DIR}/BepInEx-$LAT_V
+        rm -rf ${SERVER_DIR}/BepInEx.zip
+    elif [ "$CUR_V" != "$LAT_V" ]; then
+        echo "---Version missmatch, BepInEx v$CUR_V installed, downloading and installing v$LAT_V...---"
+        cd ${SERVER_DIR}
+    	rm -rf ${SERVER_DIR}/BepInEx-$CUR_V
+        mkdir /tmp/Backup
+        cp -R ${SERVER_DIR}/BepInEx/config /tmp/Backup/ 2>/dev/null
+        if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/BepInEx.zip "https://github.com/BepInEx/BepInEx/releases/download/v${LAT_V}/BepInEx_unix_${LAT_V}.0.zip" ; then
+            echo "---Successfully downloaded BepInEx v$LAT_V---"
+        else
+            echo "---Something went wrong, can't download BepInEx v$LAT_V, putting container into sleep mode!---"
+            sleep infinity
+        fi
+        unzip -o ${SERVER_DIR}/BepInEx.zip -d ${SERVER_DIR}
+	    touch ${SERVER_DIR}/BepInEx-$LAT_V
+        cp -R /tmp/Backup/config ${SERVER_DIR}/BepInEx/ 2>/dev/null
+        rm -rf ${SERVER_DIR}/BepInEx.zip /tmp/Backup
+    elif [ "${CUR_V}" == "${LAT_V}" ]; then
+        echo "---BepInEx v$CUR_V up-to-date---"
+    fi
+fi
+
 chmod -R ${DATA_PERM} ${DATA_DIR}
 screen -wipe 2&>/dev/null
 echo "---Server ready---"
@@ -97,4 +149,22 @@ fi
 
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/7DaysToDieServer.x86_64 -configfile=${SERVERCONFIG} ${GAME_PARAMS}
+if [ "${ENABLE_BEPINEX}" == "true" ]; then
+    echo "---with BepInEx---"
+    echo
+    echo "---https://github.com/BepInEx/BepInEx---"
+    echo
+    export DOORSTOP_ENABLE=TRUE
+    export DOORSTOP_INVOKE_DLL_PATH=${SERVER_DIR}/BepInEx/core/BepInEx.Preloader.dll
+    export DOORSTOP_CORLIB_OVERRIDE_PATH=${SERVER_DIR}/unstripped_corlib
+    export LD_LIBRARY_PATH="${SERVER_DIR}/doorstop_libs":$LD_LIBRARY_PATH
+    export LD_PRELOAD=libdoorstop_x64.so:$LD_PRELOAD
+    export DYLD_LIBRARY_PATH="${SERVER_DIR}/doorstop_libs"
+    export DYLD_INSERT_LIBRARIES="${SERVER_DIR}/libdoorstop_x64.so"
+    export templdpath="$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH=${SERVER_DIR}/linux64:"$LD_LIBRARY_PATH"
+    export SteamAppId=251570
+    ${SERVER_DIR}/7DaysToDieServer.x86_64 -configfile=${SERVERCONFIG} ${GAME_PARAMS}
+else
+    ${SERVER_DIR}/7DaysToDieServer.x86_64 -configfile=${SERVERCONFIG} ${GAME_PARAMS}
+fi

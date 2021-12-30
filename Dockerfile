@@ -3,7 +3,7 @@ FROM ich777/debian-baseimage
 LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc-s1 screen && \
+	apt-get -y install --no-install-recommends lib32gcc-s1 screen unzip && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"

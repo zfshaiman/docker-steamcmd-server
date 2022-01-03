@@ -21,7 +21,7 @@ chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
 
 term_handler() {
-	kill -SIGTERM $(pgrep TheForestDedica)
+	kill -SIGINT $(pgrep TheForestDedica)
 	tail --pid=$(pgrep TheForestDedica) -f 2>/dev/null
 	exit 143;
 }

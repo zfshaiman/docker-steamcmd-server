@@ -11,10 +11,9 @@ This Docker will download and install SteamCMD. It will also install Conan Exile
 | STEAMCMD_DIR | Folder for SteamCMD | /serverdata/steamcmd |
 | SERVER_DIR | Folder for gamefile | /serverdata/serverfiles |
 | GAME_PARAMS | Values to start the server if needed. | empty |
-| WS_CONTENT | Enter you Workshopcontent here, you can also enter more WS Content ID's sperated by SPACE. | empty |
+| WS_CONTENT | Enter you Workshopcontent here, you can also enter multiple WS Content ID's sperated by SPACE. | empty |
 | UID | User Identifier | 99 |
 | GID | Group Identifier | 100 |
-| GAME_PORT | Only change if you know what you are doing (intital GAME_PORT - Dont forget to create create a new UDP port mapping with the corresponding port range and delete the default port range - GAME_PORT +2) | 2456 |
 | VALIDATE | Validates the game data | false |
 | USERNAME | Leave blank for anonymous login | blank |
 | PASSWRD | Leave blank for anonymous login | blank |
@@ -22,7 +21,7 @@ This Docker will download and install SteamCMD. It will also install Conan Exile
 
 ## Run example
 ```
-docker run --name Valheim -d \
+docker run --name ConanExiles -d \
 	-p 7777:7777 -p 7777-7778:7777-7778/udp -p 27015:27015/udp \
 	--env 'GAME_ID=443030' \
 	--env 'UID=99' \

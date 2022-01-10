@@ -23,15 +23,15 @@ if [ "${USERNAME}" == "" ]; then
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
         +@sSteamCmdForcePlatformType windows \
-        +login anonymous \
         +force_install_dir ${SERVER_DIR} \
+        +login anonymous \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +@sSteamCmdForcePlatformType windows \
-        +login anonymous \
         +force_install_dir ${SERVER_DIR} \
+        +login anonymous \
         +app_update ${GAME_ID} \
         +quit
     fi
@@ -40,15 +40,15 @@ else
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
         +@sSteamCmdForcePlatformType windows \
-        +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
+        +login ${USERNAME} ${PASSWRD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
         +@sSteamCmdForcePlatformType windows \
-        +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
+        +login ${USERNAME} ${PASSWRD} \
         +app_update ${GAME_ID} \
         +quit
     fi
@@ -58,8 +58,8 @@ if [ ! -z "${WS_CONTENT}" ]; then
 	echo "---Installing Workshop Content with ID('s): ${WS_CONTENT}---"
 	${STEAMCMD_DIR}/steamcmd.sh \
 	+@sSteamCmdForcePlatformType windows \
-	+login anonymous \
 	+force_install_dir ${SERVER_DIR} \
+	+login anonymous \
 	+workshop_download_item 440900 ${WS_CONTENT// / +workshop_download_item 440900  } \
 	+quit
 	if [ ! -d ${SERVER_DIR}/ConanSandbox/Mods ]; then

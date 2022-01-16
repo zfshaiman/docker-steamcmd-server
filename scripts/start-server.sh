@@ -156,7 +156,9 @@ if [ "${ENABLE_BEPINEX}" == "true" ]; then
     echo
     export DOORSTOP_ENABLE=TRUE
     export DOORSTOP_INVOKE_DLL_PATH=${SERVER_DIR}/BepInEx/core/BepInEx.Preloader.dll
-    export DOORSTOP_CORLIB_OVERRIDE_PATH=${SERVER_DIR}/unstripped_corlib
+    if [ ! ${DOORSTOP_CORLIB_OVERRIDE_PATH+x} ]; then
+      export DOORSTOP_CORLIB_OVERRIDE_PATH=${SERVER_DIR}/unstripped_corlib
+    fi
     export LD_LIBRARY_PATH="${SERVER_DIR}/doorstop_libs":$LD_LIBRARY_PATH
     export LD_PRELOAD=libdoorstop_x64.so:$LD_PRELOAD
     export DYLD_LIBRARY_PATH="${SERVER_DIR}/doorstop_libs"

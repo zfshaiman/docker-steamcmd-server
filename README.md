@@ -25,7 +25,7 @@ docker run --name ProjectZomboid -d \
 	--env 'UID=99' \
 	--env 'GID=100' \
 	--volume /path/to/steamcmd:/serverdata/steamcmd \
-	--volume /path/to/projectzomboid:/serverdata/steamcmd \
+	--volume /path/to/projectzomboid:/serverdata/serverfiles \
 	ich777/steamcmd:projectzomboid
 ```
 

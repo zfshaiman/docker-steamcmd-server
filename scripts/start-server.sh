@@ -81,7 +81,7 @@ fi
 if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
     echo "---ValheimPlus enabled!---"
     CUR_V="$(find ${SERVER_DIR} -maxdepth 1 -name "ValheimPlus-*" | cut -d '-' -f2)"
-    LAT_V="$(wget -qO- https://api.github.com/repos/nxPublic/ValheimPlus/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'v' -f2)"
+    LAT_V="$(wget -qO- https://api.github.com/repos/valheimPlus/ValheimPlus/releases/latest | grep tag_name | cut -d '"' -f4 | cut -d 'v' -f2)"
     if [ -z "${LAT_V}" ] && [ -z "${CUR_V}" ]; then
         echo "---Can't get latest version of Valheim Plus!---"
         echo "---Please try to run the Container without ValheimPlus, putting Container into sleep mode!---"
@@ -96,7 +96,7 @@ if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
     if [ -z "${CUR_V}" ]; then
         echo "---ValheimPlus not found, downloading and installing v$LAT_V...---"
         cd ${SERVER_DIR}
-        if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/ValheimPlus.zip "https://github.com/nxPublic/ValheimPlus/releases/download/${LAT_V}/UnixServer.zip" ; then
+        if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/ValheimPlus.zip "https://github.com/valheimPlus/ValheimPlus/releases/download/${LAT_V}/UnixServer.zip" ; then
             echo "---Successfully downloaded ValheimPlus v$LAT_V---"
         else
             echo "---Something went wrong, can't download ValheimPlus v$LAT_V, putting container into sleep mode!---"
@@ -111,7 +111,7 @@ if [ "${ENABLE_VALHEIMPLUS}" == "true" ]; then
     	rm -rf ${SERVER_DIR}/ValheimPlus-$CUR_V
         mkdir /tmp/Backup
         cp -R ${SERVER_DIR}/BepInEx/config /tmp/Backup/
-        if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/ValheimPlus.zip "https://github.com/nxPublic/ValheimPlus/releases/download/${LAT_V}/UnixServer.zip" ; then
+        if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/ValheimPlus.zip "https://github.com/valheimPlus/ValheimPlus/releases/download/${LAT_V}/UnixServer.zip" ; then
             echo "---Successfully downloaded ValheimPlus v$LAT_V---"
         else
             echo "---Something went wrong, can't download ValheimPlus v$LAT_V, putting container into sleep mode!---"

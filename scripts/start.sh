@@ -16,12 +16,14 @@ else
 fi
 
 echo "---Starting...---"
-chown -R ${UID}:${GID} /opt/scripts
+chown -R root:${GID} /opt/scripts
+chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
 
 term_handler() {
-	kill -SIGTERM "$killpid"
-	wait "$killpid" -f 2>/dev/null
+	kill -SIGINT $(pidof RustDedicated)
+	tail --pid=$(pidof RustDedicated) -f 2>/dev/null
+	sleep 0.5
 	exit 143;
 }
 

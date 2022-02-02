@@ -51,21 +51,20 @@ else
 fi
 
 echo "---Prepare Server---"
-if [ ! -f ${DATA_DIR}/.steam/sdk32/steamclient.so ]; then
-	if [ ! -d ${DATA_DIR}/.steam ]; then
-    	mkdir ${DATA_DIR}/.steam
-    fi
-	if [ ! -d ${DATA_DIR}/.steam/sdk32 ]; then
-    	mkdir ${DATA_DIR}/.steam/sdk32
-    fi
-    cp -R ${STEAMCMD_DIR}/linux32/* ${DATA_DIR}/.steam/sdk32/
-fi
+echo "---Looking for config file---"
+if [ ! -f ${SERVER_DIR}/ServerSetting.ini ]; then
+	echo "---'ServerSetting.ini' not found, downloading template---"
+    cd ${SERVER_DIR}
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/craftopia/cfg/ServerSetting.ini ; then
+		echo "---Sucessfully downloaded 'ServerSetting.ini'---"
+	else
+		echo "---Something went wrong, can't download 'ServerSetting.ini', putting server in sleep mode---"
+		sleep infinity
+	fi
+else
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 
-echo "---Sleep zZzZz---"
-sleep infinity
-
 echo "---Start Server---"
 cd ${SERVER_DIR}
-${SERVER_DIR}/srcds_run -game ${GAME_NAME} ${GAME_PARAMS} -console +port ${GAME_PORT}
+${SERVER_DIR}/Craftopia.x86_64 -batchmode -showlogs ${GAME_PARAMS}

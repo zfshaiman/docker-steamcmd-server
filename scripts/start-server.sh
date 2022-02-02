@@ -53,7 +53,7 @@ fi
 echo "---Prepare Server---"
 echo "---Looking for config file---"
 if [ ! -f ${SERVER_DIR}/ServerSetting.ini ]; then
-	echo "---'ServerSetting.ini' not found, downloading template---"
+    echo "---'ServerSetting.ini' not found, downloading template---"
     cd ${SERVER_DIR}
 	if wget -q -nc --show-progress --progress=bar:force:noscroll https://raw.githubusercontent.com/ich777/docker-steamcmd-server/craftopia/cfg/ServerSetting.ini ; then
 		echo "---Sucessfully downloaded 'ServerSetting.ini'---"
@@ -61,7 +61,7 @@ if [ ! -f ${SERVER_DIR}/ServerSetting.ini ]; then
 		echo "---Something went wrong, can't download 'ServerSetting.ini', putting server in sleep mode---"
 		sleep infinity
 	fi
-else
+fi
 chmod -R ${DATA_PERM} ${DATA_DIR}
 echo "---Server ready---"
 

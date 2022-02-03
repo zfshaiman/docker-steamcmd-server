@@ -18,9 +18,9 @@ This Docker will download and install SteamCMD. It will also install Alien Swarm
 | UID | User Identifier | 99 |
 | GID | Group Identifier | 100 |
 | GAME_PORT | Port the server will be running on | 27015 |
-| VALIDATE | Validates the game data | true |
-| USERNAME | Leave blank for anonymous login | blank |
-| PASSWRD | Leave blank for anonymous login | blank |
+| VALIDATE | Validates the game data | blank |
+| USERNAME | Leave blank for anonymous login | YOURSTEAMUSER |
+| PASSWRD | Leave blank for anonymous login | YOURSTEAMPASSWORD |
 
 ## Run example
 ```
@@ -30,6 +30,8 @@ docker run --name AlienSwarm -d \
 	--env 'GAME_NAME=swarm' \
 	--env 'GAME_PORT=27015' \
 	--env 'GAME_PARAMS=+map lobby -maxplayers 4 +exec server.cfg' \
+	--env 'USERNAME=YOURSTEAMUSER' \
+	--env 'PASSWRD=YOURSTEAMPASSWORD' \
 	--env 'UID=99' \
 	--env 'GID=100' \
 	--volume /path/to/steamcmd:/serverdata/steamcmd \

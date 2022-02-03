@@ -1,43 +1,35 @@
 # SteamCMD in Docker optimized for Unraid
-This Docker will download and install SteamCMD. It will also install Counter-Strike: Source and run it. Update Notice: Simply restart the container if a newer version of the game is available.
+This Docker will download and install SteamCMD. It will also install Unturned and run it.
+
+**Update Notice:** Simply restart the container if a newer version of the game is available.
 
 ## Env params
 | Name | Value | Example |
 | --- | --- | --- |
 | STEAMCMD_DIR | Folder for SteamCMD | /serverdata/steamcmd |
 | SERVER_DIR | Folder for gamefile | /serverdata/serverfiles |
-| GAME_ID | SteamID for server | 232330 |
-| GAME_NAME | SRCDS gamename | cstrike |
-| GAME_PARAMS | Values to start the server | -secure +maxplayers 32 +map de_dust2 |
+| GAME_ID | The GAME_ID that the container downloads at startup. If you want to install a static or beta version of the game change the value to: '1110390 -beta YOURBRANCH' (without quotes, replace YOURBRANCH with the branch or version you want to install). | 1110390 |
+| GAME_PARAMS | Values to start the server | -pei -normal -nosync -pve |
+| ROCKET_MOD | Set to 'true' (without quotes) to install Rocket Mod otherwise leave blank | empty |
+| ROCKET_FORCE_UPDATE | If you want to force a update of Rocket Mod set to 'true' (without quotes) ATTENTION: All files in the 'Modules' & 'Scripts' folder will be overwritten backup the files bevor doing that! | empty |
 | UID | User Identifier | 99 |
 | GID | Group Identifier | 100 |
-| GAME_PORT | Port the server will be running on | 27015 |
 | VALIDATE | Validates the game data | true |
-| USERNAME | Leave blank for anonymous login | blank |
-| PASSWRD | Leave blank for anonymous login | blank |
-
-***ATTENTION: You have to disable Steam Guard for games that require authentication, Steam recommends to create a seperate account for dedicated servers***
-
->**NOTE** GAME_ID values can be found [here](https://developer.valvesoftware.com/wiki/Dedicated_Servers_List)
-
-> And for GAME_NAME there is no list, so a quick search should give you the result
+| USERNAME | Leave blank for anonymous login | empty |
+| PASSWRD | Leave blank for anonymous login | empty |
 
 ## Run example
 ```
-docker run --name CSSource -d \
-	-p 27015:27015 -p 27015:27015/udp \
-	--env 'GAME_ID=232330' \
-	--env 'GAME_NAME=cstrike' \
-	--env 'GAME_PORT=27015' \
-	--env 'GAME_PARAMS=-secure +maxplayers 32 +map de_dust2' \
+docker run --name Unturned -d \
+	-p 27015-27017:27015-27017 -p 27015-27017:27015-27017/udp \
+	--env 'GAME_ID=1110390' \
+	--env 'GAME_PARAMS=-pei -normal -nosync -pve' \
 	--env 'UID=99' \
 	--env 'GID=100' \
-	--volume /mnt/user/appdata/steamcmd:/serverdata/steamcmd \
-	--volume /mnt/user/appdata/cstrikesource:/serverdata/serverfiles \
-	ich777/steamcmd:latest
+	--volume /path/to/steamcmd:/serverdata/steamcmd \
+	--volume /path/to/unturned:/serverdata/serverfiles \
+	ich777/steamcmd:unturned
 ```
->**NOTE** port 26900 is the port for vac, in case of multiple servers make sure these are not the same
-
 
 This Docker was mainly edited for better use with Unraid, if you don't use Unraid you should definitely try it!
 

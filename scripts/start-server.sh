@@ -15,14 +15,14 @@ echo "---Update server---"
 if [ "${VALIDATE}" == "true" ]; then
 	echo "---Validating installation---"
     ${STEAMCMD_DIR}/steamcmd.sh \
-    +login anonymous \
     +force_install_dir ${SERVER_DIR} \
+    +login anonymous \
     +app_update ${GAME_ID} validate \
     +quit
 else
     ${STEAMCMD_DIR}/steamcmd.sh \
-    +login anonymous \
     +force_install_dir ${SERVER_DIR} \
+    +login anonymous \
     +app_update ${GAME_ID} \
     +quit
 fi

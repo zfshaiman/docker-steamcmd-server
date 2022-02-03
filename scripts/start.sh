@@ -17,7 +17,8 @@ fi
 
 echo "---Starting...---"
 mkdir -p $DATA_DIR/".local/share/Arma 3" && mkdir -p $DATA_DIR/".local/share/Arma 3 - Other Profiles"
-chown -R ${UID}:${GID} /opt/scripts
+chown -R root:${GID} /opt/scripts
+chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
 chown -R ${UID}:${GID} $DATA_DIR/.local
 chmod -R 770 ${DATA_DIR}/".local/share/Arma 3"

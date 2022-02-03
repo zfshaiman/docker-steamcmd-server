@@ -16,6 +16,23 @@ else
 fi
 
 echo "---Starting...---"
-chown -R ${UID}:${GID} /opt/scripts
+chown -R root:${GID} /opt/scripts
+chmod -R 750 /opt/scripts
 chown -R ${UID}:${GID} ${DATA_DIR}
-su ${USER} -c "/opt/scripts/start-server.sh"
+
+term_handler() {
+	kill -SIGINT $(pidof valheim_server.x86_64)
+	tail --pid=$(pidof valheim_server.x86_64) -f 2>/dev/null
+	sleep 0.5
+	echo 1 > ${SERVER_DIR}/server_exit.drp
+	exit 143;
+}
+
+trap 'kill ${!}; term_handler' SIGTERM
+su ${USER} -c "/opt/scripts/start-server.sh" &
+killpid="$!"
+while true
+do
+	wait $killpid
+	exit 0;
+done

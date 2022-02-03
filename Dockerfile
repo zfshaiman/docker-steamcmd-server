@@ -4,7 +4,7 @@ LABEL maintainer="admin@minenet.at"
 
 RUN dpkg --add-architecture i386 && \
 	apt-get update && \
-	apt-get -y install --no-install-recommends lib32gcc1 wget xvfb screen winbind && \
+	apt-get -y install --no-install-recommends lib32gcc-s1 xvfb screen winbind && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/serverdata"

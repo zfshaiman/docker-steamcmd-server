@@ -22,15 +22,15 @@ if [ "${USERNAME}" == "" ]; then
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login anonymous \
         +force_install_dir ${SERVER_DIR} \
+        +login anonymous \
         +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login anonymous \
         +force_install_dir ${SERVER_DIR} \
+        +login anonymous \
         +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} \
         +quit
@@ -39,15 +39,15 @@ else
     if [ "${VALIDATE}" == "true" ]; then
     	echo "---Validating installation---"
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
+        +login ${USERNAME} ${PASSWRD} \
         +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
+        +login ${USERNAME} ${PASSWRD} \
         +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} \
         +quit
@@ -59,15 +59,15 @@ if [ ! -d ${SERVER_DIR}/tfc ]; then
     echo "---Not everything is installed correctly, trying again---"
     if [ "${USERNAME}" == "" ]; then
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login anonymous \
         +force_install_dir ${SERVER_DIR} \
+        +login anonymous \
         +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit
     else
         ${STEAMCMD_DIR}/steamcmd.sh \
-        +login ${USERNAME} ${PASSWRD} \
         +force_install_dir ${SERVER_DIR} \
+        +login ${USERNAME} ${PASSWRD} \
         +app_set_config ${GAME_MOD} \
         +app_update ${GAME_ID} validate \
         +quit

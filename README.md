@@ -31,7 +31,7 @@ docker run --name ArmA3 -d \
 	--env 'UID=99' \
 	--env 'GID=100' \
 	--volume /path/to/steamcmd:/serverdata/steamcmd \
-	--volume /path/to/arma3:/serverdata/serverfiles \
+	--volume /path/to/arma3/gamefiles:/serverdata/serverfiles \
 	--volume /path/to/arma3/profiles:/serverdata/.local/share \
 	ich777/steamcmd:arma3
 ```

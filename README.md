@@ -1,7 +1,7 @@
 # SteamCMD in Docker optimized for Unraid
 This Docker will download and install SteamCMD. It will also install TeamFortress2 and run it.
 
-Update Notice: Simply restart the container if a newer version of the game is available.
+**Update Notice:** Simply restart the container if a newer version of the game is available.
 
 ## Env params
 | Name | Value | Example |

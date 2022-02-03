@@ -12,6 +12,7 @@ This Docker will download and install SteamCMD. It will also install Unturned an
 | GAME_PARAMS | Values to start the server | -pei -normal -nosync -pve |
 | ROCKET_MOD | Set to 'true' (without quotes) to install Rocket Mod otherwise leave blank | empty |
 | ROCKET_FORCE_UPDATE | If you want to force a update of Rocket Mod set to 'true' (without quotes) ATTENTION: All files in the 'Modules' & 'Scripts' folder will be overwritten backup the files bevor doing that! | empty |
+| GAME_PORT | Port the server will be running on | 27015 |
 | UID | User Identifier | 99 |
 | GID | Group Identifier | 100 |
 | VALIDATE | Validates the game data | true |
@@ -24,6 +25,7 @@ docker run --name Unturned -d \
 	-p 27015-27017:27015-27017 -p 27015-27017:27015-27017/udp \
 	--env 'GAME_ID=1110390' \
 	--env 'GAME_PARAMS=-pei -normal -nosync -pve' \
+	--env 'GAME_PORT=27015' \
 	--env 'UID=99' \
 	--env 'GID=100' \
 	--volume /path/to/steamcmd:/serverdata/steamcmd \

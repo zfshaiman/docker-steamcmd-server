@@ -33,7 +33,7 @@ RUN mkdir $DATA_DIR && \
 	chown -R $USER $DATA_DIR && \
 	mkdir -p $DATA_DIR/".local/share/Arma 3" && mkdir -p $DATA_DIR/".local/share/Arma 3 - Other Profiles" && \
 	ulimit -n 2048 && \
-	/etc/init.d/mysql start && \
+	/etc/init.d/mariadb start && \
 	mysql -u root -e "CREATE USER IF NOT EXISTS 'steam'@'%' IDENTIFIED BY 'exile';FLUSH PRIVILEGES;" && \
 	mysql -u root -e "CREATE DATABASE IF NOT EXISTS exile;" && \
 	mysql -u root -e "GRANT ALL ON exile.* TO 'steam'@'%' IDENTIFIED BY 'exile';" && \

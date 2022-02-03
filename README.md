@@ -3,7 +3,9 @@ This Docker will download and install SteamCMD. It will also install Alien Swarm
 
 **!!!This container will only run on systems with less than 32 CPU cores!!!**
 
-Update Notice: Simply restart the container if a newer version of the game is available.
+**Install Note:** You must provide a valid Steam username and password with Steam Guard disabled (the user dosen't have to have the game in the library).
+
+**Update Notice:** Simply restart the container if a newer version of the game is available.
 
 ## Env params
 | Name | Value | Example |

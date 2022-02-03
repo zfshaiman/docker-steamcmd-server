@@ -107,8 +107,8 @@ else
 		if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/${WORKSHOP_ID} ]; then
 			echo "---ExileMod not found, downloading from Stem Workshop---"
 			${STEAMCMD_DIR}/steamcmd.sh \
-			+login ${USERNAME} ${PASSWRD} \
 			+force_install_dir ${SERVER_DIR} \
+			+login ${USERNAME} ${PASSWRD} \
 			+workshop_download_item 107410 ${WORKSHOP_ID} \
 			+quit
 			if [ ! -d ${SERVER_DIR}/steamapps/workshop/content/107410/${WORKSHOP_ID} ]; then

@@ -46,7 +46,7 @@ else
     echo "---server.cfg found..."
 fi
 
-cp ${DATA_DIR}/steamcmd/linux32/* ${SERVER_DIR}
+cp ${DATA_DIR}/steamcmd/linux64/* ${SERVER_DIR}
 chmod -R ${DATA_PERM} ${DATA_DIR}
 
 echo "---Start Server---"
